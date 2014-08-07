@@ -1,7 +1,11 @@
 ﻿#region
 
+using LinqKit;
+using Repository.Pattern.DataContext;
+using Repository.Pattern.Infrastructure;
+using Repository.Pattern.Repositories;
+using Repository.Pattern.UnitOfWork;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -9,11 +13,6 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.OData.Query;
-using LinqKit;
-using Repository.Pattern.DataContext;
-using Repository.Pattern.Infrastructure;
-using Repository.Pattern.Repositories;
-using Repository.Pattern.UnitOfWork;
 
 #endregion
 
