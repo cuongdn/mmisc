@@ -1,6 +1,6 @@
-﻿using System.Threading;
+﻿using Repository.Pattern.Infrastructure;
+using System.Threading;
 using System.Threading.Tasks;
-using Repository.Pattern.Infrastructure;
 
 namespace Repository.Pattern.Repositories
 {

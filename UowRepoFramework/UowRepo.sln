@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Pattern", "Repos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Pattern.Ef6", "Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj", "{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C427C8F4-F56A-4CB2-A78C-05A1B97A848D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App.csproj", "{F3DC7C09-3F22-4C82-B6A1-01075B61DB01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,8 +33,17 @@ Global
 		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}.Release|x86.ActiveCfg = Release|Any CPU
+		{F3DC7C09-3F22-4C82-B6A1-01075B61DB01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3DC7C09-3F22-4C82-B6A1-01075B61DB01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3DC7C09-3F22-4C82-B6A1-01075B61DB01}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F3DC7C09-3F22-4C82-B6A1-01075B61DB01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3DC7C09-3F22-4C82-B6A1-01075B61DB01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3DC7C09-3F22-4C82-B6A1-01075B61DB01}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F3DC7C09-3F22-4C82-B6A1-01075B61DB01} = {C427C8F4-F56A-4CB2-A78C-05A1B97A848D}
 	EndGlobalSection
 EndGlobal

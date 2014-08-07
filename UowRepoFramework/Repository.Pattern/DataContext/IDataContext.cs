@@ -1,5 +1,5 @@
-﻿using System;
-using Repository.Pattern.Infrastructure;
+﻿using Repository.Pattern.Infrastructure;
+using System;
 
 namespace Repository.Pattern.DataContext
 {

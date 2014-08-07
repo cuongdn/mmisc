@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Repository.Pattern.DataContext;
+using Repository.Pattern.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading;
 using System.Threading.Tasks;
-using Repository.Pattern.DataContext;
-using Repository.Pattern.Infrastructure;
 
 namespace Repository.Pattern.Ef6
 {

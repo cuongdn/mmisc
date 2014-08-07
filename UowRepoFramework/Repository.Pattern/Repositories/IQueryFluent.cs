@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Repository.Pattern.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Repository.Pattern.Infrastructure;
 
 namespace Repository.Pattern.Repositories
 {

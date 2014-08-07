@@ -1,5 +1,10 @@
 ﻿#region
 
+using Repository.Pattern.DataContext;
+using Repository.Pattern.Ef6.Factories;
+using Repository.Pattern.Infrastructure;
+using Repository.Pattern.Repositories;
+using Repository.Pattern.UnitOfWork;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -7,11 +12,6 @@ using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Threading.Tasks;
-using Repository.Pattern.DataContext;
-using Repository.Pattern.Ef6.Factories;
-using Repository.Pattern.Infrastructure;
-using Repository.Pattern.Repositories;
-using Repository.Pattern.UnitOfWork;
 
 #endregion
 

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Repository.Pattern.Infrastructure;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using Repository.Pattern.Infrastructure;
 
 namespace Repository.Pattern.Ef6
 {
