@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Security.Cryptography;
 using App.Model;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Ef6;
@@ -30,13 +29,30 @@ namespace App
 
             using (var uow = ObjectFactory.GetInstance<IUnitOfWork>())
             {
-                IRepository<Product> repo = uow.Repository<Product>();
+                var repo = uow.Repository<Product>();
                 int total;
 
                 var list = repo.Query()
                     .OrderBy(q => q.Include(x => x.Category).OrderBy("ModelNumber, ProductId desc"))
-                    .SelectPage(1, 10, out total)
-                   ;
+                    .SelectPage(1, 10, out total);
+
+                foreach (var item in list)
+                {
+                    Console.WriteLine(item.ModelNumber + " " + item.Category.CategoryName + " " + item.ProductId);
+                }
+
+                list = repo.Query()
+                    .OrderBy(q => q.Include(x => x.Category).OrderBy("ModelNumber desc, ProductId"))
+                    .SelectPage(1, 10, out total);
+
+                foreach (var item in list)
+                {
+                    Console.WriteLine(item.ModelNumber + " " + item.Category.CategoryName + " " + item.ProductId);
+                }
+
+                list = repo.Query()
+                   .OrderBy(q => q.Include(x => x.Category).OrderBy("ModelNumber desc, ProductId"))
+                   .SelectPage(1, 10, out total);
 
                 foreach (var item in list)
                 {
@@ -46,41 +62,29 @@ namespace App
         }
     }
 
-    public class PropertyCriteria
-    {
-        public PropertyCriteria()
-        {
-            Ascending = true;
-        }
-        public string Name { get; set; }
-        public bool Ascending { get; set; }
-    }
-
     public static class LinqExtensions
     {
+        private static readonly IDictionary<string, MethodInfo> CachedMethodDictionary = new Dictionary<string, MethodInfo>();
         public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> source, string orderBy)
         {
-            var list = ParseOrderBy(orderBy);
-            foreach (OrderByInfo orderByInfo in ParseOrderBy(orderBy))
-                source = ApplyOrderBy(source, orderByInfo);
-            return (IOrderedQueryable<T>)source;
+            return (IOrderedQueryable<T>)ParseOrderBy(orderBy).Aggregate(source, ApplyOrderBy);
         }
+
         private static IOrderedQueryable<T> ApplyOrderBy<T>(IQueryable<T> source, OrderByInfo orderByInfo)
         {
-            string[] props = orderByInfo.PropertyName.Split('.');
-            Type type = typeof(T);
-
-            ParameterExpression arg = Expression.Parameter(type, "x");
+            var props = orderByInfo.PropertyName.Split('.');
+            var type = typeof(T);
+            var arg = Expression.Parameter(type, "x");
             Expression expr = arg;
             foreach (string prop in props)
             {
                 // use reflection (not ComponentModel) to mirror LINQ
-                PropertyInfo pi = type.GetProperty(prop);
+                var pi = type.GetProperty(prop);
                 expr = Expression.Property(expr, pi);
                 type = pi.PropertyType;
             }
-            Type delegateType = typeof(Func<,>).MakeGenericType(typeof(T), type);
-            LambdaExpression lambda = Expression.Lambda(delegateType, expr, arg);
+            var delegateType = typeof(Func<,>).MakeGenericType(typeof(T), type);
+            var lambda = Expression.Lambda(delegateType, expr, arg);
             string methodName;
 
             if (!orderByInfo.Initial && source is IOrderedQueryable<T>)
@@ -106,67 +110,47 @@ namespace App
                 }
             }
 
-            //TODO: apply caching to the generic methodsinfos?
-            return (IOrderedQueryable<T>)typeof(Queryable).GetMethods().Single(
-                method => method.Name == methodName
-                        && method.IsGenericMethodDefinition
-                        && method.GetGenericArguments().Length == 2
-                        && method.GetParameters().Length == 2)
-                .MakeGenericMethod(typeof(T), type)
-                .Invoke(null, new object[] { source, lambda });
-
-        }
-        private static IOrderedQueryable<T> ApplyOrder<T>(IQueryable<T> source, string property, string methodName)
-        {
-            string[] props = property.Split('.');
-            Type type = typeof(T);
-            ParameterExpression arg = Expression.Parameter(type, "x");
-            Expression expr = arg;
-            foreach (string prop in props)
+            if (!CachedMethodDictionary.ContainsKey(methodName))
             {
-                // use reflection (not ComponentModel) to mirror LINQ
-                PropertyInfo pi = type.GetProperty(prop);
-                expr = Expression.Property(expr, pi);
-                type = pi.PropertyType;
+                var mi = typeof(Queryable).GetMethods().Single(
+                     method => method.Name == methodName
+                             && method.IsGenericMethodDefinition
+                             && method.GetGenericArguments().Length == 2
+                             && method.GetParameters().Length == 2).MakeGenericMethod(typeof(T), type);
+                CachedMethodDictionary.Add(methodName, mi);
             }
-            Type delegateType = typeof(Func<,>).MakeGenericType(typeof(T), type);
-            LambdaExpression lambda = Expression.Lambda(delegateType, expr, arg);
 
-            object result = typeof(Queryable).GetMethods().Single(
-                method => method.Name == methodName
-                          && method.IsGenericMethodDefinition
-                          && method.GetGenericArguments().Length == 2
-                          && method.GetParameters().Length == 2)
-                .MakeGenericMethod(typeof(T), type)
-                .Invoke(null, new object[] { source, lambda });
-            return (IOrderedQueryable<T>)result;
+            return (IOrderedQueryable<T>)CachedMethodDictionary[methodName].Invoke(null, new object[] { source, lambda });
+
         }
 
         private static IEnumerable<OrderByInfo> ParseOrderBy(string orderBy)
         {
-            if (String.IsNullOrEmpty(orderBy))
+            if (string.IsNullOrEmpty(orderBy))
                 yield break;
 
-            string[] items = orderBy.Split(',');
-            bool initial = true;
-            foreach (string item in items)
+            var items = orderBy.Split(',');
+            var initial = true;
+            foreach (var item in items)
             {
-                string[] pair = item.Trim().Split(' ');
+                var pair = item.Trim().Split(' ');
 
                 if (pair.Length > 2)
+                {
                     throw new ArgumentException(String.Format("Invalid OrderBy string '{0}'. Order By Format: Property, Property2 ASC, Property2 DESC", item));
-
-                string prop = pair[0].Trim();
+                }
+                var prop = pair[0].Trim();
 
                 if (String.IsNullOrEmpty(prop))
                     throw new ArgumentException("Invalid Property. Order By Format: Property, Property2 ASC, Property2 DESC");
 
-                var dir = SortDirection.Ascending;
+                var direction = SortDirection.Ascending;
 
                 if (pair.Length == 2)
-                    dir = ("desc".Equals(pair[1].Trim(), StringComparison.OrdinalIgnoreCase) ? SortDirection.Descending : SortDirection.Ascending);
-
-                yield return new OrderByInfo() { PropertyName = prop, Direction = dir, Initial = initial };
+                {
+                    direction = ("desc".Equals(pair[1].Trim(), StringComparison.OrdinalIgnoreCase) ? SortDirection.Descending : SortDirection.Ascending);
+                }
+                yield return new OrderByInfo { PropertyName = prop, Direction = direction, Initial = initial };
 
                 initial = false;
             }
