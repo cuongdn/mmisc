@@ -1,12 +1,12 @@
 ﻿#region
 
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Infrastructure;
 using Repository.Pattern.Repositories;
 using Repository.Pattern.UnitOfWork;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 
 #endregion
 
@@ -97,7 +97,8 @@ namespace Repository.Pattern.Ef6.Factories
         ///     You can substitute an alternative factory for the default one by adding
         ///     a repository factory for type "T" to <see cref="_repositoryFactories" />.
         /// </remarks>
-        public Func<IDataContextAsync, IUnitOfWorkAsync, dynamic> GetRepositoryFactoryForEntityType<T>() where T : class, IObjectState
+        public Func<IDataContextAsync, IUnitOfWorkAsync, dynamic> GetRepositoryFactoryForEntityType<T>()
+            where T : class, IObjectState
         {
             return GetRepositoryFactory<T>() ?? DefaultEntityRepositoryFactory<T>();
         }
@@ -106,7 +107,8 @@ namespace Repository.Pattern.Ef6.Factories
         ///     Default factory for a <see cref="IRepository{T}" /> where T is a reference type and implements IObjectState.
         /// </summary>
         /// <typeparam name="T">Type of the repository's root entity</typeparam>
-        protected virtual Func<IDataContextAsync, IUnitOfWorkAsync, dynamic> DefaultEntityRepositoryFactory<T>() where T : class, IObjectState
+        protected virtual Func<IDataContextAsync, IUnitOfWorkAsync, dynamic> DefaultEntityRepositoryFactory<T>()
+            where T : class, IObjectState
         {
             return (dbContext, unitOfWork) => new Repository<T>(dbContext, unitOfWork);
         }

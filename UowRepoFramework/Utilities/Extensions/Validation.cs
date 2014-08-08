@@ -5,16 +5,16 @@ using System.Text.RegularExpressions;
 namespace Utilities.Extensions
 {
     /// <summary>
-    /// Summary for the Validation class
+    ///     Summary for the Validation class
     /// </summary>
     public static class Validation
     {
         /// <summary>
-        /// Determines whether the specified eval string contains only alpha characters.
+        ///     Determines whether the specified eval string contains only alpha characters.
         /// </summary>
         /// <param name="evalString">The eval string.</param>
         /// <returns>
-        /// 	<c>true</c> if the specified eval string is alpha; otherwise, <c>false</c>.
+        ///     <c>true</c> if the specified eval string is alpha; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsAlpha(this string evalString)
         {
@@ -22,11 +22,11 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified eval string contains only alphanumeric characters
+        ///     Determines whether the specified eval string contains only alphanumeric characters
         /// </summary>
         /// <param name="evalString">The eval string.</param>
         /// <returns>
-        /// 	<c>true</c> if the string is alphanumeric; otherwise, <c>false</c>.
+        ///     <c>true</c> if the string is alphanumeric; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsAlphaNumeric(this string evalString)
         {
@@ -34,26 +34,26 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified eval string contains only alphanumeric characters
+        ///     Determines whether the specified eval string contains only alphanumeric characters
         /// </summary>
         /// <param name="evalString">The eval string.</param>
         /// <param name="allowSpaces">if set to <c>true</c> [allow spaces].</param>
         /// <returns>
-        /// 	<c>true</c> if the string is alphanumeric; otherwise, <c>false</c>.
+        ///     <c>true</c> if the string is alphanumeric; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsAlphaNumeric(this string evalString, bool allowSpaces)
         {
-            if(allowSpaces)
+            if (allowSpaces)
                 return !Regex.IsMatch(evalString, RegexPattern.ALPHA_NUMERIC_SPACE);
             return IsAlphaNumeric(evalString);
         }
 
         /// <summary>
-        /// Determines whether the specified eval string contains only numeric characters
+        ///     Determines whether the specified eval string contains only numeric characters
         /// </summary>
         /// <param name="evalString">The eval string.</param>
         /// <returns>
-        /// 	<c>true</c> if the string is numeric; otherwise, <c>false</c>.
+        ///     <c>true</c> if the string is numeric; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsNumeric(this string evalString)
         {
@@ -61,11 +61,11 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified email address string is valid based on regular expression evaluation.
+        ///     Determines whether the specified email address string is valid based on regular expression evaluation.
         /// </summary>
         /// <param name="emailAddressString">The email address string.</param>
         /// <returns>
-        /// 	<c>true</c> if the specified email address is valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if the specified email address is valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsEmail(this string emailAddressString)
         {
@@ -73,11 +73,11 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is lower case.
+        ///     Determines whether the specified string is lower case.
         /// </summary>
         /// <param name="inputString">The input string.</param>
         /// <returns>
-        /// 	<c>true</c> if the specified string is lower case; otherwise, <c>false</c>.
+        ///     <c>true</c> if the specified string is lower case; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsLowerCase(this string inputString)
         {
@@ -85,11 +85,11 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is upper case.
+        ///     Determines whether the specified string is upper case.
         /// </summary>
         /// <param name="inputString">The input string.</param>
         /// <returns>
-        /// 	<c>true</c> if the specified string is upper case; otherwise, <c>false</c>.
+        ///     <c>true</c> if the specified string is upper case; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsUpperCase(this string inputString)
         {
@@ -97,11 +97,11 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is a valid GUID.
+        ///     Determines whether the specified string is a valid GUID.
         /// </summary>
         /// <param name="guid">The GUID.</param>
         /// <returns>
-        /// 	<c>true</c> if the specified string is a valid GUID; otherwise, <c>false</c>.
+        ///     <c>true</c> if the specified string is a valid GUID; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsGuid(this string guid)
         {
@@ -109,11 +109,11 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is a valid US Zip Code, using either 5 or 5+4 format.
+        ///     Determines whether the specified string is a valid US Zip Code, using either 5 or 5+4 format.
         /// </summary>
         /// <param name="zipCode">The zip code.</param>
         /// <returns>
-        /// 	<c>true</c> if it is a valid zip code; otherwise, <c>false</c>.
+        ///     <c>true</c> if it is a valid zip code; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsZIPCodeAny(this string zipCode)
         {
@@ -121,11 +121,11 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is a valid US Zip Code, using the 5 digit format.
+        ///     Determines whether the specified string is a valid US Zip Code, using the 5 digit format.
         /// </summary>
         /// <param name="zipCode">The zip code.</param>
         /// <returns>
-        /// 	<c>true</c> if it is a valid zip code; otherwise, <c>false</c>.
+        ///     <c>true</c> if it is a valid zip code; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsZIPCodeFive(this string zipCode)
         {
@@ -133,11 +133,11 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is a valid US Zip Code, using the 5+4 format.
+        ///     Determines whether the specified string is a valid US Zip Code, using the 5+4 format.
         /// </summary>
         /// <param name="zipCode">The zip code.</param>
         /// <returns>
-        /// 	<c>true</c> if it is a valid zip code; otherwise, <c>false</c>.
+        ///     <c>true</c> if it is a valid zip code; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsZIPCodeFivePlusFour(this string zipCode)
         {
@@ -145,11 +145,11 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is a valid Social Security number. Dashes are optional.
+        ///     Determines whether the specified string is a valid Social Security number. Dashes are optional.
         /// </summary>
         /// <param name="socialSecurityNumber">The Social Security Number</param>
         /// <returns>
-        /// 	<c>true</c> if it is a valid Social Security number; otherwise, <c>false</c>.
+        ///     <c>true</c> if it is a valid Social Security number; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsSocialSecurityNumber(this string socialSecurityNumber)
         {
@@ -157,11 +157,11 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is a valid IP address.
+        ///     Determines whether the specified string is a valid IP address.
         /// </summary>
         /// <param name="ipAddress">The ip address.</param>
         /// <returns>
-        /// 	<c>true</c> if valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsIPAddress(this string ipAddress)
         {
@@ -169,11 +169,11 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is a valid US phone number using the referenced regex string.
+        ///     Determines whether the specified string is a valid US phone number using the referenced regex string.
         /// </summary>
         /// <param name="telephoneNumber">The telephone number.</param>
         /// <returns>
-        /// 	<c>true</c> if valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsUSTelephoneNumber(this string telephoneNumber)
         {
@@ -181,11 +181,11 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is a valid currency string using the referenced regex string.
+        ///     Determines whether the specified string is a valid currency string using the referenced regex string.
         /// </summary>
         /// <param name="currency">The currency string.</param>
         /// <returns>
-        /// 	<c>true</c> if valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsUSCurrency(this string currency)
         {
@@ -193,11 +193,11 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is a valid URL string using the referenced regex string.
+        ///     Determines whether the specified string is a valid URL string using the referenced regex string.
         /// </summary>
         /// <param name="url">The URL string.</param>
         /// <returns>
-        /// 	<c>true</c> if valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsURL(this string url)
         {
@@ -205,30 +205,30 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is consider a strong password based on the supplied string.
+        ///     Determines whether the specified string is consider a strong password based on the supplied string.
         /// </summary>
         /// <param name="password">The password.</param>
         /// <returns>
-        /// 	<c>true</c> if strong; otherwise, <c>false</c>.
+        ///     <c>true</c> if strong; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsStrongPassword(this string password)
         {
             return Regex.IsMatch(password, RegexPattern.STRONG_PASSWORD);
         }
 
-
         #region Credit Cards
 
         /// <summary>
-        /// Determines whether the specified string is a valid credit, based on matching any one of the eight credit card strings
+        ///     Determines whether the specified string is a valid credit, based on matching any one of the eight credit card
+        ///     strings
         /// </summary>
         /// <param name="creditCard">The credit card.</param>
         /// <returns>
-        /// 	<c>true</c> if valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsCreditCardAny(this string creditCard)
         {
-            if(CreditPassesFormatCheck(creditCard))
+            if (CreditPassesFormatCheck(creditCard))
             {
                 creditCard = CleanCreditCardNumber(creditCard);
                 return Regex.IsMatch(creditCard, RegexPattern.CREDIT_CARD_AMERICAN_EXPRESS) ||
@@ -244,15 +244,15 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is an American Express, Discover, MasterCard, or Visa
+        ///     Determines whether the specified string is an American Express, Discover, MasterCard, or Visa
         /// </summary>
         /// <param name="creditCard">The credit card.</param>
         /// <returns>
-        /// 	<c>true</c> if valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsCreditCardBigFour(this string creditCard)
         {
-            if(CreditPassesFormatCheck(creditCard))
+            if (CreditPassesFormatCheck(creditCard))
             {
                 creditCard = CleanCreditCardNumber(creditCard);
                 return Regex.IsMatch(creditCard, RegexPattern.CREDIT_CARD_AMERICAN_EXPRESS) ||
@@ -264,15 +264,15 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is an American Express card
+        ///     Determines whether the specified string is an American Express card
         /// </summary>
         /// <param name="creditCard">The credit card.</param>
         /// <returns>
-        /// 	<c>true</c> if valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsCreditCardAmericanExpress(this string creditCard)
         {
-            if(CreditPassesFormatCheck(creditCard))
+            if (CreditPassesFormatCheck(creditCard))
             {
                 creditCard = CleanCreditCardNumber(creditCard);
                 return Regex.IsMatch(creditCard, RegexPattern.CREDIT_CARD_AMERICAN_EXPRESS);
@@ -281,15 +281,15 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is an Carte Blanche card
+        ///     Determines whether the specified string is an Carte Blanche card
         /// </summary>
         /// <param name="creditCard">The credit card.</param>
         /// <returns>
-        /// 	<c>true</c> if valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsCreditCardCarteBlanche(this string creditCard)
         {
-            if(CreditPassesFormatCheck(creditCard))
+            if (CreditPassesFormatCheck(creditCard))
             {
                 creditCard = CleanCreditCardNumber(creditCard);
                 return Regex.IsMatch(creditCard, RegexPattern.CREDIT_CARD_CARTE_BLANCHE);
@@ -298,15 +298,15 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is an Diner's Club card
+        ///     Determines whether the specified string is an Diner's Club card
         /// </summary>
         /// <param name="creditCard">The credit card.</param>
         /// <returns>
-        /// 	<c>true</c> if valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsCreditCardDinersClub(this string creditCard)
         {
-            if(CreditPassesFormatCheck(creditCard))
+            if (CreditPassesFormatCheck(creditCard))
             {
                 creditCard = CleanCreditCardNumber(creditCard);
                 return Regex.IsMatch(creditCard, RegexPattern.CREDIT_CARD_DINERS_CLUB);
@@ -315,15 +315,15 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is a Discover card
+        ///     Determines whether the specified string is a Discover card
         /// </summary>
         /// <param name="creditCard">The credit card.</param>
         /// <returns>
-        /// 	<c>true</c> if valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsCreditCardDiscover(this string creditCard)
         {
-            if(CreditPassesFormatCheck(creditCard))
+            if (CreditPassesFormatCheck(creditCard))
             {
                 creditCard = CleanCreditCardNumber(creditCard);
                 return Regex.IsMatch(creditCard, RegexPattern.CREDIT_CARD_DISCOVER);
@@ -332,15 +332,15 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is an En Route card
+        ///     Determines whether the specified string is an En Route card
         /// </summary>
         /// <param name="creditCard">The credit card.</param>
         /// <returns>
-        /// 	<c>true</c> if valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsCreditCardEnRoute(this string creditCard)
         {
-            if(CreditPassesFormatCheck(creditCard))
+            if (CreditPassesFormatCheck(creditCard))
             {
                 creditCard = CleanCreditCardNumber(creditCard);
                 return Regex.IsMatch(creditCard, RegexPattern.CREDIT_CARD_EN_ROUTE);
@@ -349,15 +349,15 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is an JCB card
+        ///     Determines whether the specified string is an JCB card
         /// </summary>
         /// <param name="creditCard">The credit card.</param>
         /// <returns>
-        /// 	<c>true</c> if valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsCreditCardJCB(this string creditCard)
         {
-            if(CreditPassesFormatCheck(creditCard))
+            if (CreditPassesFormatCheck(creditCard))
             {
                 creditCard = CleanCreditCardNumber(creditCard);
                 return Regex.IsMatch(creditCard, RegexPattern.CREDIT_CARD_JCB);
@@ -366,15 +366,15 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is a Master Card credit card
+        ///     Determines whether the specified string is a Master Card credit card
         /// </summary>
         /// <param name="creditCard">The credit card.</param>
         /// <returns>
-        /// 	<c>true</c> if valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsCreditCardMasterCard(this string creditCard)
         {
-            if(CreditPassesFormatCheck(creditCard))
+            if (CreditPassesFormatCheck(creditCard))
             {
                 creditCard = CleanCreditCardNumber(creditCard);
                 return Regex.IsMatch(creditCard, RegexPattern.CREDIT_CARD_MASTER_CARD);
@@ -383,15 +383,15 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified string is Visa card.
+        ///     Determines whether the specified string is Visa card.
         /// </summary>
         /// <param name="creditCard">The credit card.</param>
         /// <returns>
-        /// 	<c>true</c> if valid; otherwise, <c>false</c>.
+        ///     <c>true</c> if valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsCreditCardVisa(this string creditCard)
         {
-            if(CreditPassesFormatCheck(creditCard))
+            if (CreditPassesFormatCheck(creditCard))
             {
                 creditCard = CleanCreditCardNumber(creditCard);
                 return Regex.IsMatch(creditCard, RegexPattern.CREDIT_CARD_VISA);
@@ -400,29 +400,30 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Cleans the credit card number, returning just the numeric values.
+        ///     Cleans the credit card number, returning just the numeric values.
         /// </summary>
         /// <param name="creditCard">The credit card.</param>
         /// <returns></returns>
         public static string CleanCreditCardNumber(this string creditCard)
         {
-            Regex regex = new Regex(RegexPattern.CREDIT_CARD_STRIP_NON_NUMERIC, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            var regex = new Regex(RegexPattern.CREDIT_CARD_STRIP_NON_NUMERIC,
+                RegexOptions.IgnoreCase | RegexOptions.Singleline);
             return regex.Replace(creditCard, String.Empty);
         }
 
         /// <summary>
-        /// Determines whether the credit card number, once cleaned, passes the Luhn algorith.
-        /// See: http://en.wikipedia.org/wiki/Luhn_algorithm
+        ///     Determines whether the credit card number, once cleaned, passes the Luhn algorith.
+        ///     See: http://en.wikipedia.org/wiki/Luhn_algorithm
         /// </summary>
         /// <param name="creditCardNumber">The credit card number.</param>
         /// <returns></returns>
         private static bool CreditPassesFormatCheck(this string creditCardNumber)
         {
             creditCardNumber = CleanCreditCardNumber(creditCardNumber);
-            if(creditCardNumber.IsInteger())
+            if (creditCardNumber.IsInteger())
             {
-                int[] numArray = new int[creditCardNumber.Length];
-                for(int i = 0; i < numArray.Length; i++)
+                var numArray = new int[creditCardNumber.Length];
+                for (int i = 0; i < numArray.Length; i++)
                     numArray[i] = Convert.ToInt16(creditCardNumber[i].ToString());
 
                 return IsValidLuhn(numArray);
@@ -431,36 +432,36 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Determines whether the specified int array passes the Luhn algorith
+        ///     Determines whether the specified int array passes the Luhn algorith
         /// </summary>
         /// <param name="digits">The int array to evaluate</param>
         /// <returns>
-        /// 	<c>true</c> if it validates; otherwise, <c>false</c>.
+        ///     <c>true</c> if it validates; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsValidLuhn(this int[] digits)
         {
             int sum = 0;
             bool alt = false;
-            for(int i = digits.Length - 1; i >= 0; i--)
+            for (int i = digits.Length - 1; i >= 0; i--)
             {
-                if(alt)
+                if (alt)
                 {
                     digits[i] *= 2;
-                    if(digits[i] > 9)
+                    if (digits[i] > 9)
                         digits[i] -= 9; // equivalent to adding the value of digits
                 }
                 sum += digits[i];
                 alt = !alt;
             }
-            return sum % 10 == 0;
+            return sum%10 == 0;
         }
 
         /// <summary>
-        /// Determine whether the passed string is numeric, by attempting to parse it to a double
+        ///     Determine whether the passed string is numeric, by attempting to parse it to a double
         /// </summary>
         /// <param name="str">The string to evaluated for numeric conversion</param>
         /// <returns>
-        /// 	<c>true</c> if the string can be converted to a number; otherwise, <c>false</c>.
+        ///     <c>true</c> if the string can be converted to a number; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsStringNumeric(this string str)
         {

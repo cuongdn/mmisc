@@ -1,11 +1,11 @@
 ﻿#region
 
+using System;
+using System.Collections.Generic;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Infrastructure;
 using Repository.Pattern.Repositories;
 using Repository.Pattern.UnitOfWork;
-using System;
-using System.Collections.Generic;
 
 #endregion
 
@@ -93,7 +93,8 @@ namespace Repository.Pattern.Ef6.Factories
         ///     Looks for the requested repository in its cache, returning if found.
         ///     If not found, tries to make one using <see cref="MakeRepository{T}" />.
         /// </remarks>
-        public virtual T GetRepository<T>(Func<IDataContextAsync, IUnitOfWorkAsync, dynamic> factory = null) where T : class
+        public virtual T GetRepository<T>(Func<IDataContextAsync, IUnitOfWorkAsync, dynamic> factory = null)
+            where T : class
         {
             // Look for T dictionary cache under typeof(T).
             dynamic cachedRepository;
@@ -147,16 +148,19 @@ namespace Repository.Pattern.Ef6.Factories
         ///     The <see cref="IUnitOfWorkAsync" /> which is passed to the constructor of the <see cref="IRepository{T}" />.
         /// </param>
         /// <returns></returns>
-        protected virtual T MakeRepository<T>(Func<IDataContextAsync, IUnitOfWorkAsync, dynamic> factory, IDataContextAsync dbContext, IUnitOfWorkAsync unitOfWorkAsync)
+        protected virtual T MakeRepository<T>(Func<IDataContextAsync, IUnitOfWorkAsync, dynamic> factory,
+            IDataContextAsync dbContext, IUnitOfWorkAsync unitOfWorkAsync)
         {
-            var repositoryFactory = factory ?? _repositoryFactories.GetRepositoryFactory<T>();
+            Func<IDataContextAsync, IUnitOfWorkAsync, dynamic> repositoryFactory = factory ??
+                                                                                   _repositoryFactories
+                                                                                       .GetRepositoryFactory<T>();
 
             if (repositoryFactory == null)
             {
                 throw new NotImplementedException("No factory for repository type, " + typeof (T).FullName);
             }
 
-            var repository = repositoryFactory(dbContext, unitOfWorkAsync);
+            dynamic repository = repositoryFactory(dbContext, unitOfWorkAsync);
             Repositories[typeof (T)] = repository;
 
             return repository;

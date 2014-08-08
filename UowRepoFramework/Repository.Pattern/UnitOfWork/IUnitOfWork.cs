@@ -1,7 +1,7 @@
-﻿using Repository.Pattern.Infrastructure;
-using Repository.Pattern.Repositories;
-using System;
+﻿using System;
 using System.Data;
+using Repository.Pattern.Infrastructure;
+using Repository.Pattern.Repositories;
 
 namespace Repository.Pattern.UnitOfWork
 {

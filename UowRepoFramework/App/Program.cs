@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using App.Model;
 using Repository.Pattern.DataContext;
@@ -21,19 +22,19 @@ namespace App
                 x.For<IRepositoryProvider>().Use<RepositoryProvider>()
                     .Ctor<RepositoryFactories>("repositoryFactories").Is(new RepositoryFactories());
                 x.For<IUnitOfWork>().Use<UnitOfWork>();
-                x.For(typeof(IRepositoryAsync<>)).Use(typeof(Repository<>));
+                x.For(typeof (IRepositoryAsync<>)).Use(typeof (Repository<>));
             });
 
             using (var uow = ObjectFactory.GetInstance<IUnitOfWork>())
             {
-                var repo = uow.Repository<Product>();
+                IRepository<Product> repo = uow.Repository<Product>();
                 int total;
 
-                var list = repo.Query()
+                IEnumerable<Product> list = repo.Query()
                     .OrderBy(q => q.Include(x => x.Category).OrderBy("ModelNumber, ProductId desc"))
                     .SelectPage(1, 10, out total);
 
-                foreach (var item in list)
+                foreach (Product item in list)
                 {
                     Console.WriteLine(item.ModelNumber + " " + item.Category.CategoryName + " " + item.ProductId);
                 }
@@ -42,16 +43,16 @@ namespace App
                     .OrderBy(q => q.Include(x => x.Category).OrderBy("ModelNumber desc, ProductId"))
                     .SelectPage(1, 10, out total);
 
-                foreach (var item in list)
+                foreach (Product item in list)
                 {
                     Console.WriteLine(item.ModelNumber + " " + item.Category.CategoryName + " " + item.ProductId);
                 }
 
                 list = repo.Query()
-                   .OrderBy(q => q.Include(x => x.Category).OrderBy("ModelNumber desc, ProductId"))
-                   .SelectPage(1, 10, out total);
+                    .OrderBy(q => q.Include(x => x.Category).OrderBy("ModelNumber desc, ProductId"))
+                    .SelectPage(1, 10, out total);
 
-                foreach (var item in list)
+                foreach (Product item in list)
                 {
                     Console.WriteLine(item.ModelNumber + " " + item.Category.CategoryName + " " + item.ProductId);
                 }

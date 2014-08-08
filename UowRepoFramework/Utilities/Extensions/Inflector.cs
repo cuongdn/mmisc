@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using Common;
 
 namespace Utilities.Extensions
 {
     /// <summary>
-    /// Summary for the Inflector class
+    ///     Summary for the Inflector class
     /// </summary>
     public static class Inflector
     {
@@ -16,7 +15,7 @@ namespace Utilities.Extensions
         private static readonly List<string> _uncountables = new List<string>();
 
         /// <summary>
-        /// Initializes the <see cref="Inflector"/> class.
+        ///     Initializes the <see cref="Inflector" /> class.
         /// </summary>
         static Inflector()
         {
@@ -83,7 +82,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Adds the irregular rule.
+        ///     Adds the irregular rule.
         /// </summary>
         /// <param name="singular">The singular.</param>
         /// <param name="plural">The plural.</param>
@@ -96,7 +95,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Adds the unknown count rule.
+        ///     Adds the unknown count rule.
         /// </summary>
         /// <param name="word">The word.</param>
         private static void AddUnknownCountRule(string word)
@@ -105,7 +104,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Adds the plural rule.
+        ///     Adds the plural rule.
         /// </summary>
         /// <param name="rule">The rule.</param>
         /// <param name="replacement">The replacement.</param>
@@ -115,7 +114,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Adds the singular rule.
+        ///     Adds the singular rule.
         /// </summary>
         /// <param name="rule">The rule.</param>
         /// <param name="replacement">The replacement.</param>
@@ -125,7 +124,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Makes the plural.
+        ///     Makes the plural.
         /// </summary>
         /// <param name="word">The word.</param>
         /// <returns></returns>
@@ -135,7 +134,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Makes the singular.
+        ///     Makes the singular.
         /// </summary>
         /// <param name="word">The word.</param>
         /// <returns></returns>
@@ -145,7 +144,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Applies the rules.
+        ///     Applies the rules.
         /// </summary>
         /// <param name="rules">The rules.</param>
         /// <param name="word">The word.</param>
@@ -169,7 +168,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Converts the string to title case.
+        ///     Converts the string to title case.
         /// </summary>
         /// <param name="word">The word.</param>
         /// <returns></returns>
@@ -180,7 +179,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Converts the string to human case.
+        ///     Converts the string to human case.
         /// </summary>
         /// <param name="lowercaseAndUnderscoredWord">The lowercase and underscored word.</param>
         /// <returns></returns>
@@ -190,7 +189,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Convert string to proper case
+        ///     Convert string to proper case
         /// </summary>
         /// <param name="sourceString">The source string.</param>
         /// <returns></returns>
@@ -201,7 +200,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Converts the string to pascal case.
+        ///     Converts the string to pascal case.
         /// </summary>
         /// <param name="lowercaseAndUnderscoredWord">The lowercase and underscored word.</param>
         /// <returns></returns>
@@ -211,7 +210,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Converts text to pascal case...
+        ///     Converts text to pascal case...
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="removeUnderscores">if set to <c>true</c> [remove underscores].</param>
@@ -246,7 +245,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Converts the string to camel case.
+        ///     Converts the string to camel case.
         /// </summary>
         /// <param name="lowercaseAndUnderscoredWord">The lowercase and underscored word.</param>
         /// <returns></returns>
@@ -256,7 +255,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Adds the underscores.
+        ///     Adds the underscores.
         /// </summary>
         /// <param name="pascalCasedWord">The pascal cased word.</param>
         /// <returns></returns>
@@ -269,7 +268,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Makes the initial caps.
+        ///     Makes the initial caps.
         /// </summary>
         /// <param name="word">The word.</param>
         /// <returns></returns>
@@ -279,7 +278,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Makes the initial lower case.
+        ///     Makes the initial lower case.
         /// </summary>
         /// <param name="word">The word.</param>
         /// <returns></returns>
@@ -289,7 +288,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Adds the ordinal suffix.
+        ///     Adds the ordinal suffix.
         /// </summary>
         /// <param name="number">The number.</param>
         /// <returns></returns>
@@ -298,12 +297,12 @@ namespace Utilities.Extensions
             if (number.IsStringNumeric())
             {
                 int n = int.Parse(number);
-                int nMod100 = n % 100;
+                int nMod100 = n%100;
 
                 if (nMod100 >= 11 && nMod100 <= 13)
                     return String.Concat(number, "th");
 
-                switch (n % 10)
+                switch (n%10)
                 {
                     case 1:
                         return String.Concat(number, "st");
@@ -319,7 +318,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Converts the underscores to dashes.
+        ///     Converts the underscores to dashes.
         /// </summary>
         /// <param name="underscoredWord">The underscored word.</param>
         /// <returns></returns>
@@ -329,7 +328,7 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Converts text to pascal case...
+        ///     Converts text to pascal case...
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="removeUnderscores">if set to <c>true</c> [remove underscores].</param>
@@ -341,7 +340,7 @@ namespace Utilities.Extensions
 
             text = text.Replace("_", " ");
             string joinString = "-";
-            string[] words = text.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            string[] words = text.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < words.Length; i++)
             {
                 string word = words[i];
@@ -353,22 +352,20 @@ namespace Utilities.Extensions
         #region Nested type: InflectorRule
 
         /// <summary>
-        /// Summary for the InflectorRule class
+        ///     Summary for the InflectorRule class
         /// </summary>
         private class InflectorRule
         {
             /// <summary>
-            /// 
             /// </summary>
             public readonly Regex regex;
 
             /// <summary>
-            /// 
             /// </summary>
             public readonly string replacement;
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="InflectorRule"/> class.
+            ///     Initializes a new instance of the <see cref="InflectorRule" /> class.
             /// </summary>
             /// <param name="regexPattern">The regex pattern.</param>
             /// <param name="replacementText">The replacement text.</param>
@@ -379,7 +376,7 @@ namespace Utilities.Extensions
             }
 
             /// <summary>
-            /// Applies the specified word.
+            ///     Applies the specified word.
             /// </summary>
             /// <param name="word">The word.</param>
             /// <returns></returns>

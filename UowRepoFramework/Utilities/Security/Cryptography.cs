@@ -11,7 +11,7 @@ namespace Utilities.Security
         {
             MD5 md5Hasher = MD5.Create();
             byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(stringToHash));
-            StringBuilder sBuilder = new StringBuilder();
+            var sBuilder = new StringBuilder();
             for (int i = 0; i < data.Length; i++)
             {
                 sBuilder.Append(data[i].ToString("x2"));
@@ -19,7 +19,7 @@ namespace Utilities.Security
             return sBuilder.ToString();
         }
 
-        static bool VerifyMd5Hash(string input, string hash)
+        private static bool VerifyMd5Hash(string input, string hash)
         {
             string hashOfInput = CreateMd5Hash(input);
             StringComparer comparer = StringComparer.OrdinalIgnoreCase;
@@ -27,17 +27,14 @@ namespace Utilities.Security
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         // Encrypt a byte array into a byte array using a key and an IV 
         public static byte[] Encrypt(byte[] clearData, byte[] Key, byte[] IV)
         {
             // Create a MemoryStream that is going to accept the encrypted bytes 
-            MemoryStream ms = new MemoryStream();
+            var ms = new MemoryStream();
 
             // Create a symmetric algorithm. 
             // We are going to use Rijndael because it is strong and available on all platforms. 
@@ -61,7 +58,7 @@ namespace Utilities.Security
             // CryptoStreamMode.Write means that we are going to be writing data to the stream 
             // and the output will be written in the MemoryStream we have provided. 
 
-            CryptoStream cs = new CryptoStream(ms, alg.CreateEncryptor(), CryptoStreamMode.Write);
+            var cs = new CryptoStream(ms, alg.CreateEncryptor(), CryptoStreamMode.Write);
 
             // Write the data and make it do the encryption 
             cs.Write(clearData, 0, clearData.Length);
@@ -84,12 +81,13 @@ namespace Utilities.Security
         {
             // First we need to turn the input string into a byte array. 
 
-            byte[] clearBytes = System.Text.Encoding.Unicode.GetBytes(clearText);
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
 
             // Then, we need to turn the password into Key and IV 
             // We are using salt to make it harder to guess our key using a dictionary attack - 
             // trying to guess a password by enumerating all possible words.
-            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+            var pdb = new PasswordDeriveBytes(Password,
+                new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
 
             // Now get the key/IV and do the encryption using the function that accepts byte arrays. 
             // Using PasswordDeriveBytes object we are first getting 32 bytes for the Key 
@@ -107,6 +105,7 @@ namespace Utilities.Security
             // trying to do. 
             return Convert.ToBase64String(encryptedData);
         }
+
         // Encrypt bytes into bytes using a password 
         //    Uses Encrypt(byte[], byte[], byte[]) 
         public static byte[] Encrypt(byte[] clearData, string Password)
@@ -114,7 +113,8 @@ namespace Utilities.Security
             // We need to turn the password into Key and IV. 
             // We are using salt to make it harder to guess our key using a dictionary attack - 
             // trying to guess a password by enumerating all possible words.
-            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+            var pdb = new PasswordDeriveBytes(Password,
+                new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
 
             // Now get the key/IV and do the encryption using the function that accepts byte arrays. 
             // Using PasswordDeriveBytes object we are first getting 32 bytes for the Key 
@@ -129,11 +129,12 @@ namespace Utilities.Security
         public static void Encrypt(string fileIn, string fileOut, string Password)
         {
             // First we are going to open the file streams 
-            FileStream fsIn = new FileStream(fileIn, FileMode.Open, FileAccess.Read);
-            FileStream fsOut = new FileStream(fileOut, FileMode.OpenOrCreate, FileAccess.Write);
+            var fsIn = new FileStream(fileIn, FileMode.Open, FileAccess.Read);
+            var fsOut = new FileStream(fileOut, FileMode.OpenOrCreate, FileAccess.Write);
 
             // Then we are going to derive a Key and an IV from the Password and create an algorithm 
-            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+            var pdb = new PasswordDeriveBytes(Password,
+                new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
 
             Rijndael alg = Rijndael.Create();
             alg.Key = pdb.GetBytes(32);
@@ -141,12 +142,12 @@ namespace Utilities.Security
 
             // Now create a crypto stream through which we are going to be pumping data. 
             // Our fileOut is going to be receiving the encrypted bytes. 
-            CryptoStream cs = new CryptoStream(fsOut, alg.CreateEncryptor(), CryptoStreamMode.Write);
+            var cs = new CryptoStream(fsOut, alg.CreateEncryptor(), CryptoStreamMode.Write);
 
             // Now will will initialize a buffer and will be processing the input file in chunks. 
             // This is done to avoid reading the whole file (which can be huge) into memory. 
             int bufferLen = 4096;
-            byte[] buffer = new byte[bufferLen];
+            var buffer = new byte[bufferLen];
             int bytesRead;
 
             do
@@ -167,7 +168,7 @@ namespace Utilities.Security
         public static byte[] Decrypt(byte[] cipherData, byte[] Key, byte[] IV)
         {
             // Create a MemoryStream that is going to accept the decrypted bytes 
-            MemoryStream ms = new MemoryStream();
+            var ms = new MemoryStream();
 
             // Create a symmetric algorithm. 
             // We are going to use Rijndael because it is strong and available on all platforms. 
@@ -188,7 +189,7 @@ namespace Utilities.Security
             // Create a CryptoStream through which we are going to be pumping our data. 
             // CryptoStreamMode.Write means that we are going to be writing data to the stream 
             // and the output will be written in the MemoryStream we have provided. 
-            CryptoStream cs = new CryptoStream(ms, alg.CreateDecryptor(), CryptoStreamMode.Write);
+            var cs = new CryptoStream(ms, alg.CreateDecryptor(), CryptoStreamMode.Write);
 
             // Write the data and make it do the decryption 
             cs.Write(cipherData, 0, cipherData.Length);
@@ -216,7 +217,8 @@ namespace Utilities.Security
             // Then, we need to turn the password into Key and IV 
             // We are using salt to make it harder to guess our key using a dictionary attack - 
             // trying to guess a password by enumerating all possible words.
-            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+            var pdb = new PasswordDeriveBytes(Password,
+                new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
 
             // Now get the key/IV and do the decryption using the function that accepts byte arrays. 
             // Using PasswordDeriveBytes object we are first getting 32 bytes for the Key 
@@ -231,8 +233,9 @@ namespace Utilities.Security
             // because not all byte values can be represented by characters.
             // We are going to be using Base64 encoding that is designedexactly for what we are 
             // trying to do. 
-            return System.Text.Encoding.Unicode.GetString(decryptedData);
+            return Encoding.Unicode.GetString(decryptedData);
         }
+
         // Decrypt bytes into bytes using a password 
         //    Uses Decrypt(byte[], byte[], byte[]) 
         public static byte[] Decrypt(byte[] cipherData, string Password)
@@ -240,7 +243,8 @@ namespace Utilities.Security
             // We need to turn the password into Key and IV. 
             // We are using salt to make it harder to guess our key using a dictionary attack - 
             // trying to guess a password by enumerating all possible words.
-            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+            var pdb = new PasswordDeriveBytes(Password,
+                new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
 
             // Now get the key/IV and do the Decryption using the function that accepts byte arrays. 
             // Using PasswordDeriveBytes object we are first getting 32bytes for the Key 
@@ -255,23 +259,24 @@ namespace Utilities.Security
         public static void Decrypt(string fileIn, string fileOut, string Password)
         {
             // First we are going to open the file streams 
-            FileStream fsIn = new FileStream(fileIn, FileMode.Open, FileAccess.Read);
-            FileStream fsOut = new FileStream(fileOut, FileMode.OpenOrCreate, FileAccess.Write);
+            var fsIn = new FileStream(fileIn, FileMode.Open, FileAccess.Read);
+            var fsOut = new FileStream(fileOut, FileMode.OpenOrCreate, FileAccess.Write);
 
             // Then we are going to derive a Key and an IV from the Password and create an algorithm 
-            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+            var pdb = new PasswordDeriveBytes(Password,
+                new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
             Rijndael alg = Rijndael.Create();
             alg.Key = pdb.GetBytes(32);
             alg.IV = pdb.GetBytes(16);
 
             // Now create a crypto stream through which we are going to be pumping data. 
             // Our fileOut is going to be receiving the Decrypted bytes. 
-            CryptoStream cs = new CryptoStream(fsOut, alg.CreateDecryptor(), CryptoStreamMode.Write);
+            var cs = new CryptoStream(fsOut, alg.CreateDecryptor(), CryptoStreamMode.Write);
 
             // Now will will initialize a buffer and will be processing the input file in chunks. 
             // This is done to avoid reading the whole file (which can be huge) into memory. 
             int bufferLen = 4096;
-            byte[] buffer = new byte[bufferLen];
+            var buffer = new byte[bufferLen];
             int bytesRead;
 
             do
