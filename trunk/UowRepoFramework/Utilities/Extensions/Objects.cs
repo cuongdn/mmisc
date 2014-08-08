@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -9,39 +10,38 @@ namespace Utilities.Extensions
     public static class Objects
     {
         /// <summary>
-        /// Returns an Object with the specified Type and whose value is equivalent to the specified object.
+        ///     Returns an Object with the specified Type and whose value is equivalent to the specified object.
         /// </summary>
         /// <param name="value">An Object that implements the IConvertible interface.</param>
         /// <returns>
-        /// An object whose Type is conversionType (or conversionType's underlying type if conversionType
-        /// is Nullable&lt;&gt;) and whose value is equivalent to value. -or- a null reference, if value is a null
-        /// reference and conversionType is not a value type.
+        ///     An object whose Type is conversionType (or conversionType's underlying type if conversionType
+        ///     is Nullable&lt;&gt;) and whose value is equivalent to value. -or- a null reference, if value is a null
+        ///     reference and conversionType is not a value type.
         /// </returns>
         /// <remarks>
-        /// This method exists as a workaround to System.Convert.ChangeType(Object, Type) which does not handle
-        /// nullables as of version 2.0 (2.0.50727.42) of the .NET Framework. The idea is that this method will
-        /// be deleted once Convert.ChangeType is updated in a future version of the .NET Framework to handle
-        /// nullable types, so we want this to behave as closely to Convert.ChangeType as possible.
-        /// This method was written by Peter Johnson at:
-        /// http://aspalliance.com/author.aspx?uId=1026.
+        ///     This method exists as a workaround to System.Convert.ChangeType(Object, Type) which does not handle
+        ///     nullables as of version 2.0 (2.0.50727.42) of the .NET Framework. The idea is that this method will
+        ///     be deleted once Convert.ChangeType is updated in a future version of the .NET Framework to handle
+        ///     nullable types, so we want this to behave as closely to Convert.ChangeType as possible.
+        ///     This method was written by Peter Johnson at:
+        ///     http://aspalliance.com/author.aspx?uId=1026.
         /// </remarks>
-        /// 
         public static T ChangeTypeTo<T>(this object value)
         {
-            Type conversionType = typeof(T);
-            return (T)ChangeTypeTo(value, conversionType);
+            Type conversionType = typeof (T);
+            return (T) ChangeTypeTo(value, conversionType);
         }
 
         public static T ChangeTypeTo<T>(this object value, object defaultValue)
         {
             try
             {
-                Type conversionType = typeof(T);
-                return (T)ChangeTypeTo(value, conversionType);
+                Type conversionType = typeof (T);
+                return (T) ChangeTypeTo(value, conversionType);
             }
             catch (Exception)
             {
-                return (T)defaultValue;
+                return (T) defaultValue;
             }
         }
 
@@ -54,7 +54,7 @@ namespace Utilities.Extensions
 
             // If it's not a nullable type, just pass through the parameters to Convert.ChangeType
 
-            if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
+            if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition().Equals(typeof (Nullable<>)))
             {
                 // It's a nullable type, so instead of calling Convert.ChangeType directly which would throw a
                 // InvalidCastException (per http://weblogs.asp.net/pjohnson/archive/2006/02/07/437631.aspx),
@@ -69,21 +69,21 @@ namespace Utilities.Extensions
 
                 // It's a nullable type, and not null, so that means it can be converted to its underlying type,
                 // so overwrite the passed-in conversion type with this underlying type
-                NullableConverter nullableConverter = new NullableConverter(conversionType);
+                var nullableConverter = new NullableConverter(conversionType);
                 conversionType = nullableConverter.UnderlyingType;
             }
-            else if (conversionType == typeof(Guid))
+            else if (conversionType == typeof (Guid))
             {
                 return new Guid(value.ToString());
-
             }
-            else if (conversionType == typeof(Int64) && value.GetType() == typeof(int))
+            else if (conversionType == typeof (Int64) && value.GetType() == typeof (int))
             {
                 //there is an issue with SQLite where the PK is ALWAYS int64. If this conversion type is Int64
                 //we need to throw here - suggesting that they need to use LONG instead
 
 
-                throw new InvalidOperationException("Can't convert an Int64 (long) to Int32(int). If you're using SQLite - this is probably due to your PK being an INTEGER, which is 64bit. You'll need to set your key to long.");
+                throw new InvalidOperationException(
+                    "Can't convert an Int64 (long) to Int32(int). If you're using SQLite - this is probably due to your PK being an INTEGER, which is 64bit. You'll need to set your key to long.");
             }
 
             // Now that we've guaranteed conversionType is something Convert.ChangeType can handle (i.e. not a
@@ -93,7 +93,7 @@ namespace Utilities.Extensions
 
         public static Dictionary<string, object> ToDictionary(this object value)
         {
-            Dictionary<string, object> result = new Dictionary<string, object>();
+            var result = new Dictionary<string, object>();
             PropertyInfo[] props = value.GetType().GetProperties();
             foreach (PropertyInfo pi in props)
             {
@@ -101,7 +101,9 @@ namespace Utilities.Extensions
                 {
                     result.Add(pi.Name, pi.GetValue(value, null));
                 }
-                catch { }
+                catch
+                {
+                }
             }
             return result;
         }
@@ -125,18 +127,18 @@ namespace Utilities.Extensions
         {
             Type t = From.GetType();
 
-            var settings = From.ToDictionary();
+            Dictionary<string, object> settings = From.ToDictionary();
 
             to = settings.FromDictionary(to);
 
             return to;
         }
 
-        public static Dictionary<string, string> ToDictionary(this System.Collections.Specialized.NameValueCollection value, string prefix)
+        public static Dictionary<string, string> ToDictionary(this NameValueCollection value, string prefix)
         {
-            var dic = new System.Collections.Generic.Dictionary<string, string>();
+            var dic = new Dictionary<string, string>();
             int index = prefix.Length;
-            foreach (var key in value.AllKeys)
+            foreach (string key in value.AllKeys)
             {
                 if (key.StartsWith(prefix))
                 {
@@ -145,16 +147,18 @@ namespace Utilities.Extensions
             }
             return dic;
         }
-        public static List<string> ToParams(this System.Collections.Specialized.NameValueCollection value, string name = "id")
+
+        public static List<string> ToParams(this NameValueCollection value, string name = "id")
         {
             if (value[name] == null)
                 return new List<string>();
-            var list = (from id in value[name].Split(',')
-                        let trimmed = id.Trim()
-                        where !String.IsNullOrEmpty(trimmed)
-                        select trimmed).ToList();
+            List<string> list = (from id in value[name].Split(',')
+                let trimmed = id.Trim()
+                where !String.IsNullOrEmpty(trimmed)
+                select trimmed).ToList();
             return list;
         }
+
         public static bool IsNullOrWhiteSpace(this object value)
         {
             return value == null || value.ToString().Trim() == "";
@@ -167,11 +171,13 @@ namespace Utilities.Extensions
             else
                 dic[key] = value;
         }
-        public static IDictionary<string, object> Merge(this IDictionary<string, object> source, params IDictionary<string, object>[] dictionaries)
+
+        public static IDictionary<string, object> Merge(this IDictionary<string, object> source,
+            params IDictionary<string, object>[] dictionaries)
         {
             foreach (var dic in dictionaries)
             {
-                foreach (var key in dic.Keys)
+                foreach (string key in dic.Keys)
                 {
                     Merge(source, key, dic[key]);
                 }
@@ -184,5 +190,4 @@ namespace Utilities.Extensions
             return String.Format(format, value);
         }
     }
-
 }

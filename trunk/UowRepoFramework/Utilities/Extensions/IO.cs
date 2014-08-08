@@ -4,34 +4,34 @@ using System.Net;
 namespace Utilities.Extensions
 {
     /// <summary>
-    /// Summary for the Files class
+    ///     Summary for the Files class
     /// </summary>
     public static class IO
     {
         /// <summary>
-        /// Read a text file and obtain it's contents.
+        ///     Read a text file and obtain it's contents.
         /// </summary>
         /// <param name="absolutePath">The complete file path to write to.</param>
         /// <returns>String containing the content of the file.</returns>
         public static string GetFileText(this string absolutePath)
         {
-            using(StreamReader sr = new StreamReader(absolutePath))
+            using (var sr = new StreamReader(absolutePath))
                 return sr.ReadToEnd();
         }
 
         /// <summary>
-        /// Creates or opens a file for writing and writes text to it.
+        ///     Creates or opens a file for writing and writes text to it.
         /// </summary>
         /// <param name="absolutePath">The complete file path to write to.</param>
         /// <param name="fileText">A String containing text to be written to the file.</param>
         public static void CreateToFile(this string fileText, string absolutePath)
         {
-            using(StreamWriter sw = File.CreateText(absolutePath))
+            using (StreamWriter sw = File.CreateText(absolutePath))
                 sw.Write(fileText);
         }
 
         /// <summary>
-        /// Update text within a file by replacing a substring within the file.
+        ///     Update text within a file by replacing a substring within the file.
         /// </summary>
         /// <param name="absolutePath">The complete file path to write to.</param>
         /// <param name="lookFor">A String to be replaced.</param>
@@ -43,18 +43,18 @@ namespace Utilities.Extensions
         }
 
         /// <summary>
-        /// Writes out a string to a file.
+        ///     Writes out a string to a file.
         /// </summary>
         /// <param name="absolutePath">The complete file path to write to.</param>
         /// <param name="fileText">A String containing text to be written to the file.</param>
         public static void WriteToFile(this string absolutePath, string fileText)
         {
-            using(StreamWriter sw = new StreamWriter(absolutePath, false))
+            using (var sw = new StreamWriter(absolutePath, false))
                 sw.Write(fileText);
         }
 
         /// <summary>
-        /// Fetches a web page
+        ///     Fetches a web page
         /// </summary>
         /// <param name="url">The URL.</param>
         /// <returns></returns>
@@ -62,9 +62,9 @@ namespace Utilities.Extensions
         {
             string webPage;
             WebRequest request = WebRequest.Create(url);
-            using(Stream stream = request.GetResponse().GetResponseStream())
+            using (Stream stream = request.GetResponse().GetResponseStream())
             {
-                StreamReader sr = new StreamReader(stream);
+                var sr = new StreamReader(stream);
                 webPage = sr.ReadToEnd();
                 sr.Close();
             }

@@ -1,5 +1,5 @@
-﻿using Repository.Pattern.Infrastructure;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Repository.Pattern.Infrastructure;
 
 namespace Repository.Pattern.Ef6
 {

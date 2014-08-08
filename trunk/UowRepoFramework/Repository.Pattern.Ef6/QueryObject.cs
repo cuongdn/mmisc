@@ -1,7 +1,7 @@
-﻿using LinqKit;
-using Repository.Pattern.Repositories;
-using System;
+﻿using System;
 using System.Linq.Expressions;
+using LinqKit;
+using Repository.Pattern.Repositories;
 
 namespace Repository.Pattern.Ef6
 {
