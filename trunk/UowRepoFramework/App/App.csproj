@@ -39,6 +39,10 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\Dependencies\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="LinqKit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\LinqKit.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\Dependencies\StructureMap.dll</HintPath>
     </Reference>
