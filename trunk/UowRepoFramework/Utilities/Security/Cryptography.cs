@@ -19,7 +19,7 @@ namespace Utilities.Security
             return sBuilder.ToString();
         }
 
-        private static bool VerifyMd5Hash(string input, string hash)
+        public static bool VerifyMd5Hash(string input, string hash)
         {
             string hashOfInput = CreateMd5Hash(input);
             StringComparer comparer = StringComparer.OrdinalIgnoreCase;
@@ -77,7 +77,7 @@ namespace Utilities.Security
 
         // Encrypt a string into a string using a password 
         //    Uses Encrypt(byte[], byte[], byte[]) 
-        public static string Encrypt(string clearText, string Password)
+        public static string Encrypt(string clearText, string password)
         {
             // First we need to turn the input string into a byte array. 
 
@@ -86,7 +86,7 @@ namespace Utilities.Security
             // Then, we need to turn the password into Key and IV 
             // We are using salt to make it harder to guess our key using a dictionary attack - 
             // trying to guess a password by enumerating all possible words.
-            var pdb = new PasswordDeriveBytes(Password,
+            var pdb = new PasswordDeriveBytes(password,
                 new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
 
             // Now get the key/IV and do the encryption using the function that accepts byte arrays. 
@@ -108,12 +108,12 @@ namespace Utilities.Security
 
         // Encrypt bytes into bytes using a password 
         //    Uses Encrypt(byte[], byte[], byte[]) 
-        public static byte[] Encrypt(byte[] clearData, string Password)
+        public static byte[] Encrypt(byte[] clearData, string password)
         {
             // We need to turn the password into Key and IV. 
             // We are using salt to make it harder to guess our key using a dictionary attack - 
             // trying to guess a password by enumerating all possible words.
-            var pdb = new PasswordDeriveBytes(Password,
+            var pdb = new PasswordDeriveBytes(password,
                 new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
 
             // Now get the key/IV and do the encryption using the function that accepts byte arrays. 
@@ -122,7 +122,7 @@ namespace Utilities.Security
             // IV should always be the block size, which is by default 16 bytes (128 bit) for Rijndael. 
             // If you are using DES/TripleDES/RC2 the block size is 8 bytes and so should be the IV size. 
             // You can also read KeySize/BlockSize properties off the algorithm to find out the sizes. 
-            return Encrypt(clearData, pdb.GetBytes(32), pdb.GetBytes(16));
+            return Encrypt(clearData, Key: pdb.GetBytes(32), IV: pdb.GetBytes(16));
         }
 
         // Encrypt a file into another file using a password 

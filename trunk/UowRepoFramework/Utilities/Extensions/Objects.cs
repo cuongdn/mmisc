@@ -185,9 +185,6 @@ namespace Utilities.Extensions
             return source;
         }
 
-        public static string Format(this object value, string format)
-        {
-            return String.Format(format, value);
-        }
+       
     }
 }

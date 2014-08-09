@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Repository.Pattern.Infrastructure;
@@ -27,7 +28,8 @@ namespace Repository.Pattern.Ef6
             _includes = new List<Expression<Func<TEntity, object>>>();
         }
 
-        public QueryFluent(Repository<TEntity> repository, IQueryObject<TEntity> queryObject) : this(repository)
+        public QueryFluent(Repository<TEntity> repository, IQueryObject<TEntity> queryObject)
+            : this(repository)
         {
             _expression = queryObject.Query();
         }
@@ -45,7 +47,16 @@ namespace Repository.Pattern.Ef6
             _orderBy = orderBy;
             return this;
         }
-
+        public IQueryFluent<TEntity> OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector)
+        {
+            _orderBy = q => q.OrderBy(keySelector);
+            return this;
+        }
+        public IQueryFluent<TEntity> OrderBy(string orderBy)
+        {
+            _orderBy = q => q.OrderBy(orderBy) as IOrderedQueryable<TEntity>;
+            return this;
+        }
         public IQueryFluent<TEntity> Include(Expression<Func<TEntity, object>> expression)
         {
             _includes.Add(expression);
