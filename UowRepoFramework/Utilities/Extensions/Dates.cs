@@ -118,7 +118,7 @@ namespace Utilities.Extensions
         /// <returns></returns>
         public static TimeSpan Diff(this DateTime dateOne, DateTime dateTwo)
         {
-            TimeSpan t = dateOne.Subtract(dateTwo);
+            var t = dateOne.Subtract(dateTwo);
             return t;
         }
 
@@ -211,12 +211,12 @@ namespace Utilities.Extensions
         {
             string result;
 
-            int seconds = endTime.Second - startTime.Second;
-            int minutes = endTime.Minute - startTime.Minute;
-            int hours = endTime.Hour - startTime.Hour;
-            int days = endTime.Day - startTime.Day;
-            int months = endTime.Month - startTime.Month;
-            int years = endTime.Year - startTime.Year;
+            var seconds = endTime.Second - startTime.Second;
+            var minutes = endTime.Minute - startTime.Minute;
+            var hours = endTime.Hour - startTime.Hour;
+            var days = endTime.Day - startTime.Day;
+            var months = endTime.Month - startTime.Month;
+            var years = endTime.Year - startTime.Year;
 
             if (seconds < 0)
             {
@@ -237,8 +237,8 @@ namespace Utilities.Extensions
             if (days < 0)
             {
                 months--;
-                int previousMonth = (endTime.Month == 1) ? 12 : endTime.Month - 1;
-                int year = (previousMonth == 12) ? endTime.Year - 1 : endTime.Year;
+                var previousMonth = (endTime.Month == 1) ? 12 : endTime.Month - 1;
+                var year = (previousMonth == 12) ? endTime.Year - 1 : endTime.Year;
                 days += DateTime.DaysInMonth(year, previousMonth);
             }
             if (months < 0)
@@ -297,12 +297,12 @@ namespace Utilities.Extensions
         /// <returns></returns>
         public static int CountWeekdays(this DateTime startTime, DateTime endTime)
         {
-            TimeSpan ts = endTime - startTime;
+            var ts = endTime - startTime;
             Console.WriteLine(ts.Days);
-            int cnt = 0;
-            for (int i = 0; i < ts.Days; i++)
+            var cnt = 0;
+            for (var i = 0; i < ts.Days; i++)
             {
-                DateTime dt = startTime.AddDays(i);
+                var dt = startTime.AddDays(i);
                 if (IsWeekDay(dt))
                     cnt++;
             }
@@ -317,12 +317,12 @@ namespace Utilities.Extensions
         /// <returns></returns>
         public static int CountWeekends(this DateTime startTime, DateTime endTime)
         {
-            TimeSpan ts = endTime - startTime;
+            var ts = endTime - startTime;
             Console.WriteLine(ts.Days);
-            int cnt = 0;
-            for (int i = 0; i < ts.Days; i++)
+            var cnt = 0;
+            for (var i = 0; i < ts.Days; i++)
             {
-                DateTime dt = startTime.AddDays(i);
+                var dt = startTime.AddDays(i);
                 if (IsWeekEnd(dt))
                     cnt++;
             }
@@ -375,12 +375,12 @@ namespace Utilities.Extensions
         /// <returns></returns>
         public static string TimeDiff(this DateTime startTime, DateTime endTime)
         {
-            int seconds = endTime.Second - startTime.Second;
-            int minutes = endTime.Minute - startTime.Minute;
-            int hours = endTime.Hour - startTime.Hour;
-            int days = endTime.Day - startTime.Day;
-            int months = endTime.Month - startTime.Month;
-            int years = endTime.Year - startTime.Year;
+            var seconds = endTime.Second - startTime.Second;
+            var minutes = endTime.Minute - startTime.Minute;
+            var hours = endTime.Hour - startTime.Hour;
+            var days = endTime.Day - startTime.Day;
+            var months = endTime.Month - startTime.Month;
+            var years = endTime.Year - startTime.Year;
             if (seconds < 0)
             {
                 minutes--;
@@ -399,8 +399,8 @@ namespace Utilities.Extensions
             if (days < 0)
             {
                 months--;
-                int previousMonth = (endTime.Month == 1) ? 12 : endTime.Month - 1;
-                int year = (previousMonth == 12) ? endTime.Year - 1 : endTime.Year;
+                var previousMonth = (endTime.Month == 1) ? 12 : endTime.Month - 1;
+                var year = (previousMonth == 12) ? endTime.Year - 1 : endTime.Year;
                 days += DateTime.DaysInMonth(year, previousMonth);
             }
             if (months < 0)
@@ -409,12 +409,12 @@ namespace Utilities.Extensions
                 months += 12;
             }
 
-            string sYears = FormatString(YEAR, String.Empty, years);
-            string sMonths = FormatString(MONTH, sYears, months);
-            string sDays = FormatString(DAY, sMonths, days);
-            string sHours = FormatString(HOUR, sDays, hours);
-            string sMinutes = FormatString(MINUTE, sHours, minutes);
-            string sSeconds = FormatString(SECOND, sMinutes, seconds);
+            var sYears = FormatString(YEAR, String.Empty, years);
+            var sMonths = FormatString(MONTH, sYears, months);
+            var sDays = FormatString(DAY, sMonths, days);
+            var sHours = FormatString(HOUR, sDays, hours);
+            var sMinutes = FormatString(MINUTE, sHours, minutes);
+            var sSeconds = FormatString(SECOND, sMinutes, seconds);
 
             return String.Concat(sYears, sMonths, sDays, sHours, sMinutes, sSeconds);
         }
@@ -436,8 +436,8 @@ namespace Utilities.Extensions
         /// <returns></returns>
         public static string GetDateDayWithSuffix(this DateTime date)
         {
-            int dayNumber = date.Day;
-            string suffix = "th";
+            var dayNumber = date.Day;
+            var suffix = "th";
 
             if (dayNumber == 1 || dayNumber == 21 || dayNumber == 31)
                 suffix = "st";
@@ -461,7 +461,7 @@ namespace Utilities.Extensions
             if ((t == 0) && (previousStr.Length == 0))
                 return String.Empty;
 
-            string suffix = (t == 1) ? String.Empty : "s";
+            var suffix = (t == 1) ? String.Empty : "s";
             return String.Concat(t, SPACE, str, suffix, SPACE);
         }
     }

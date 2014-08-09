@@ -99,7 +99,7 @@ namespace Utilities.Extensions
         {
             var random = new Byte[4];
             new RNGCryptoServiceProvider().GetBytes(random);
-            int randomNumber = BitConverter.ToInt32(random, 0);
+            var randomNumber = BitConverter.ToInt32(random, 0);
 
             return Math.Abs(randomNumber%high);
         }

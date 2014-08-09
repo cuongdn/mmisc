@@ -38,7 +38,7 @@ namespace Utilities.PagedList
 
         public static IPagedList<T> ToPagedList<T>(this IEnumerable<T> superset)
         {
-            int count = superset == null ? 0 : superset.Count();
+            var count = superset == null ? 0 : superset.Count();
             return new PagedList<T>(superset, 1, count, count);
         }
 
@@ -104,8 +104,8 @@ namespace Utilities.PagedList
                 yield return superset;
             else
             {
-                double numberOfPages = Math.Ceiling(superset.Count()/(double) pageSize);
-                for (int i = 0; i < numberOfPages; i++)
+                var numberOfPages = Math.Ceiling(superset.Count()/(double) pageSize);
+                for (var i = 0; i < numberOfPages; i++)
                     yield return superset.Skip(pageSize*i).Take(pageSize);
             }
         }

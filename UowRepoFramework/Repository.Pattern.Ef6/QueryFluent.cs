@@ -47,16 +47,19 @@ namespace Repository.Pattern.Ef6
             _orderBy = orderBy;
             return this;
         }
+
         public IQueryFluent<TEntity> OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector)
         {
             _orderBy = q => q.OrderBy(keySelector);
             return this;
         }
+
         public IQueryFluent<TEntity> OrderBy(string orderBy)
         {
             _orderBy = q => q.OrderBy(orderBy) as IOrderedQueryable<TEntity>;
             return this;
         }
+
         public IQueryFluent<TEntity> Include(Expression<Func<TEntity, object>> expression)
         {
             _includes.Add(expression);

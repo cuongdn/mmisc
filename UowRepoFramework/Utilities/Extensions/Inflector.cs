@@ -151,12 +151,12 @@ namespace Utilities.Extensions
         /// <returns></returns>
         private static string ApplyRules(IList<InflectorRule> rules, string word)
         {
-            string result = word;
+            var result = word;
             if (!_uncountables.Contains(word.ToLower()))
             {
-                for (int i = rules.Count - 1; i >= 0; i--)
+                for (var i = rules.Count - 1; i >= 0; i--)
                 {
-                    string currentPass = rules[i].Apply(word);
+                    var currentPass = rules[i].Apply(word);
                     if (currentPass != null)
                     {
                         result = currentPass;
@@ -195,7 +195,7 @@ namespace Utilities.Extensions
         /// <returns></returns>
         public static string ToProper(this string sourceString)
         {
-            string propertyName = sourceString.ToPascalCase();
+            var propertyName = sourceString.ToPascalCase();
             return propertyName;
         }
 
@@ -221,21 +221,21 @@ namespace Utilities.Extensions
                 return text;
 
             text = text.Replace("_", " ");
-            string joinString = removeUnderscores ? String.Empty : "_";
-            string[] words = text.Split(' ');
+            var joinString = removeUnderscores ? String.Empty : "_";
+            var words = text.Split(' ');
             if (words.Length > 1 || words[0].IsUpperCase())
             {
-                for (int i = 0; i < words.Length; i++)
+                for (var i = 0; i < words.Length; i++)
                 {
                     if (words[i].Length > 0)
                     {
-                        string word = words[i];
-                        string restOfWord = word.Substring(1);
+                        var word = words[i];
+                        var restOfWord = word.Substring(1);
 
                         if (restOfWord.IsUpperCase())
                             restOfWord = restOfWord.ToLower(CultureInfo.CurrentUICulture);
 
-                        char firstChar = char.ToUpper(word[0], CultureInfo.CurrentUICulture);
+                        var firstChar = char.ToUpper(word[0], CultureInfo.CurrentUICulture);
                         words[i] = String.Concat(firstChar, restOfWord);
                     }
                 }
@@ -296,8 +296,8 @@ namespace Utilities.Extensions
         {
             if (number.IsStringNumeric())
             {
-                int n = int.Parse(number);
-                int nMod100 = n%100;
+                var n = int.Parse(number);
+                var nMod100 = n%100;
 
                 if (nMod100 >= 11 && nMod100 <= 13)
                     return String.Concat(number, "th");
@@ -339,11 +339,11 @@ namespace Utilities.Extensions
                 return text;
 
             text = text.Replace("_", " ");
-            string joinString = "-";
-            string[] words = text.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
-            for (int i = 0; i < words.Length; i++)
+            var joinString = "-";
+            var words = text.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+            for (var i = 0; i < words.Length; i++)
             {
-                string word = words[i];
+                var word = words[i];
                 words[i] = word.UnicodeToAscii().ToLower();
             }
             return String.Join(joinString, words);
@@ -385,7 +385,7 @@ namespace Utilities.Extensions
                 if (!regex.IsMatch(word))
                     return null;
 
-                string replace = regex.Replace(word, replacement);
+                var replace = regex.Replace(word, replacement);
                 if (word == word.ToUpper())
                     replace = replace.ToUpper();
 

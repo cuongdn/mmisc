@@ -151,16 +151,16 @@ namespace Repository.Pattern.Ef6.Factories
         protected virtual T MakeRepository<T>(Func<IDataContextAsync, IUnitOfWorkAsync, dynamic> factory,
             IDataContextAsync dbContext, IUnitOfWorkAsync unitOfWorkAsync)
         {
-            Func<IDataContextAsync, IUnitOfWorkAsync, dynamic> repositoryFactory = factory ??
-                                                                                   _repositoryFactories
-                                                                                       .GetRepositoryFactory<T>();
+            var repositoryFactory = factory ??
+                                    _repositoryFactories
+                                        .GetRepositoryFactory<T>();
 
             if (repositoryFactory == null)
             {
                 throw new NotImplementedException("No factory for repository type, " + typeof (T).FullName);
             }
 
-            dynamic repository = repositoryFactory(dbContext, unitOfWorkAsync);
+            var repository = repositoryFactory(dbContext, unitOfWorkAsync);
             Repositories[typeof (T)] = repository;
 
             return repository;

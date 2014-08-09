@@ -28,7 +28,7 @@ namespace Utilities.Extensions
         /// </remarks>
         public static T ChangeTypeTo<T>(this object value)
         {
-            Type conversionType = typeof (T);
+            var conversionType = typeof (T);
             return (T) ChangeTypeTo(value, conversionType);
         }
 
@@ -36,7 +36,7 @@ namespace Utilities.Extensions
         {
             try
             {
-                Type conversionType = typeof (T);
+                var conversionType = typeof (T);
                 return (T) ChangeTypeTo(value, conversionType);
             }
             catch (Exception)
@@ -94,7 +94,7 @@ namespace Utilities.Extensions
         public static Dictionary<string, object> ToDictionary(this object value)
         {
             var result = new Dictionary<string, object>();
-            PropertyInfo[] props = value.GetType().GetProperties();
+            var props = value.GetType().GetProperties();
             foreach (PropertyInfo pi in props)
             {
                 try
@@ -110,7 +110,7 @@ namespace Utilities.Extensions
 
         public static T FromDictionary<T>(this Dictionary<string, object> settings, T item) where T : class
         {
-            PropertyInfo[] props = item.GetType().GetProperties();
+            var props = item.GetType().GetProperties();
             //FieldInfo[] fields = item.GetType().GetFields();
             foreach (PropertyInfo pi in props)
             {
@@ -125,7 +125,7 @@ namespace Utilities.Extensions
 
         public static T CopyTo<T>(this object From, T to) where T : class
         {
-            Type t = From.GetType();
+            var t = From.GetType();
 
             Dictionary<string, object> settings = From.ToDictionary();
 
@@ -137,7 +137,7 @@ namespace Utilities.Extensions
         public static Dictionary<string, string> ToDictionary(this NameValueCollection value, string prefix)
         {
             var dic = new Dictionary<string, string>();
-            int index = prefix.Length;
+            var index = prefix.Length;
             foreach (string key in value.AllKeys)
             {
                 if (key.StartsWith(prefix))
@@ -152,7 +152,7 @@ namespace Utilities.Extensions
         {
             if (value[name] == null)
                 return new List<string>();
-            List<string> list = (from id in value[name].Split(',')
+            var list = (from id in value[name].Split(',')
                 let trimmed = id.Trim()
                 where !String.IsNullOrEmpty(trimmed)
                 select trimmed).ToList();
@@ -175,7 +175,7 @@ namespace Utilities.Extensions
         public static IDictionary<string, object> Merge(this IDictionary<string, object> source,
             params IDictionary<string, object>[] dictionaries)
         {
-            foreach (var dic in dictionaries)
+            foreach (IDictionary<string, object> dic in dictionaries)
             {
                 foreach (string key in dic.Keys)
                 {
@@ -184,7 +184,5 @@ namespace Utilities.Extensions
             }
             return source;
         }
-
-       
     }
 }

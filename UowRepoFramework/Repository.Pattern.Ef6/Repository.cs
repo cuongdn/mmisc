@@ -97,7 +97,7 @@ namespace Repository.Pattern.Ef6
 
         public virtual void Delete(object id)
         {
-            TEntity entity = _dbSet.Find(id);
+            var entity = _dbSet.Find(id);
             Delete(entity);
         }
 
@@ -155,7 +155,7 @@ namespace Repository.Pattern.Ef6
 
         public virtual async Task<bool> DeleteAsync(CancellationToken cancellationToken, params object[] keyValues)
         {
-            TEntity entity = await FindAsync(cancellationToken, keyValues);
+            var entity = await FindAsync(cancellationToken, keyValues);
 
             if (entity == null)
             {
