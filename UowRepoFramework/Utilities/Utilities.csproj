@@ -43,7 +43,6 @@
     <Compile Include="Extensions\Enums.cs" />
     <Compile Include="Extensions\Inflector.cs" />
     <Compile Include="Extensions\IO.cs" />
-    <Compile Include="Extensions\OrderedQueryables.cs" />
     <Compile Include="Extensions\Numeric.cs" />
     <Compile Include="Extensions\Objects.cs" />
     <Compile Include="Extensions\RegexPattern.cs" />
