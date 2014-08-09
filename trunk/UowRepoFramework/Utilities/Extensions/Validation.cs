@@ -423,7 +423,7 @@ namespace Utilities.Extensions
             if (creditCardNumber.IsInteger())
             {
                 var numArray = new int[creditCardNumber.Length];
-                for (int i = 0; i < numArray.Length; i++)
+                for (var i = 0; i < numArray.Length; i++)
                     numArray[i] = Convert.ToInt16(creditCardNumber[i].ToString());
 
                 return IsValidLuhn(numArray);
@@ -440,9 +440,9 @@ namespace Utilities.Extensions
         /// </returns>
         public static bool IsValidLuhn(this int[] digits)
         {
-            int sum = 0;
-            bool alt = false;
-            for (int i = digits.Length - 1; i >= 0; i--)
+            var sum = 0;
+            var alt = false;
+            for (var i = digits.Length - 1; i >= 0; i--)
             {
                 if (alt)
                 {

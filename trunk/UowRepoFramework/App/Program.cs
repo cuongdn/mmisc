@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using App.Model;
+using DataAccess.Model;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Ef6;
 using Repository.Pattern.Ef6.Factories;

@@ -26,7 +26,7 @@ namespace Utilities.Extensions
         /// <param name="fileText">A String containing text to be written to the file.</param>
         public static void CreateToFile(this string fileText, string absolutePath)
         {
-            using (StreamWriter sw = File.CreateText(absolutePath))
+            using (var sw = File.CreateText(absolutePath))
                 sw.Write(fileText);
         }
 
@@ -38,7 +38,7 @@ namespace Utilities.Extensions
         /// <param name="replaceWith">A String to replace all occurrences of lookFor.</param>
         public static void UpdateFileText(this string absolutePath, string lookFor, string replaceWith)
         {
-            string newText = GetFileText(absolutePath).Replace(lookFor, replaceWith);
+            var newText = GetFileText(absolutePath).Replace(lookFor, replaceWith);
             WriteToFile(absolutePath, newText);
         }
 
@@ -61,8 +61,8 @@ namespace Utilities.Extensions
         public static string ReadWebPage(string url)
         {
             string webPage;
-            WebRequest request = WebRequest.Create(url);
-            using (Stream stream = request.GetResponse().GetResponseStream())
+            var request = WebRequest.Create(url);
+            using (var stream = request.GetResponse().GetResponseStream())
             {
                 var sr = new StreamReader(stream);
                 webPage = sr.ReadToEnd();

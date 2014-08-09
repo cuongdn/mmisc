@@ -9,10 +9,10 @@ namespace Utilities.Security
     {
         public static string CreateMd5Hash(string stringToHash)
         {
-            MD5 md5Hasher = MD5.Create();
-            byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(stringToHash));
+            var md5Hasher = MD5.Create();
+            var data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(stringToHash));
             var sBuilder = new StringBuilder();
-            for (int i = 0; i < data.Length; i++)
+            for (var i = 0; i < data.Length; i++)
             {
                 sBuilder.Append(data[i].ToString("x2"));
             }
@@ -21,8 +21,8 @@ namespace Utilities.Security
 
         public static bool VerifyMd5Hash(string input, string hash)
         {
-            string hashOfInput = CreateMd5Hash(input);
-            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+            var hashOfInput = CreateMd5Hash(input);
+            var comparer = StringComparer.OrdinalIgnoreCase;
             if (0 == comparer.Compare(hashOfInput, hash))
             {
                 return true;
@@ -41,7 +41,7 @@ namespace Utilities.Security
             // You can use other algorithms, to do so substitute the next line with something like 
             // TripleDES alg = TripleDES.Create(); 
 
-            Rijndael alg = Rijndael.Create();
+            var alg = Rijndael.Create();
 
             // Now set the key and the IV. 
             // We need the IV (Initialization Vector) because the algorithm is operating in its default 
@@ -70,7 +70,7 @@ namespace Utilities.Security
 
             // Now get the encrypted data from the MemoryStream. 
             // Some people make a mistake of using GetBuffer() here, which is not the right way. 
-            byte[] encryptedData = ms.ToArray();
+            var encryptedData = ms.ToArray();
 
             return encryptedData;
         }
@@ -81,7 +81,7 @@ namespace Utilities.Security
         {
             // First we need to turn the input string into a byte array. 
 
-            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            var clearBytes = Encoding.Unicode.GetBytes(clearText);
 
             // Then, we need to turn the password into Key and IV 
             // We are using salt to make it harder to guess our key using a dictionary attack - 
@@ -96,7 +96,7 @@ namespace Utilities.Security
             // If you are using DES/TripleDES/RC2 the block size is 8 bytes and so should be the IV size. 
             // You can also read KeySize/BlockSize properties off the algorithm to find out the sizes. 
 
-            byte[] encryptedData = Encrypt(clearBytes, pdb.GetBytes(32), pdb.GetBytes(16));
+            var encryptedData = Encrypt(clearBytes, pdb.GetBytes(32), pdb.GetBytes(16));
 
             // Now we need to turn the resulting byte array into a string. 
             // A common mistake would be to use an Encoding class for that. It does not work 
@@ -122,7 +122,7 @@ namespace Utilities.Security
             // IV should always be the block size, which is by default 16 bytes (128 bit) for Rijndael. 
             // If you are using DES/TripleDES/RC2 the block size is 8 bytes and so should be the IV size. 
             // You can also read KeySize/BlockSize properties off the algorithm to find out the sizes. 
-            return Encrypt(clearData, Key: pdb.GetBytes(32), IV: pdb.GetBytes(16));
+            return Encrypt(clearData, pdb.GetBytes(32), pdb.GetBytes(16));
         }
 
         // Encrypt a file into another file using a password 
@@ -136,7 +136,7 @@ namespace Utilities.Security
             var pdb = new PasswordDeriveBytes(Password,
                 new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
 
-            Rijndael alg = Rijndael.Create();
+            var alg = Rijndael.Create();
             alg.Key = pdb.GetBytes(32);
             alg.IV = pdb.GetBytes(16);
 
@@ -146,7 +146,7 @@ namespace Utilities.Security
 
             // Now will will initialize a buffer and will be processing the input file in chunks. 
             // This is done to avoid reading the whole file (which can be huge) into memory. 
-            int bufferLen = 4096;
+            var bufferLen = 4096;
             var buffer = new byte[bufferLen];
             int bytesRead;
 
@@ -175,7 +175,7 @@ namespace Utilities.Security
             // You can use other algorithms, to do so substitute the next line with something like 
             // TripleDES alg = TripleDES.Create(); 
 
-            Rijndael alg = Rijndael.Create();
+            var alg = Rijndael.Create();
 
             // Now set the key and the IV. 
             // We need the IV (Initialization Vector) because the algorithm is operating in its default 
@@ -201,7 +201,7 @@ namespace Utilities.Security
 
             // Now get the decrypted data from the MemoryStream. 
             // Some people make a mistake of using GetBuffer() here, which is not the right way. 
-            byte[] decryptedData = ms.ToArray();
+            var decryptedData = ms.ToArray();
 
             return decryptedData;
         }
@@ -212,7 +212,7 @@ namespace Utilities.Security
         {
             // First we need to turn the input string into a byte array. 
             // We presume that Base64 encoding was used 
-            byte[] cipherBytes = Convert.FromBase64String(cipherText);
+            var cipherBytes = Convert.FromBase64String(cipherText);
 
             // Then, we need to turn the password into Key and IV 
             // We are using salt to make it harder to guess our key using a dictionary attack - 
@@ -226,7 +226,7 @@ namespace Utilities.Security
             // IV should always be the block size, which is by default 16 bytes (128 bit) for Rijndael. 
             // If you are using DES/TripleDES/RC2 the block size is 8 bytes and so should be the IV size.              
             // You can also read KeySize/BlockSize properties off the algorithm to find out the sizes. 
-            byte[] decryptedData = Decrypt(cipherBytes, pdb.GetBytes(32), pdb.GetBytes(16));
+            var decryptedData = Decrypt(cipherBytes, pdb.GetBytes(32), pdb.GetBytes(16));
 
             // Now we need to turn the resulting byte array into a string. 
             // A common mistake would be to use an Encoding class for that. It does not work 
@@ -265,7 +265,7 @@ namespace Utilities.Security
             // Then we are going to derive a Key and an IV from the Password and create an algorithm 
             var pdb = new PasswordDeriveBytes(Password,
                 new byte[] {0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76});
-            Rijndael alg = Rijndael.Create();
+            var alg = Rijndael.Create();
             alg.Key = pdb.GetBytes(32);
             alg.IV = pdb.GetBytes(16);
 
@@ -275,7 +275,7 @@ namespace Utilities.Security
 
             // Now will will initialize a buffer and will be processing the input file in chunks. 
             // This is done to avoid reading the whole file (which can be huge) into memory. 
-            int bufferLen = 4096;
+            var bufferLen = 4096;
             var buffer = new byte[bufferLen];
             int bytesRead;
 
@@ -301,12 +301,12 @@ namespace Utilities.Security
         {
             if (args.Length == 0)
             {
-                string plainText = "This is some plain text";
-                string Password = "Password";
+                var plainText = "This is some plain text";
+                var Password = "Password";
                 Console.WriteLine("Plain text: \"" + plainText + "\", Password: \"" + Password + "\"");
-                string cipherText = Encrypt(plainText, Password);
+                var cipherText = Encrypt(plainText, Password);
                 Console.WriteLine("Encrypted text: " + cipherText);
-                string decryptedText = Decrypt(cipherText, Password);
+                var decryptedText = Decrypt(cipherText, Password);
                 Console.WriteLine("Decrypted: " + decryptedText);
             }
             else

@@ -47,7 +47,7 @@ namespace Utilities.Extensions
         /// <returns></returns>
         public static string Chop(this string sourceString, int removeFromEnd)
         {
-            string result = sourceString;
+            var result = sourceString;
             if ((removeFromEnd > 0) && (sourceString.Length > removeFromEnd - 1))
                 result = result.Remove(sourceString.Length - removeFromEnd, removeFromEnd);
             return result;
@@ -61,12 +61,12 @@ namespace Utilities.Extensions
         /// <returns></returns>
         public static string Chop(this string sourceString, string backDownTo)
         {
-            int removeDownTo = sourceString.LastIndexOf(backDownTo);
-            int removeFromEnd = 0;
+            var removeDownTo = sourceString.LastIndexOf(backDownTo);
+            var removeFromEnd = 0;
             if (removeDownTo > 0)
                 removeFromEnd = sourceString.Length - removeDownTo;
 
-            string result = sourceString;
+            var result = sourceString;
 
             if (sourceString.Length > removeFromEnd - 1)
                 result = result.Remove(removeDownTo, removeFromEnd);
@@ -115,7 +115,7 @@ namespace Utilities.Extensions
         /// <returns></returns>
         public static string Clip(this string sourceString, int removeFromBeginning)
         {
-            string result = sourceString;
+            var result = sourceString;
             if (sourceString.Length > removeFromBeginning)
                 result = result.Remove(0, removeFromBeginning);
             return result;
@@ -129,8 +129,8 @@ namespace Utilities.Extensions
         /// <returns></returns>
         public static string Clip(this string sourceString, string removeUpTo)
         {
-            int removeFromBeginning = sourceString.IndexOf(removeUpTo);
-            string result = sourceString;
+            var removeFromBeginning = sourceString.IndexOf(removeUpTo);
+            var result = sourceString;
 
             if (sourceString.Length > removeFromBeginning && removeFromBeginning > 0)
                 result = result.Remove(0, removeFromBeginning);
@@ -187,9 +187,9 @@ namespace Utilities.Extensions
             if (String.IsNullOrEmpty(pattern))
                 return original;
 
-            int lenPattern = pattern.Length;
-            int idxPattern = -1;
-            int idxLast = 0;
+            var lenPattern = pattern.Length;
+            var idxPattern = -1;
+            var idxLast = 0;
 
             var result = new StringBuilder();
 
@@ -221,12 +221,12 @@ namespace Utilities.Extensions
         /// <returns></returns>
         public static string Crop(this string sourceString, string startText, string endText)
         {
-            int startIndex = sourceString.IndexOf(startText, StringComparison.CurrentCultureIgnoreCase);
+            var startIndex = sourceString.IndexOf(startText, StringComparison.CurrentCultureIgnoreCase);
             if (startIndex == -1)
                 return String.Empty;
 
             startIndex += startText.Length;
-            int endIndex = sourceString.IndexOf(endText, startIndex, StringComparison.CurrentCultureIgnoreCase);
+            var endIndex = sourceString.IndexOf(endText, startIndex, StringComparison.CurrentCultureIgnoreCase);
             if (endIndex == -1)
                 return String.Empty;
 
@@ -241,7 +241,7 @@ namespace Utilities.Extensions
         public static string Squeeze(this string sourceString)
         {
             char[] delim = {' '};
-            string[] lines = sourceString.Split(delim, StringSplitOptions.RemoveEmptyEntries);
+            var lines = sourceString.Split(delim, StringSplitOptions.RemoveEmptyEntries);
             var sb = new StringBuilder();
             foreach (string s in lines)
             {
@@ -249,7 +249,7 @@ namespace Utilities.Extensions
                     sb.Append(s + " ");
             }
             //remove the last pipe
-            string result = Chop(sb.ToString());
+            var result = Chop(sb.ToString());
             return result.Trim();
         }
 
@@ -270,7 +270,7 @@ namespace Utilities.Extensions
         /// <returns></returns>
         public static string[] ToWords(this string sourceString)
         {
-            string result = sourceString.Trim();
+            var result = sourceString.Trim();
             return result.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
         }
 
@@ -293,7 +293,7 @@ namespace Utilities.Extensions
         public static string StripHTML(this string htmlString, string htmlPlaceHolder)
         {
             const string pattern = @"<(.|\n)*?>";
-            string sOut = Regex.Replace(htmlString, pattern, htmlPlaceHolder);
+            var sOut = Regex.Replace(htmlString, pattern, htmlPlaceHolder);
             sOut = sOut.Replace("&nbsp;", String.Empty);
             sOut = sOut.Replace("&amp;", "&");
             sOut = sOut.Replace("&gt;", ">");
@@ -332,7 +332,7 @@ namespace Utilities.Extensions
             var sb = new StringBuilder();
             foreach (string s in list)
                 sb.Append(String.Concat(s, delimiter));
-            string result = sb.ToString();
+            var result = sb.ToString();
             result = Chop(result);
             return result;
         }
@@ -347,8 +347,8 @@ namespace Utilities.Extensions
         {
             if (!String.IsNullOrEmpty(stripValue))
             {
-                string[] replace = stripValue.Split(new[] {','});
-                for (int i = 0; i < replace.Length; i++)
+                var replace = stripValue.Split(new[] {','});
+                for (var i = 0; i < replace.Length; i++)
                 {
                     if (!String.IsNullOrEmpty(sourceString))
                         sourceString = Regex.Replace(sourceString, replace[i], String.Empty);
@@ -364,9 +364,9 @@ namespace Utilities.Extensions
         /// <returns></returns>
         public static string AsciiToUnicode(this int asciiCode)
         {
-            Encoding ascii = Encoding.UTF32;
+            var ascii = Encoding.UTF32;
             var c = (char) asciiCode;
-            Byte[] b = ascii.GetBytes(c.ToString());
+            var b = ascii.GetBytes(c.ToString());
             return ascii.GetString((b));
         }
 
@@ -377,7 +377,7 @@ namespace Utilities.Extensions
         /// <returns></returns>
         public static string TextToEntity(this string textString)
         {
-            foreach (var key in EntityTable)
+            foreach (KeyValuePair<int, string> key in EntityTable)
                 textString = textString.Replace(AsciiToUnicode(key.Key), key.Value);
             return textString.Replace(AsciiToUnicode(38), "&amp;");
         }
@@ -390,7 +390,7 @@ namespace Utilities.Extensions
         public static string EntityToText(this string entityText)
         {
             entityText = entityText.Replace("&amp;", "&");
-            foreach (var key in EntityTable)
+            foreach (KeyValuePair<int, string> key in EntityTable)
                 entityText = entityText.Replace(key.Value, AsciiToUnicode(key.Key));
             return entityText;
         }
@@ -414,8 +414,8 @@ namespace Utilities.Extensions
         /// <returns></returns>
         public static T ToEnum<T>(this string Value)
         {
-            T oOut = default(T);
-            Type t = typeof (T);
+            var oOut = default(T);
+            var t = typeof (T);
             foreach (FieldInfo fi in t.GetFields())
             {
                 if (fi.Name.Matches(Value))
@@ -692,7 +692,7 @@ namespace Utilities.Extensions
         public static string USStateNameToAbbrev(string stateName)
         {
             stateName = stateName.ToUpper();
-            foreach (var key in UsStateTable)
+            foreach (KeyValuePair<string, string> key in UsStateTable)
             {
                 if (stateName == key.Key)
                     return key.Value;
@@ -709,7 +709,7 @@ namespace Utilities.Extensions
         public static string USStateAbbrevToName(string stateAbbrev)
         {
             stateAbbrev = stateAbbrev.ToUpper();
-            foreach (var key in UsStateTable)
+            foreach (KeyValuePair<string, string> key in UsStateTable)
             {
                 if (stateAbbrev == key.Value)
                     return key.Key;
@@ -823,10 +823,10 @@ namespace Utilities.Extensions
         {
             if (string.IsNullOrEmpty(value))
                 return new T[0];
-            string[] array = value.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
-            int n = array.Length;
+            var array = value.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+            var n = array.Length;
             var values = new T[n];
-            for (int i = 0; i < n; i++)
+            for (var i = 0; i < n; i++)
             {
                 values[i] = array[i].ChangeTypeTo<T>();
             }
@@ -846,7 +846,7 @@ namespace Utilities.Extensions
         public static string UnicodeToAscii(this string unicode)
         {
             var reg = new Regex("\\p{IsCombiningDiacriticalMarks}+");
-            string frmD = unicode.Normalize(NormalizationForm.FormD);
+            var frmD = unicode.Normalize(NormalizationForm.FormD);
             return reg.Replace(frmD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
         }
     }

@@ -54,7 +54,7 @@ namespace Common
             IsFirstPage = PageNumber == 1;
             IsLastPage = PageNumber >= PageCount;
             FirstItemOnPage = (PageNumber - 1)*PageSize + 1;
-            int numberOfLastItemOnPage = FirstItemOnPage + PageSize - 1;
+            var numberOfLastItemOnPage = FirstItemOnPage + PageSize - 1;
             LastItemOnPage = numberOfLastItemOnPage > TotalItemCount
                 ? TotalItemCount
                 : numberOfLastItemOnPage;

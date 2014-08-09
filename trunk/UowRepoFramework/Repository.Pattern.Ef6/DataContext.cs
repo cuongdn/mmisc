@@ -61,7 +61,7 @@ namespace Repository.Pattern.Ef6
         public override int SaveChanges()
         {
             SyncObjectsStatePreCommit();
-            int changes = base.SaveChanges();
+            var changes = base.SaveChanges();
             SyncObjectsStatePostCommit();
             return changes;
         }
@@ -136,7 +136,7 @@ namespace Repository.Pattern.Ef6
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
             SyncObjectsStatePreCommit();
-            int changesAsync = await base.SaveChangesAsync(cancellationToken);
+            var changesAsync = await base.SaveChangesAsync(cancellationToken);
             SyncObjectsStatePostCommit();
             return changesAsync;
         }
