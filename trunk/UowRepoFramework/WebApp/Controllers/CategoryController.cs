@@ -44,8 +44,6 @@ namespace WebApp.Controllers
         {
             try
             {
-                //var validator = new CategoryValidator();
-                //var result = validator.Validate(data);
                 if (!ModelState.IsValid)
                 {
                     return View("Create", data);

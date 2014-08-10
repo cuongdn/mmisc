@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A2479CF6-51B7-4E19-A0C7-2B232D52F5AF}</ProjectGuid>
+    <ProjectGuid>{E7F30652-D0D6-44B8-A594-D004121E3F40}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataAccess</RootNamespace>
-    <AssemblyName>DataAccess</AssemblyName>
+    <RootNamespace>Business</RootNamespace>
+    <AssemblyName>Business</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,34 +30,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\Dependencies\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="FluentValidation">
       <HintPath>..\Dependencies\FluentValidation.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Category.cs" />
-    <Compile Include="Model\Customer.cs" />
-    <Compile Include="DatabaseContext.cs" />
-    <Compile Include="Model\Mapping\CategoryMap.cs" />
-    <Compile Include="Model\Mapping\CustomerMap.cs" />
-    <Compile Include="Model\Mapping\OrderDetailMap.cs" />
-    <Compile Include="Model\Mapping\OrderMap.cs" />
-    <Compile Include="Model\Mapping\ProductMap.cs" />
-    <Compile Include="Model\Mapping\ReviewMap.cs" />
-    <Compile Include="Model\Mapping\ShoppingCartMap.cs" />
-    <Compile Include="Model\Order.cs" />
-    <Compile Include="Model\OrderDetail.cs" />
-    <Compile Include="Model\Product.cs" />
-    <Compile Include="Model\Review.cs" />
-    <Compile Include="Model\ShoppingCart.cs" />
+    <Compile Include="CategoryValidator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataACcess\DataAccess.csproj">
+      <Project>{a2479cf6-51b7-4e19-a0c7-2b232d52f5af}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
       <Project>{f68a1d19-93fb-47c1-a22b-42bea3e4fd8c}</Project>
       <Name>Repository.Pattern.Ef6</Name>
@@ -66,9 +53,6 @@
       <Project>{6e682a14-c872-4813-b620-76e108dea683}</Project>
       <Name>Repository.Pattern</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
