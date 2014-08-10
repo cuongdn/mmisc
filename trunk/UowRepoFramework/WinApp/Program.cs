@@ -30,14 +30,14 @@ namespace WinApp
             SkinManager.EnableFormSkins();
             UserLookAndFeel.Default.SetSkinStyle("DevExpress Style");
 
-            ObjectFactory.Initialize(x =>
-            {
-                x.For<IDataContextAsync>().Use<DatabaseContext>();
-                x.For<IRepositoryProvider>().Use<RepositoryProvider>()
-                    .Ctor<RepositoryFactories>("repositoryFactories").Is(new RepositoryFactories());
-                x.For<IUnitOfWork>().Use<UnitOfWork>();
-                x.For(typeof(IRepositoryAsync<>)).Use(typeof(Repository<>));
-            });
+            //ObjectFactory.Initialize(x =>
+            //{
+            //    x.For<IDataContextAsync>().Use<DatabaseContext>();
+            //    x.For<IRepositoryProvider>().Use<RepositoryProvider>()
+            //        .Ctor<RepositoryFactories>("repositoryFactories").Is(new RepositoryFactories());
+            //    x.For<IUnitOfWork>().Use<UnitOfWork>();
+            //    x.For(typeof(IRepositoryAsync<>)).Use(typeof(Repository<>));
+            //});
 
             Application.Run(new FrmMain());
         }
