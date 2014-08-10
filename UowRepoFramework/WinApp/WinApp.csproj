@@ -49,9 +49,6 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\Dependencies\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="StructureMap">
-      <HintPath>..\Dependencies\StructureMap.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
