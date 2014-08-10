@@ -1,11 +1,8 @@
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using FluentValidation.Attributes;
 using Repository.Pattern.Ef6;
 
 namespace DataAccess.Model
 {
-    //[Validator(typeof(CategoryValidator))]
     public class Category : Entity
     {
         public Category()
