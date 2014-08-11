@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using System.Web.Mvc;
+using Common.Extensions;
 using SimpleInjector;
 using SimpleInjector.Integration.Web.Mvc;
 
@@ -17,6 +18,11 @@ namespace Common.DI
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
             container.Verify();
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
+        }
+
+        public static void Initialize()
+        {
+            Initialize(container => container.AutoRegister());
         }
     }
 }
