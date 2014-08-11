@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
-using DataAccess.Model;
+using Common.DI;
+using Common.Extensions;
+using DataAccess;
 using DevExpress.UserSkins;
 using DevExpress.Skins;
 using DevExpress.LookAndFeel;
@@ -11,12 +11,14 @@ using Repository.Pattern.Ef6;
 using Repository.Pattern.Ef6.Factories;
 using Repository.Pattern.Repositories;
 using Repository.Pattern.UnitOfWork;
-using StructureMap;
+using SimpleInjector;
+using SimpleInjector.Extensions;
 
 namespace WinApp
 {
     static class Program
     {
+        public static Container Container { get; set; }
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -30,16 +32,17 @@ namespace WinApp
             SkinManager.EnableFormSkins();
             UserLookAndFeel.Default.SetSkinStyle("DevExpress Style");
 
-            //ObjectFactory.Initialize(x =>
-            //{
-            //    x.For<IDataContextAsync>().Use<DatabaseContext>();
-            //    x.For<IRepositoryProvider>().Use<RepositoryProvider>()
-            //        .Ctor<RepositoryFactories>("repositoryFactories").Is(new RepositoryFactories());
-            //    x.For<IUnitOfWork>().Use<UnitOfWork>();
-            //    x.For(typeof(IRepositoryAsync<>)).Use(typeof(Repository<>));
-            //});
+            Container = new Container();
+            RegisterDataAccess(Container, Lifestyle.Transient);
 
             Application.Run(new FrmMain());
+        }
+        public static void RegisterDataAccess(this Container container, Lifestyle lifestyle)
+        {
+            container.Register<IDataContextAsync, DatabaseContext>(lifestyle);
+            container.Register<IUnitOfWorkAsync, UnitOfWork>(lifestyle);
+            container.RegisterSingle<IRepositoryProvider>(new RepositoryProvider(new RepositoryFactories()));
+            container.RegisterOpenGeneric(typeof(IRepositoryAsync<>), typeof(Repository<>));
         }
     }
 }
