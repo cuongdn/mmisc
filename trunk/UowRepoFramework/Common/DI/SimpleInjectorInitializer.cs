@@ -22,10 +22,5 @@ namespace Common.DI
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
             Container = container;
         }
-
-        public static void Initialize()
-        {
-            Initialize(container => container.AutoRegister());
-        }
     }
 }

@@ -107,6 +107,7 @@
             this.gvCategory.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colCategoryId, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.gvCategory.CustomRowCellEdit += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gvCategory_CustomRowCellEdit);
+            this.gvCategory.StartGrouping += new System.EventHandler(this.gvCategory_StartGrouping);
             this.gvCategory.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvCategory_FocusedRowChanged);
             this.gvCategory.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.gvCategory_RowUpdated);
             // 
