@@ -58,5 +58,9 @@ namespace WinApp
         {
             MessageBox.Show(e.FocusedRowHandle.ToString());
         }
+
+        private void gvCategory_StartGrouping(object sender, EventArgs e)
+        {
+        }
     }
 }

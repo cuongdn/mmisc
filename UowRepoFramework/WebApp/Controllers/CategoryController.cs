@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DataAccess.Model;
 using Repository.Pattern.UnitOfWork;
 using Service;
 
@@ -28,7 +29,10 @@ namespace WebApp.Controllers
         // GET: Category/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var data = CategoryService.Find(id);
+            if (data == null)
+                return RedirectToAction("Index");
+            return View(data);
         }
 
         // GET: Category/Create
@@ -39,12 +43,16 @@ namespace WebApp.Controllers
 
         // POST: Category/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Category data)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                if (!ModelState.IsValid)
+                {
+                    return View(data);
+                }
+                CategoryService.Insert(data);
+                UnitOfWork.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -56,17 +64,20 @@ namespace WebApp.Controllers
         // GET: Category/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var data = CategoryService.Find(id);
+            if (data == null)
+                return RedirectToAction("Index");
+            return View(data);
         }
 
         // POST: Category/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Category data)
         {
             try
             {
-                // TODO: Add update logic here
-
+                CategoryService.Update(data);
+                UnitOfWork.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -82,13 +93,13 @@ namespace WebApp.Controllers
         }
 
         // POST: Category/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                CategoryService.Delete(id);
+                UnitOfWork.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

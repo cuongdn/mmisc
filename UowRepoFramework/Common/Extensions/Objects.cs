@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Reflection;
@@ -22,36 +23,50 @@ namespace Common.Extensions
     {
         private static Assembly GetAssemblyByName(string name)
         {
-            return AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(assembly => assembly.GetName().Name == name);
+            return GetAssemblyByNames(new[] { name }).FirstOrDefault();
+        }
+        private static IEnumerable<Assembly> GetAssemblyByNames(string[] names)
+        {
+            if (names == null || names.Length == 0)
+            {
+                return new List<Assembly>();
+            }
+            return AppDomain.CurrentDomain.GetAssemblies().Where(assembly => names.Contains(assembly.GetName().Name)).ToList();
+        }
+        public static void RegisterFromAssemblies(this Container container, IEnumerable<Assembly> assemblies = null, bool includeFluentValidatorFactory = true)
+        {
+            container.RegisterDataAccess();
+            if (assemblies != null)
+            {
+                foreach (var assembly in assemblies)
+                {
+                    container.RegisterModelValidators(assembly);
+                    container.RegisterServices(assembly);
+                }
+            }
+            if (includeFluentValidatorFactory)
+            {
+                container.RegisterFluentValidatorFactory();
+            }
+        }
+        public static void RegisterFromAssemblies(this Container container, string[] assemblyNames = null, bool includeFluentValidatorFactory = true)
+        {
+            RegisterFromAssemblies(container, GetAssemblyByNames(assemblyNames), includeFluentValidatorFactory);
         }
         public static void RegisterModelValidators(this Container container, string assemblyName)
         {
             container.RegisterModelValidators(GetAssemblyByName(assemblyName));
         }
-        public static void RegisterModelValidators(this Container container, Assembly assembly, bool includeFactory = true)
+        public static void RegisterModelValidators(this Container container, Assembly assembly)
         {
             if (assembly == null)
             {
                 throw new ArgumentNullException("assembly");
             }
             container.RegisterManyForOpenGeneric(typeof(IValidator<>), assembly);
-            if (includeFactory)
-            {
-                FluentValidationModelValidatorProvider.Configure(x => x.ValidatorFactory = new FluentValidatorFactory(container));
-            }
         }
-        public static void AutoRegister(this Container container)
+        public static void RegisterFluentValidatorFactory(this Container container)
         {
-            AutoRegister(container, new WebRequestLifestyle());
-        }
-        public static void AutoRegister(this Container container, Lifestyle lifestyle)
-        {
-            container.RegisterDataAccess(lifestyle);
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                container.RegisterServices(assembly);
-                container.RegisterModelValidators(assembly, false);
-            }
             FluentValidationModelValidatorProvider.Configure(x => x.ValidatorFactory = new FluentValidatorFactory(container));
         }
         public static void RegisterServices(this Container container, string assemblyName)
@@ -76,6 +91,10 @@ namespace Common.Extensions
                         }
                     }
                 }, assembly);
+        }
+        public static void RegisterDataAccess(this Container container)
+        {
+            RegisterDataAccess(container, new WebRequestLifestyle());
         }
         public static void RegisterDataAccess(this Container container, Lifestyle lifestyle)
         {
