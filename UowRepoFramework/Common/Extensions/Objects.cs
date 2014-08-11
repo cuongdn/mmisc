@@ -42,7 +42,11 @@ namespace Common.Extensions
         }
         public static void AutoRegister(this Container container)
         {
-            container.RegisterDataAccessForWeb();
+            AutoRegister(container, new WebRequestLifestyle());
+        }
+        public static void AutoRegister(this Container container, Lifestyle lifestyle)
+        {
+            container.RegisterDataAccess(lifestyle);
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 container.RegisterServices(assembly);
@@ -73,11 +77,10 @@ namespace Common.Extensions
                     }
                 }, assembly);
         }
-        public static void RegisterDataAccessForWeb(this Container container)
+        public static void RegisterDataAccess(this Container container, Lifestyle lifestyle)
         {
-            var webLifestyle = new WebRequestLifestyle();
-            container.Register<IDataContextAsync, DatabaseContext>(webLifestyle);
-            container.Register<IUnitOfWorkAsync, UnitOfWork>(webLifestyle);
+            container.Register<IDataContextAsync, DatabaseContext>(lifestyle);
+            container.Register<IUnitOfWorkAsync, UnitOfWork>(lifestyle);
             container.RegisterSingle<IRepositoryProvider>(new RepositoryProvider(new RepositoryFactories()));
             container.RegisterOpenGeneric(typeof(IRepositoryAsync<>), typeof(Repository<>));
         }

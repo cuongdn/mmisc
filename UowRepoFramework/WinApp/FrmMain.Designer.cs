@@ -34,23 +34,26 @@
             this.bsProduct = new System.Windows.Forms.BindingSource(this.components);
             this.gvCategory = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colCategory = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repCategoryLk = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
+            this.repositoryItemGridLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colProductId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colModelNumber = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colModelName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colUnitCost = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCategoryId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repCategory = new DevExpress.XtraEditors.GridLookUpEdit();
             this.bsCategory = new System.Windows.Forms.BindingSource(this.components);
             this.rgvCategory = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colCategoryName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.lcgList = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.colCategoryName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colModelName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCategoryId = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.lcWrapper)).BeginInit();
             this.lcWrapper.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcCategory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsProduct)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCategory)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repCategoryLk)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1View)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCategory.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsCategory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rgvCategory)).BeginInit();
@@ -77,8 +80,11 @@
             this.gcCategory.Location = new System.Drawing.Point(2, 26);
             this.gcCategory.MainView = this.gvCategory;
             this.gcCategory.Name = "gcCategory";
+            this.gcCategory.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repCategoryLk});
             this.gcCategory.Size = new System.Drawing.Size(628, 250);
             this.gcCategory.TabIndex = 5;
+            this.gcCategory.UseEmbeddedNavigator = true;
             this.gcCategory.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvCategory});
             // 
@@ -89,21 +95,46 @@
             // gvCategory
             // 
             this.gvCategory.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colCategoryId,
             this.colCategory,
             this.colProductId,
             this.colModelNumber,
-            this.colModelName,
-            this.colUnitCost,
-            this.colCategoryId});
+            this.colModelName});
             this.gvCategory.GridControl = this.gcCategory;
+            this.gvCategory.GroupCount = 1;
             this.gvCategory.Name = "gvCategory";
+            this.gvCategory.OptionsNavigation.AutoFocusNewRow = true;
+            this.gvCategory.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colCategoryId, DevExpress.Data.ColumnSortOrder.Ascending)});
+            this.gvCategory.CustomRowCellEdit += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gvCategory_CustomRowCellEdit);
+            this.gvCategory.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvCategory_FocusedRowChanged);
+            this.gvCategory.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.gvCategory_RowUpdated);
             // 
             // colCategory
             // 
-            this.colCategory.FieldName = "Category.CategoryName";
+            this.colCategory.ColumnEdit = this.repCategoryLk;
+            this.colCategory.FieldName = "Category";
             this.colCategory.Name = "colCategory";
             this.colCategory.Visible = true;
             this.colCategory.VisibleIndex = 0;
+            // 
+            // repCategoryLk
+            // 
+            this.repCategoryLk.AutoHeight = false;
+            this.repCategoryLk.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repCategoryLk.DataSource = this.bsCategory;
+            this.repCategoryLk.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.repCategoryLk.DisplayMember = "CategoryName";
+            this.repCategoryLk.Name = "repCategoryLk";
+            this.repCategoryLk.View = this.repositoryItemGridLookUpEdit1View;
+            // 
+            // repositoryItemGridLookUpEdit1View
+            // 
+            this.repositoryItemGridLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.repositoryItemGridLookUpEdit1View.Name = "repositoryItemGridLookUpEdit1View";
+            this.repositoryItemGridLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.repositoryItemGridLookUpEdit1View.OptionsView.ShowGroupPanel = false;
             // 
             // colProductId
             // 
@@ -116,26 +147,6 @@
             this.colModelNumber.Name = "colModelNumber";
             this.colModelNumber.Visible = true;
             this.colModelNumber.VisibleIndex = 1;
-            // 
-            // colModelName
-            // 
-            this.colModelName.FieldName = "ModelName";
-            this.colModelName.Name = "colModelName";
-            this.colModelName.Visible = true;
-            this.colModelName.VisibleIndex = 2;
-            // 
-            // colUnitCost
-            // 
-            this.colUnitCost.FieldName = "UnitCost";
-            this.colUnitCost.Name = "colUnitCost";
-            this.colUnitCost.Visible = true;
-            this.colUnitCost.VisibleIndex = 3;
-            // 
-            // colCategoryId
-            // 
-            this.colCategoryId.FieldName = "CategoryId";
-            this.colCategoryId.Name = "colCategoryId";
-            this.colCategoryId.OptionsColumn.AllowShowHide = false;
             // 
             // repCategory
             // 
@@ -165,6 +176,13 @@
             this.rgvCategory.Name = "rgvCategory";
             this.rgvCategory.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.rgvCategory.OptionsView.ShowGroupPanel = false;
+            // 
+            // colCategoryName
+            // 
+            this.colCategoryName.FieldName = "CategoryName";
+            this.colCategoryName.Name = "colCategoryName";
+            this.colCategoryName.Visible = true;
+            this.colCategoryName.VisibleIndex = 0;
             // 
             // lcgList
             // 
@@ -203,12 +221,19 @@
             this.layoutControlItem2.TextToControlDistance = 0;
             this.layoutControlItem2.TextVisible = false;
             // 
-            // colCategoryName
+            // colModelName
             // 
-            this.colCategoryName.FieldName = "CategoryName";
-            this.colCategoryName.Name = "colCategoryName";
-            this.colCategoryName.Visible = true;
-            this.colCategoryName.VisibleIndex = 0;
+            this.colModelName.FieldName = "ModelName";
+            this.colModelName.Name = "colModelName";
+            this.colModelName.Visible = true;
+            this.colModelName.VisibleIndex = 2;
+            // 
+            // colCategoryId
+            // 
+            this.colCategoryId.FieldName = "CategoryId";
+            this.colCategoryId.Name = "colCategoryId";
+            this.colCategoryId.Visible = true;
+            this.colCategoryId.VisibleIndex = 3;
             // 
             // FrmMain
             // 
@@ -223,6 +248,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcCategory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsProduct)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCategory)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repCategoryLk)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1View)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCategory.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsCategory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rgvCategory)).EndInit();
@@ -245,13 +272,14 @@
         private DevExpress.XtraGrid.Columns.GridColumn colCategory;
         private DevExpress.XtraGrid.Columns.GridColumn colProductId;
         private DevExpress.XtraGrid.Columns.GridColumn colModelNumber;
-        private DevExpress.XtraGrid.Columns.GridColumn colModelName;
-        private DevExpress.XtraGrid.Columns.GridColumn colUnitCost;
         private System.Windows.Forms.BindingSource bsCategory;
-        private DevExpress.XtraGrid.Columns.GridColumn colCategoryId;
         private DevExpress.XtraEditors.GridLookUpEdit repCategory;
         private DevExpress.XtraGrid.Views.Grid.GridView rgvCategory;
         private DevExpress.XtraGrid.Columns.GridColumn colCategoryName;
+        private DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit repCategoryLk;
+        private DevExpress.XtraGrid.Views.Grid.GridView repositoryItemGridLookUpEdit1View;
+        private DevExpress.XtraGrid.Columns.GridColumn colCategoryId;
+        private DevExpress.XtraGrid.Columns.GridColumn colModelName;
 
     }
 }

@@ -9,6 +9,8 @@ namespace Common.DI
 {
     public static class SimpleInjectorInitializer
     {
+        public static Container Container { get; private set; }
+
         /// <summary>Initialize the container and register it as MVC3 Dependency Resolver.</summary>
         public static void Initialize(Action<Container> action)
         {
@@ -18,6 +20,7 @@ namespace Common.DI
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
             container.Verify();
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
+            Container = container;
         }
 
         public static void Initialize()
