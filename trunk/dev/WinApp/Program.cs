@@ -2,11 +2,9 @@
 using DevExpress.LookAndFeel;
 using DevExpress.Skins;
 using DevExpress.UserSkins;
-using RepositoryPattern.DataContext;
 using RepositoryPattern.Ef;
 using RepositoryPattern.Ef.Factories;
-using RepositoryPattern.Repositories;
-using RepositoryPattern.UnitOfWork;
+using RepositoryPattern.Infrastructure;
 using SimpleInjector;
 using SimpleInjector.Extensions;
 using System;

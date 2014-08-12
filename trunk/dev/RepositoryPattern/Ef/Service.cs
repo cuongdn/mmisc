@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RepositoryPattern.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -6,9 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.OData.Query;
-using RepositoryPattern.Infrastructure;
-using RepositoryPattern.Interface;
-using RepositoryPattern.Repositories;
 
 namespace RepositoryPattern.Service
 {

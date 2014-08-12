@@ -1,5 +1,7 @@
 ﻿#region
 
+using LinqKit;
+using RepositoryPattern.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,12 +11,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.OData.Query;
-using LinqKit;
-using RepositoryPattern.DataContext;
-using RepositoryPattern.Infrastructure;
-using RepositoryPattern.Interface;
-using RepositoryPattern.Repositories;
-using RepositoryPattern.UnitOfWork;
+
 
 #endregion
 
@@ -32,25 +29,14 @@ namespace RepositoryPattern.Ef
 
         public Repository(IDataContextAsync context, IUnitOfWorkAsync unitOfWork)
         {
+            var dbContext = context as DbContext;
+            if (dbContext == null)
+                throw new ArgumentNullException("context");
+
+            _dbSet = dbContext.Set<TEntity>();
             _context = context;
             _unitOfWork = unitOfWork;
 
-            // Temporarily for FakeDbContext, Unit Test and Fakes
-            var dbContext = context as DbContext;
-
-            if (dbContext != null)
-            {
-                _dbSet = dbContext.Set<TEntity>();
-            }
-            else
-            {
-                var fakeContext = context as FakeDbContext;
-
-                if (fakeContext != null)
-                {
-                    _dbSet = fakeContext.Set<TEntity>();
-                }
-            }
         }
 
         public virtual TEntity Find(params object[] keyValues)
@@ -192,7 +178,7 @@ namespace RepositoryPattern.Ef
             }
             if (page != null && pageSize != null)
             {
-                query = query.Skip((page.Value - 1)*pageSize.Value).Take(pageSize.Value);
+                query = query.Skip((page.Value - 1) * pageSize.Value).Take(pageSize.Value);
             }
             return query;
         }
@@ -220,13 +206,14 @@ namespace RepositoryPattern.Ef
                 var trackableRef = prop.GetValue(entity, null) as IObjectState;
                 if (trackableRef != null && trackableRef.ObjectState == ObjectState.Added)
                 {
-                    _dbSet.Attach((TEntity) entity);
-                    _context.SyncObjectState((IObjectState) entity);
+                    _dbSet.Attach((TEntity)entity);
+                    _context.SyncObjectState((IObjectState)entity);
                 }
 
                 // Apply changes to 1-M properties
                 var items = prop.GetValue(entity, null) as IList<IObjectState>;
-                if (items == null) continue;
+                if (items == null)
+                    continue;
 
                 foreach (IObjectState item in items)
                     SyncObjectGraph(item);

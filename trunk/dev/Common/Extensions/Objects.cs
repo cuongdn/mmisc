@@ -2,12 +2,9 @@
 using DataAccess;
 using FluentValidation;
 using FluentValidation.Mvc;
-using RepositoryPattern.DataContext;
 using RepositoryPattern.Ef;
 using RepositoryPattern.Ef.Factories;
-using RepositoryPattern.Repositories;
-using RepositoryPattern.Service;
-using RepositoryPattern.UnitOfWork;
+using RepositoryPattern.Infrastructure;
 using SimpleInjector;
 using SimpleInjector.Extensions;
 using SimpleInjector.Integration.Web;

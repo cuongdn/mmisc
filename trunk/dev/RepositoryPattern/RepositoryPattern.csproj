@@ -75,15 +75,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataContext\IDataContext.cs" />
-    <Compile Include="DataContext\IDataContextAsync.cs" />
+    <Compile Include="Infrastructure\IDataContext.cs" />
+    <Compile Include="Infrastructure\IDataContextAsync.cs" />
     <Compile Include="Ef\DataContext.cs" />
     <Compile Include="Ef\Entity.cs" />
     <Compile Include="Ef\Factories\IRepositoryProvider.cs" />
     <Compile Include="Ef\Factories\RepositoryFactories.cs" />
     <Compile Include="Ef\Factories\RepositoryProvider.cs" />
-    <Compile Include="Ef\FakeDbContext.cs" />
-    <Compile Include="Ef\FakeDbSet.cs" />
     <Compile Include="Ef\QueryFluent.cs" />
     <Compile Include="Ef\QueryObject.cs" />
     <Compile Include="Ef\Repository.cs" />
@@ -91,17 +89,18 @@
     <Compile Include="Ef\UnitOfWork.cs" />
     <Compile Include="Infrastructure\IObjectState.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Repositories\IQueryObject.cs" />
-    <Compile Include="Repositories\IRepositoryAsync.cs" />
-    <Compile Include="Service\IService.cs" />
-    <Compile Include="Service\Service.cs" />
-    <Compile Include="UnitOfWork\IUnitOfWorkAsync.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Repositories\IQueryFluent.cs" />
-    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="Infrastructure\IQueryObject.cs" />
+    <Compile Include="Infrastructure\IRepositoryAsync.cs" />
+    <Compile Include="Infrastructure\IService.cs" />
+    <Compile Include="Ef\Service.cs" />
+    <Compile Include="Infrastructure\IUnitOfWorkAsync.cs" />
+    <Compile Include="Infrastructure\IRepository.cs" />
+    <Compile Include="Infrastructure\IQueryFluent.cs" />
+    <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\ObjectState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>

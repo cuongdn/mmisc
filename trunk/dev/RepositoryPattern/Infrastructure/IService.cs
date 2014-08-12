@@ -6,11 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.OData.Query;
-using RepositoryPattern.Infrastructure;
-using RepositoryPattern.Interface;
-using RepositoryPattern.Repositories;
 
-namespace RepositoryPattern.Service
+namespace RepositoryPattern.Infrastructure
 {
     public interface IService<TEntity> where TEntity : IObjectState
     {

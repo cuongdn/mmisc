@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Data;
-using RepositoryPattern.Infrastructure;
-using RepositoryPattern.Interface;
-using RepositoryPattern.Repositories;
 
-namespace RepositoryPattern.UnitOfWork
+namespace RepositoryPattern.Infrastructure
 {
     public interface IUnitOfWork : IDisposable
     {

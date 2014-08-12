@@ -1,5 +1,5 @@
 ﻿using DataAccess.Model;
-using RepositoryPattern.UnitOfWork;
+using RepositoryPattern.Infrastructure;
 using Service;
 using System.Web.Mvc;
 
