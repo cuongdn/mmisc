@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Dynamic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Utilities.PagedList;
 
 namespace RepositoryPattern.Ef
 {
@@ -70,7 +71,12 @@ namespace RepositoryPattern.Ef
             totalCount = _repository.Select(_expression).Count();
             return _repository.Select(_expression, _orderBy, _includes, page, pageSize);
         }
-
+        public IPagedList<TEntity> SelectPage(int page, int pageSize)
+        {
+            int totalCount;
+            var list = SelectPage(page, pageSize, out totalCount);
+            return new PagedList<TEntity>(list, page, pageSize, totalCount);
+        }
         public IEnumerable<TEntity> Select()
         {
             return _repository.Select(_expression, _orderBy, _includes);
