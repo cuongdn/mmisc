@@ -55,10 +55,20 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\Dependencies\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit">
+      <HintPath>..\Dependencies\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Linq.Dynamic">
+      <HintPath>..\Dependencies\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Http.OData">
       <HintPath>..\Dependencies\System.Web.Http.OData.dll</HintPath>
       <Private>True</Private>
@@ -67,10 +77,24 @@
   <ItemGroup>
     <Compile Include="DataContext\IDataContext.cs" />
     <Compile Include="DataContext\IDataContextAsync.cs" />
+    <Compile Include="Ef6\DataContext.cs" />
+    <Compile Include="Ef6\Entity.cs" />
+    <Compile Include="Ef6\Factories\IRepositoryProvider.cs" />
+    <Compile Include="Ef6\Factories\RepositoryFactories.cs" />
+    <Compile Include="Ef6\Factories\RepositoryProvider.cs" />
+    <Compile Include="Ef6\FakeDbContext.cs" />
+    <Compile Include="Ef6\FakeDbSet.cs" />
+    <Compile Include="Ef6\QueryFluent.cs" />
+    <Compile Include="Ef6\QueryObject.cs" />
+    <Compile Include="Ef6\Repository.cs" />
+    <Compile Include="Ef6\StateHelper.cs" />
+    <Compile Include="Ef6\UnitOfWork.cs" />
     <Compile Include="Infrastructure\IObjectState.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Repositories\IQueryObject.cs" />
     <Compile Include="Repositories\IRepositoryAsync.cs" />
+    <Compile Include="Service\IService.cs" />
+    <Compile Include="Service\Service.cs" />
     <Compile Include="UnitOfWork\IUnitOfWorkAsync.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\IQueryFluent.cs" />
