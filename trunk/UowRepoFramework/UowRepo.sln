@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Pattern", "Repository.Pattern\Repository.Pattern.csproj", "{6E682A14-C872-4813-B620-76E108DEA683}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Pattern.Ef6", "Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj", "{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{C427C8F4-F56A-4CB2-A78C-05A1B97A848D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{B5D64529-C1CA-481F-AD50-5467B59BCEA2}"
@@ -14,8 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataACcess\DataAccess.csproj", "{A2479CF6-51B7-4E19-A0C7-2B232D52F5AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{FB781E97-DF89-42AB-9A03-62DB94902518}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Pattern", "Service.Pattern\Service.Pattern.csproj", "{F174CBA8-C20B-4749-8120-17FD1CB748AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{E7F30652-D0D6-44B8-A594-D004121E3F40}"
 EndProject
@@ -41,12 +37,6 @@ Global
 		{6E682A14-C872-4813-B620-76E108DEA683}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6E682A14-C872-4813-B620-76E108DEA683}.Release|x86.ActiveCfg = Release|x86
 		{6E682A14-C872-4813-B620-76E108DEA683}.Release|x86.Build.0 = Release|x86
-		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F68A1D19-93FB-47C1-A22B-42BEA3E4FD8C}.Release|x86.ActiveCfg = Release|Any CPU
 		{B5D64529-C1CA-481F-AD50-5467B59BCEA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B5D64529-C1CA-481F-AD50-5467B59BCEA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5D64529-C1CA-481F-AD50-5467B59BCEA2}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -65,12 +55,6 @@ Global
 		{FB781E97-DF89-42AB-9A03-62DB94902518}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB781E97-DF89-42AB-9A03-62DB94902518}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FB781E97-DF89-42AB-9A03-62DB94902518}.Release|x86.ActiveCfg = Release|Any CPU
-		{F174CBA8-C20B-4749-8120-17FD1CB748AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F174CBA8-C20B-4749-8120-17FD1CB748AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F174CBA8-C20B-4749-8120-17FD1CB748AC}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F174CBA8-C20B-4749-8120-17FD1CB748AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F174CBA8-C20B-4749-8120-17FD1CB748AC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F174CBA8-C20B-4749-8120-17FD1CB748AC}.Release|x86.ActiveCfg = Release|Any CPU
 		{E7F30652-D0D6-44B8-A594-D004121E3F40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E7F30652-D0D6-44B8-A594-D004121E3F40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7F30652-D0D6-44B8-A594-D004121E3F40}.Debug|x86.ActiveCfg = Debug|Any CPU

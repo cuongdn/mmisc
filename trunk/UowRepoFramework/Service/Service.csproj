@@ -54,17 +54,9 @@
       <Project>{a2479cf6-51b7-4e19-a0c7-2b232d52f5af}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Repository.Pattern.Ef6\Repository.Pattern.Ef6.csproj">
-      <Project>{f68a1d19-93fb-47c1-a22b-42bea3e4fd8c}</Project>
-      <Name>Repository.Pattern.Ef6</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Repository.Pattern\Repository.Pattern.csproj">
       <Project>{6e682a14-c872-4813-b620-76e108dea683}</Project>
       <Name>Repository.Pattern</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Service.Pattern\Service.Pattern.csproj">
-      <Project>{f174cba8-c20b-4749-8120-17fd1cb748ac}</Project>
-      <Name>Service.Pattern</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
