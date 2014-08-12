@@ -1,6 +1,6 @@
-﻿using System;
+﻿using RepositoryPattern.Infrastructure;
+using System;
 using System.Data.Entity;
-using RepositoryPattern.Infrastructure;
 
 namespace RepositoryPattern.Ef
 {

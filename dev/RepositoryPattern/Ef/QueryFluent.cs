@@ -1,12 +1,10 @@
-﻿using System;
+﻿using RepositoryPattern.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using RepositoryPattern.Infrastructure;
-using RepositoryPattern.Interface;
-using RepositoryPattern.Repositories;
 
 namespace RepositoryPattern.Ef
 {

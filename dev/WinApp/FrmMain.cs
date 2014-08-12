@@ -1,9 +1,9 @@
 ﻿using DataAccess.Model;
-using RepositoryPattern.UnitOfWork;
 using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using RepositoryPattern.Infrastructure;
 
 namespace WinApp
 {

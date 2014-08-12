@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace RepositoryPattern.Repositories
+namespace RepositoryPattern.Infrastructure
 {
     public interface IQueryObject<TEntity>
     {

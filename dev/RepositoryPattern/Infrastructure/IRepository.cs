@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Http.OData.Query;
-using RepositoryPattern.Infrastructure;
-using RepositoryPattern.Interface;
 
-namespace RepositoryPattern.Repositories
+namespace RepositoryPattern.Infrastructure
 {
     public interface IRepository<TEntity> where TEntity : IObjectState
     {

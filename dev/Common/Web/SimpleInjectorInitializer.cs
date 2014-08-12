@@ -1,8 +1,8 @@
+using SimpleInjector;
+using SimpleInjector.Integration.Web.Mvc;
 using System;
 using System.Reflection;
 using System.Web.Mvc;
-using SimpleInjector;
-using SimpleInjector.Integration.Web.Mvc;
 
 namespace Common.Web
 {

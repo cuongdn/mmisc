@@ -1,5 +1,5 @@
 ﻿using DataAccess.Model;
-using RepositoryPattern.Repositories;
+using RepositoryPattern.Infrastructure;
 using RepositoryPattern.Service;
 
 namespace Service

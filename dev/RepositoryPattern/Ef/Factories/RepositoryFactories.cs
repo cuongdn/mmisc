@@ -1,13 +1,10 @@
 ﻿#region
 
+using RepositoryPattern.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using RepositoryPattern.DataContext;
-using RepositoryPattern.Infrastructure;
-using RepositoryPattern.Interface;
-using RepositoryPattern.Repositories;
-using RepositoryPattern.UnitOfWork;
+
 
 #endregion
 

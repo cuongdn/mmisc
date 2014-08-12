@@ -1,6 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using RepositoryPattern.Infrastructure;
-using RepositoryPattern.Interface;
+﻿using RepositoryPattern.Infrastructure;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RepositoryPattern.Ef
 {

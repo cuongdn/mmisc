@@ -1,8 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using RepositoryPattern.Interface;
 
-namespace RepositoryPattern.DataContext
+namespace RepositoryPattern.Infrastructure
 {
     public interface IDataContextAsync : IDataContext
     {
