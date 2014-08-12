@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using RepositoryPattern.Infrastructure;
+using RepositoryPattern.Interface;
 using RepositoryPattern.Repositories;
 
 namespace RepositoryPattern.UnitOfWork

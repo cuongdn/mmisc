@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using RepositoryPattern.Infrastructure;
+using RepositoryPattern.Interface;
 
 namespace RepositoryPattern.Ef
 {

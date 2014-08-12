@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using RepositoryPattern.Infrastructure;
+using RepositoryPattern.Interface;
 
 namespace RepositoryPattern.Repositories
 {

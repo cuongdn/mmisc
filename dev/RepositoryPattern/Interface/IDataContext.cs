@@ -1,7 +1,6 @@
-﻿using RepositoryPattern.Infrastructure;
-using System;
+﻿using System;
 
-namespace RepositoryPattern.DataContext
+namespace RepositoryPattern.Interface
 {
     public interface IDataContext : IDisposable
     {

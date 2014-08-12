@@ -12,6 +12,7 @@ using System.Web.Http.OData.Query;
 using LinqKit;
 using RepositoryPattern.DataContext;
 using RepositoryPattern.Infrastructure;
+using RepositoryPattern.Interface;
 using RepositoryPattern.Repositories;
 using RepositoryPattern.UnitOfWork;
 
