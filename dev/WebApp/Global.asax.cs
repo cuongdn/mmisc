@@ -1,8 +1,8 @@
-﻿using Common.DI;
-using Common.Extensions;
+﻿using Common.Extensions;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Common.Web;
 
 namespace WebApp
 {
