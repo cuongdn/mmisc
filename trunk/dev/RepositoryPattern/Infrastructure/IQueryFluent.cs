@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Utilities.PagedList;
 
 namespace RepositoryPattern.Infrastructure
 {
@@ -13,6 +14,7 @@ namespace RepositoryPattern.Infrastructure
         IQueryFluent<TEntity> OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector);
         IQueryFluent<TEntity> Include(Expression<Func<TEntity, object>> expression);
         IEnumerable<TEntity> SelectPage(int page, int pageSize, out int totalCount);
+        IPagedList<TEntity> SelectPage(int page, int pageSize);
         IEnumerable<TResult> Select<TResult>(Expression<Func<TEntity, TResult>> selector = null);
         IEnumerable<TEntity> Select();
         Task<IEnumerable<TEntity>> SelectAsync();
