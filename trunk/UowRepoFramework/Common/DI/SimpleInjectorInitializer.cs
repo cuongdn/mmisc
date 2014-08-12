@@ -1,9 +1,8 @@
+using SimpleInjector;
+using SimpleInjector.Integration.Web.Mvc;
 using System;
 using System.Reflection;
 using System.Web.Mvc;
-using Common.Extensions;
-using SimpleInjector;
-using SimpleInjector.Integration.Web.Mvc;
 
 namespace Common.DI
 {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Reflection;
-using Common.Business;
+﻿using Common.Business;
 using DataAccess;
 using FluentValidation;
 using FluentValidation.Mvc;
@@ -11,11 +6,15 @@ using Repository.Pattern.DataContext;
 using Repository.Pattern.Ef6;
 using Repository.Pattern.Ef6.Factories;
 using Repository.Pattern.Repositories;
+using Repository.Pattern.Service;
 using Repository.Pattern.UnitOfWork;
-using Service.Pattern;
 using SimpleInjector;
 using SimpleInjector.Extensions;
 using SimpleInjector.Integration.Web;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Common.Extensions
 {
