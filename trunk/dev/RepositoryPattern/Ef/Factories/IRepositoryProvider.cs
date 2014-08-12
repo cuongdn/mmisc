@@ -3,6 +3,7 @@
 using System;
 using RepositoryPattern.DataContext;
 using RepositoryPattern.Infrastructure;
+using RepositoryPattern.Interface;
 using RepositoryPattern.Repositories;
 using RepositoryPattern.UnitOfWork;
 

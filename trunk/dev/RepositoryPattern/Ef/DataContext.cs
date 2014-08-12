@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using RepositoryPattern.DataContext;
 using RepositoryPattern.Infrastructure;
+using RepositoryPattern.Interface;
 
 namespace RepositoryPattern.Ef
 {

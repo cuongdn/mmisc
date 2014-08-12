@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using RepositoryPattern.DataContext;
 using RepositoryPattern.Ef.Factories;
 using RepositoryPattern.Infrastructure;
+using RepositoryPattern.Interface;
 using RepositoryPattern.Repositories;
 using RepositoryPattern.UnitOfWork;
 

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using RepositoryPattern.Infrastructure;
 
-namespace RepositoryPattern.Infrastructure
+namespace RepositoryPattern.Interface
 {
     public interface IObjectState
     {
