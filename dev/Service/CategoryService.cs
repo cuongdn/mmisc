@@ -1,6 +1,6 @@
 ﻿using DataAccess.Model;
+using RepositoryPattern.Ef;
 using RepositoryPattern.Infrastructure;
-using RepositoryPattern.Service;
 
 namespace Service
 {

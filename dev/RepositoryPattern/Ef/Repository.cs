@@ -44,7 +44,7 @@ namespace RepositoryPattern.Ef
             return _dbSet.Find(keyValues);
         }
 
-        public virtual IQueryable<TEntity> SelectQuery(string query, params object[] parameters)
+        public virtual IQueryable<TEntity> SqlQuery(string query, params object[] parameters)
         {
             return _dbSet.SqlQuery(query, parameters).AsQueryable();
         }
@@ -100,17 +100,7 @@ namespace RepositoryPattern.Ef
             return new QueryFluent<TEntity>(this);
         }
 
-        public virtual IQueryFluent<TEntity> Query(IQueryObject<TEntity> queryObject)
-        {
-            return new QueryFluent<TEntity>(this, queryObject);
-        }
-
-        public virtual IQueryFluent<TEntity> Query(Expression<Func<TEntity, bool>> query)
-        {
-            return new QueryFluent<TEntity>(this, query);
-        }
-
-        public IQueryable Queryable(ODataQueryOptions<TEntity> oDataQueryOptions)
+        public IQueryable ODataQueryable(ODataQueryOptions<TEntity> oDataQueryOptions)
         {
             return oDataQueryOptions.ApplyTo(_dbSet);
         }
@@ -159,8 +149,7 @@ namespace RepositoryPattern.Ef
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             List<Expression<Func<TEntity, object>>> includes = null,
-            int? page = null,
-            int? pageSize = null)
+            int? page = null, int? pageSize = null)
         {
             IQueryable<TEntity> query = _dbSet;
 
@@ -183,7 +172,20 @@ namespace RepositoryPattern.Ef
             return query;
         }
 
-        internal async Task<IEnumerable<TEntity>> SelectAsync(
+        internal async Task<IList<TResult>> SelectAsync<TResult>(
+            Expression<Func<TEntity, TResult>> selector,
+            Expression<Func<TEntity, bool>> query = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            List<Expression<Func<TEntity, object>>> includes = null,
+            int? page = null, int? pageSize = null)
+        {
+
+            return
+                await
+                    Task.Run(() => Select(query, orderBy, includes, page, pageSize).Select(selector).ToList()).ConfigureAwait(false);
+        }
+
+        internal async Task<IList<TEntity>> SelectAsync(
             Expression<Func<TEntity, bool>> query = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             List<Expression<Func<TEntity, object>>> includes = null,
@@ -193,7 +195,7 @@ namespace RepositoryPattern.Ef
             //See: Best Practices in Asynchronous Programming http://msdn.microsoft.com/en-us/magazine/jj991977.aspx
             return
                 await
-                    Task.Run(() => Select(query, orderBy, includes, page, pageSize).AsEnumerable())
+                    Task.Run(() => Select(query, orderBy, includes, page, pageSize).ToList())
                         .ConfigureAwait(false);
         }
 

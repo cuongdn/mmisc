@@ -11,90 +11,111 @@ namespace RepositoryPattern.Ef
 {
     public sealed class QueryFluent<TEntity> : IQueryFluent<TEntity> where TEntity : class, IObjectState
     {
-        #region Private Fields
-
-        private readonly Expression<Func<TEntity, bool>> _expression;
         private readonly List<Expression<Func<TEntity, object>>> _includes;
         private readonly Repository<TEntity> _repository;
+        private readonly Filter<TEntity> _filter;
         private Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> _orderBy;
-
-        #endregion Private Fields
-
-        #region Constructors
-
         public QueryFluent(Repository<TEntity> repository)
         {
             _repository = repository;
             _includes = new List<Expression<Func<TEntity, object>>>();
+            _filter = Filter<TEntity>.New();
         }
-
-        public QueryFluent(Repository<TEntity> repository, IQueryObject<TEntity> queryObject)
-            : this(repository)
+        public IQueryFluent<TEntity> Filter(IFilterObject<TEntity> filterObject)
         {
-            _expression = queryObject.Query();
-        }
-
-        public QueryFluent(Repository<TEntity> repository, Expression<Func<TEntity, bool>> expression)
-            : this(repository)
-        {
-            _expression = expression;
-        }
-
-        #endregion Constructors
-
-        public IQueryFluent<TEntity> OrderBy(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy)
-        {
-            _orderBy = orderBy;
+            _filter.And(filterObject);
             return this;
         }
-
-        public IQueryFluent<TEntity> OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector)
+        public IQueryFluent<TEntity> Filter(Expression<Func<TEntity, bool>> expression)
         {
-            _orderBy = q => q.OrderBy(keySelector);
+            _filter.And(expression);
             return this;
         }
-
+        public IQueryFluent<TEntity> Filter(string expression, params object[] values)
+        {
+            _filter.And(expression, values);
+            return this;
+        }
         public IQueryFluent<TEntity> OrderBy(string orderBy)
         {
             _orderBy = q => q.OrderBy(orderBy) as IOrderedQueryable<TEntity>;
             return this;
         }
-
+        public IQueryFluent<TEntity> OrderBy(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy)
+        {
+            _orderBy = orderBy;
+            return this;
+        }
+        public IQueryFluent<TEntity> OrderBy<TKey>(Expression<Func<TEntity, TKey>> keySelector, bool descending = false)
+        {
+            if (descending)
+            {
+                _orderBy = q => q.OrderByDescending(keySelector);
+            }
+            else
+            {
+                _orderBy = q => q.OrderBy(keySelector);
+            }
+            return this;
+        }
         public IQueryFluent<TEntity> Include(Expression<Func<TEntity, object>> expression)
         {
             _includes.Add(expression);
             return this;
         }
-
-        public IEnumerable<TEntity> SelectPage(int page, int pageSize, out int totalCount)
+        public IPagedList<TEntity> Select(int page, int pageSize)
         {
-            totalCount = _repository.Select(_expression).Count();
-            return _repository.Select(_expression, _orderBy, _includes, page, pageSize);
-        }
-        public IPagedList<TEntity> SelectPage(int page, int pageSize)
-        {
-            int totalCount;
-            var list = SelectPage(page, pageSize, out totalCount);
+            var expression = _filter.Expr();
+            var totalCount = Count(expression);
+            if (totalCount == 0)
+            {
+                return new PagedList<TEntity>();
+            }
+            var list = _repository.Select(expression, _orderBy, _includes, page, pageSize).ToList();
             return new PagedList<TEntity>(list, page, pageSize, totalCount);
         }
-        public IEnumerable<TEntity> Select()
+        public IPagedList<TResult> Select<TResult>(int page, int pageSize, Expression<Func<TEntity, TResult>> selector)
         {
-            return _repository.Select(_expression, _orderBy, _includes);
+            var expression = _filter.Expr();
+            var totalCount = Count(expression);
+            if (totalCount == 0)
+            {
+                return new PagedList<TResult>();
+            }
+            var list = _repository.Select(expression, _orderBy, _includes, page, pageSize).Select(selector).ToList();
+            return new PagedList<TResult>(list, page, pageSize, totalCount);
         }
-
-        public IEnumerable<TResult> Select<TResult>(Expression<Func<TEntity, TResult>> selector)
+        private int Count(Expression<Func<TEntity, bool>> expression)
         {
-            return _repository.Select(_expression, _orderBy, _includes).Select(selector);
+            return expression == null ? _repository.Queryable().Count() : _repository.Select(expression).Count();
         }
-
-        public async Task<IEnumerable<TEntity>> SelectAsync()
+        public IList<TEntity> Select()
         {
-            return await _repository.SelectAsync(_expression, _orderBy, _includes);
+            return _repository.Select(_filter.Expr(), _orderBy, _includes).ToList();
         }
-
+        public IList<TResult> Select<TResult>(Expression<Func<TEntity, TResult>> selector)
+        {
+            return _repository.Select(_filter.Expr(), _orderBy, _includes).Select(selector).ToList();
+        }
+        public async Task<IList<TEntity>> SelectAsync()
+        {
+            return await _repository.SelectAsync(_filter.Expr(), _orderBy, _includes);
+        }
+        public async Task<IList<TResult>> SelectAsync<TResult>(Expression<Func<TEntity, TResult>> selector)
+        {
+            return await _repository.SelectAsync(selector, _filter.Expr(), _orderBy, _includes);
+        }
+        public async Task<IList<TEntity>> SelectAsync(int page, int pageSize)
+        {
+            return await _repository.SelectAsync(_filter.Expr(), _orderBy, _includes, page, pageSize);
+        }
+        public async Task<IList<TResult>> SelectAsync<TResult>(int page, int pageSize, Expression<Func<TEntity, TResult>> selector)
+        {
+            return await _repository.SelectAsync(selector, _filter.Expr(), _orderBy, _includes, page, pageSize);
+        }
         public IQueryable<TEntity> SqlQuery(string query, params object[] parameters)
         {
-            return _repository.SelectQuery(query, parameters).AsQueryable();
+            return _repository.SqlQuery(query, parameters).AsQueryable();
         }
     }
 }

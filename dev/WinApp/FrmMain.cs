@@ -36,7 +36,7 @@ namespace WinApp
             //if (cat != null)
             //{
             //    gvCategory.ActiveFilter.Clear();
-            //    gvCategory.ActiveFilter.Add(colCategoryId, new ColumnFilterInfo(colCategoryId, cat));
+            //    gvCategory.ActiveFilter.New(colCategoryId, new ColumnFilterInfo(colCategoryId, cat));
             //}
         }
 

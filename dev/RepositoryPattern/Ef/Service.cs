@@ -1,14 +1,12 @@
 ﻿using RepositoryPattern.Infrastructure;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.OData.Query;
 
-namespace RepositoryPattern.Service
+namespace RepositoryPattern.Ef
 {
     public abstract class Service<TEntity> : IService<TEntity> where TEntity : IObjectState
     {
@@ -31,16 +29,14 @@ namespace RepositoryPattern.Service
         {
             return _repository.Find(keyValues);
         }
-
-        //IF 04/09/2014
         public SingleResult<TEntity> GetSingleResult(params object[] keyValues)
         {
             return SingleResult.Create((new List<TEntity> {Find(keyValues)}).AsQueryable());
         }
 
-        public virtual IQueryable<TEntity> SelectQuery(string query, params object[] parameters)
+        public virtual IQueryable<TEntity> SqlQuery(string query, params object[] parameters)
         {
-            return _repository.SelectQuery(query, parameters).AsQueryable();
+            return _repository.SqlQuery(query, parameters).AsQueryable();
         }
 
         public virtual void Insert(TEntity entity)
@@ -83,16 +79,6 @@ namespace RepositoryPattern.Service
             return _repository.Query();
         }
 
-        public virtual IQueryFluent<TEntity> Query(IQueryObject<TEntity> queryObject)
-        {
-            return _repository.Query(queryObject);
-        }
-
-        public virtual IQueryFluent<TEntity> Query(Expression<Func<TEntity, bool>> query)
-        {
-            return _repository.Query(query);
-        }
-
         public virtual async Task<TEntity> FindAsync(params object[] keyValues)
         {
             return await _repository.FindAsync(keyValues);
@@ -116,10 +102,10 @@ namespace RepositoryPattern.Service
 
         public IQueryable ODataQueryable(ODataQueryOptions<TEntity> oDataQueryOptions)
         {
-            return _repository.Queryable(oDataQueryOptions);
+            return _repository.ODataQueryable(oDataQueryOptions);
         }
 
-        public IQueryable<TEntity> ODataQueryable()
+        public IQueryable<TEntity> Queryable()
         {
             return _repository.Queryable();
         }
