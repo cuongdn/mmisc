@@ -54,7 +54,7 @@ namespace Utilities.Extensions
 
             // If it's not a nullable type, just pass through the parameters to Convert.ChangeType
 
-            if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition().Equals(typeof (Nullable<>)))
+            if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition() == typeof (Nullable<>))
             {
                 // It's a nullable type, so instead of calling Convert.ChangeType directly which would throw a
                 // InvalidCastException (per http://weblogs.asp.net/pjohnson/archive/2006/02/07/437631.aspx),
@@ -76,7 +76,7 @@ namespace Utilities.Extensions
             {
                 return new Guid(value.ToString());
             }
-            else if (conversionType == typeof (Int64) && value.GetType() == typeof (int))
+            else if (conversionType == typeof (Int64) && value is int)
             {
                 //there is an issue with SQLite where the PK is ALWAYS int64. If this conversion type is Int64
                 //we need to throw here - suggesting that they need to use LONG instead
@@ -123,11 +123,11 @@ namespace Utilities.Extensions
             return item;
         }
 
-        public static T CopyTo<T>(this object From, T to) where T : class
+        public static T CopyTo<T>(this object from, T to) where T : class
         {
-            var t = From.GetType();
+            var t = from.GetType();
 
-            Dictionary<string, object> settings = From.ToDictionary();
+            Dictionary<string, object> settings = from.ToDictionary();
 
             to = settings.FromDictionary(to);
 
@@ -157,11 +157,6 @@ namespace Utilities.Extensions
                 where !String.IsNullOrEmpty(trimmed)
                 select trimmed).ToList();
             return list;
-        }
-
-        public static bool IsNullOrWhiteSpace(this object value)
-        {
-            return value == null || value.ToString().Trim() == "";
         }
 
         public static void Merge(this IDictionary<string, object> dic, string key, object value)

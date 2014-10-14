@@ -15,7 +15,7 @@ using System.Reflection;
 
 namespace Common.Extensions
 {
-    public static class Objects
+    public static class IoC
     {
         private static Assembly GetAssemblyByName(string name)
         {
@@ -31,12 +31,12 @@ namespace Common.Extensions
         }
         public static void RegisterFromAssemblies(this Container container, IEnumerable<Assembly> assemblies = null, bool includeFluentValidatorFactory = true)
         {
-            container.RegisterDataAccess();
+            container.RegisterRepositories();
             if (assemblies != null)
             {
                 foreach (var assembly in assemblies)
                 {
-                    container.RegisterModelValidators(assembly);
+                    container.RegisterValidators(assembly);
                     container.RegisterServices(assembly);
                 }
             }
@@ -49,11 +49,11 @@ namespace Common.Extensions
         {
             RegisterFromAssemblies(container, GetAssemblyByNames(assemblyNames), includeFluentValidatorFactory);
         }
-        public static void RegisterModelValidators(this Container container, string assemblyName)
+        public static void RegisterValidators(this Container container, string assemblyName)
         {
-            container.RegisterModelValidators(GetAssemblyByName(assemblyName));
+            container.RegisterValidators(GetAssemblyByName(assemblyName));
         }
-        public static void RegisterModelValidators(this Container container, Assembly assembly)
+        public static void RegisterValidators(this Container container, Assembly assembly)
         {
             if (assembly == null)
             {
@@ -88,11 +88,11 @@ namespace Common.Extensions
                     }
                 }, assembly);
         }
-        public static void RegisterDataAccess(this Container container)
+        public static void RegisterRepositories(this Container container)
         {
-            RegisterDataAccess(container, new WebRequestLifestyle());
+            RegisterRepositories(container, new WebRequestLifestyle());
         }
-        public static void RegisterDataAccess(this Container container, Lifestyle lifestyle)
+        public static void RegisterRepositories(this Container container, Lifestyle lifestyle)
         {
             container.Register<IDataContextAsync, DatabaseContext>(lifestyle);
             container.Register<IUnitOfWorkAsync, UnitOfWork>(lifestyle);

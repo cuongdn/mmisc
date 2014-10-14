@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ef\Filter.cs" />
     <Compile Include="Infrastructure\IDataContext.cs" />
     <Compile Include="Infrastructure\IDataContextAsync.cs" />
     <Compile Include="Ef\DataContext.cs" />
@@ -83,13 +84,13 @@
     <Compile Include="Ef\Factories\RepositoryFactories.cs" />
     <Compile Include="Ef\Factories\RepositoryProvider.cs" />
     <Compile Include="Ef\QueryFluent.cs" />
-    <Compile Include="Ef\QueryObject.cs" />
+    <Compile Include="Ef\FilterObject.cs" />
     <Compile Include="Ef\Repository.cs" />
     <Compile Include="Ef\StateHelper.cs" />
     <Compile Include="Ef\UnitOfWork.cs" />
     <Compile Include="Infrastructure\IObjectState.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Infrastructure\IQueryObject.cs" />
+    <Compile Include="Infrastructure\IFilterObject.cs" />
     <Compile Include="Infrastructure\IRepositoryAsync.cs" />
     <Compile Include="Infrastructure\IService.cs" />
     <Compile Include="Ef\Service.cs" />

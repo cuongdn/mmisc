@@ -10,7 +10,8 @@ namespace WebApp
     {
         protected void Application_Start()
         {
-            SimpleInjectorInitializer.Initialize(x => x.RegisterFromAssemblies(new[] { "Business", "Service" }));
+            DependencyInitializer.Initialize(
+                x => x.RegisterFromAssemblies(new[] { "Business", "Service" }));
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

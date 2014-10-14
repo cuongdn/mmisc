@@ -57,9 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\FluentValidatorFactory.cs" />
-    <Compile Include="Extensions\Objects.cs" />
+    <Compile Include="Extensions\IoC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Web\SimpleInjectorInitializer.cs" />
+    <Compile Include="Web\DependencyInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataACcess\DataAccess.csproj">

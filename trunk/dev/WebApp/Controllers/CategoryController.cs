@@ -2,6 +2,7 @@
 using RepositoryPattern.Infrastructure;
 using Service;
 using System.Web.Mvc;
+using Utilities.Extensions;
 
 namespace WebApp.Controllers
 {
@@ -19,7 +20,11 @@ namespace WebApp.Controllers
         // GET: Category
         public ActionResult Index()
         {
-            return View(CategoryService.Query().Select());
+            return View(CategoryService.Query().Select(x => new Category
+            {
+                CategoryId = x.CategoryId,
+                CategoryName = x.CategoryName
+            }));
         }
 
         // GET: Category/Details/5

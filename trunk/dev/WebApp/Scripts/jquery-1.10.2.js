@@ -57,7 +57,7 @@ var
 	// [[Class]] -> type pairs
 	class2type = {},
 
-	// List of deleted data cache ids, so we can reuse them
+	// Select of deleted data cache ids, so we can reuse them
 	core_deletedIds = [],
 
 	core_version = "1.10.2",

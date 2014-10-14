@@ -112,10 +112,10 @@ namespace RepositoryPattern.Annotations
     ///             <c>NotifyChanged(params string[])</c>
     ///         </item>
     ///         <item>
-    ///             <c>NotifyChanged{T}(Expression{Func{T}})</c>
+    ///             <c>NotifyChanged{T}(Expr{Func{T}})</c>
     ///         </item>
     ///         <item>
-    ///             <c>NotifyChanged{T,U}(Expression{Func{T,U}})</c>
+    ///             <c>NotifyChanged{T,U}(Expr{Func{T,U}})</c>
     ///         </item>
     ///         <item>
     ///             <c>SetProperty{T}(ref T, T, string)</c>
