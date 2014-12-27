@@ -1,0 +1,40 @@
+UNIVERSITY OF BORDEAUX 1
+
+
+INTERNSHIP REPORT
+MASTER OF SOFTWARE ENGINEERING (2012-2014)
+
+MIGRATE ORACLE FORM TO .NET WINDOWS FORM
+
+Author:	Supervisor;
+DO Ngoc Cuong	VO Tran Trong Vu
+
+
+
+
+December 30, 2014
+ 
+Contents
+-	Abstract
+-	Acknowledgement
+-	Introduction
+-	Several chapters
+1.	Context
+2.	Technical design
+3.	…
+4.	Results
+-	Conclusion [and future work]
+-	Bibliography
+-	Appendix
+ 
+Introduction
+The customer, a large retail company has used Oracle Forms as their main application platform for the last 20 years. During this time, several hundred applications have been developed. Since 2008, Oracle Forms is no longer supported. The customer now wants to do a migration of all these applications to a more modern .NET framework.
+The goals of the project are:
+-	To have a single homogenous and flexible environment
+-	Clean and transparent processes
+-	Reduced complexity
+
+ELCA serves as an extension of the development team of the customer and will be tasked with migrating individual applications or packets of applications.
+
+The system consists of multiple different applications running in a single application container (the plugin application) adapted the needs of the different user groups. Every application implements a specific group of aspect of the system. To enforce a consistent user experience and to provide only a single Windows application to the users, the system uses the plugin pattern.
+The different application plugged into the plugin application are all structured according to a strict layer architecture
