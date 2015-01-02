@@ -38,7 +38,7 @@ namespace RepositoryPattern.Ef
         }
         public IQueryFluent<TEntity> OrderBy(string orderBy)
         {
-            _orderBy = q => q.OrderBy(orderBy) as IOrderedQueryable<TEntity>;
+            _orderBy = query => query.OrderBy(orderBy) as IOrderedQueryable<TEntity>;
             return this;
         }
         public IQueryFluent<TEntity> OrderBy(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy)
@@ -50,11 +50,11 @@ namespace RepositoryPattern.Ef
         {
             if (descending)
             {
-                _orderBy = q => q.OrderByDescending(keySelector);
+                _orderBy = query => query.OrderByDescending(keySelector);
             }
             else
             {
-                _orderBy = q => q.OrderBy(keySelector);
+                _orderBy = query => query.OrderBy(keySelector);
             }
             return this;
         }
