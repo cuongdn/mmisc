@@ -1,0 +1,66 @@
+﻿@using Web.UI.AdminLTE.Controls.Widget
+@using Web.UI.AdminLTE.Enums
+@using Web.UI.AdminLTE.Extensions
+@model Web.Models.FormModel
+
+<section class="content-header">
+    <h1>
+        General Form Elements
+        <small>Preview</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Forms</a></li>
+        <li class="active">General Elements</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            @using (var box = Html.Bootstrap().Begin(new Box().Style(BootstrapStyle.Primary)))
+            {
+                using (var header = box.BeginHeader("Quick Example", "My tooltip"))
+                {
+                    header.BoxTools(BootstrapSize.Mini, true, true);
+                }
+
+                using (var form = Html.Bootstrap().Begin(new Form().HtmlAttributes(new { role = "form" })))
+                {
+                    using (box.BeginBody())
+                    {
+                        @form.FormGroup().TextBoxFor(x => x.Email).Placeholder("Enter email")
+                        @form.FormGroup().PasswordFor(x => x.Password).Placeholder()
+                        @form.FormGroup().FileFor(x => x.FileInput).HelpText("Example block-level help text here.")
+                        @form.FormGroup().CheckBoxFor(x => x.CheckMeOut)
+                    }
+                    using (box.BeginFooter())
+                    {
+                        @Html.Bootstrap().SubmitButton().Style(ButtonStyle.Danger)
+                    }
+                }
+            }
+
+        </div>
+        <div class="col-md-6">
+            @using (var box = Html.Bootstrap().Begin(new Box().Style(BootstrapStyle.Primary)))
+            {
+                box.Header("Quick Example");
+
+                using (var form = Html.Bootstrap().Begin(new Form().HtmlAttributes(new { role = "form" })))
+                {
+                    using (box.BeginBody())
+                    {
+                        @form.FormGroup().TextBoxFor(x => x.Email).Placeholder("Enter email")
+                        @form.FormGroup().PasswordFor(x => x.Password).Placeholder()
+                        @form.FormGroup().FileFor(x => x.FileInput).HelpText("Example block-level help text here.")
+                        @form.FormGroup().CheckBoxFor(x => x.CheckMeOut)
+                    }
+                    using (box.BeginFooter())
+                    {
+                        @Html.Bootstrap().SubmitButton().Style(ButtonStyle.Danger)
+                    }
+                }
+            }
+        </div>
+    </div>
+</section>

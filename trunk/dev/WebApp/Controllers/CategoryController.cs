@@ -1,8 +1,8 @@
-﻿using DataAccess.Model;
+﻿using System;
+using DataAccess.Model;
 using RepositoryPattern.Infrastructure;
 using Service;
 using System.Web.Mvc;
-using Utilities.Extensions;
 
 namespace WebApp.Controllers
 {
@@ -20,11 +20,7 @@ namespace WebApp.Controllers
         // GET: Category
         public ActionResult Index()
         {
-            return View(CategoryService.Query().Select(x => new Category
-            {
-                CategoryId = x.CategoryId,
-                CategoryName = x.CategoryName
-            }));
+            return View(CategoryService.Query().Select());
         }
 
         // GET: Category/Details/5
@@ -52,8 +48,17 @@ namespace WebApp.Controllers
                 {
                     return View(data);
                 }
-                CategoryService.Insert(data);
-                UnitOfWork.SaveChanges();
+
+                try
+                {
+                    CategoryService.Insert(data);
+                    UnitOfWork.SaveChanges();
+                }
+                catch (Exception)
+                {
+                }
+
+                //UnitOfWork.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
