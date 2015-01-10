@@ -1,0 +1,24 @@
+\contentsline {chapter}{Acknowledgements}{3}
+\contentsline {chapter}{\numberline {1}Introduction}{4}
+\contentsline {section}{\numberline {1.1}An Overview about PUF}{4}
+\contentsline {section}{\numberline {1.2}ELCA introduction}{4}
+\contentsline {subsection}{\numberline {1.2.1}An overview}{4}
+\contentsline {subsection}{\numberline {1.2.2}My supervisor}{5}
+\contentsline {section}{\numberline {1.3}An overview of my task}{5}
+\contentsline {section}{\numberline {1.4}The internship report}{5}
+\contentsline {chapter}{\numberline {2}Theme of the project}{7}
+\contentsline {section}{\numberline {2.1}Requirements}{7}
+\contentsline {section}{\numberline {2.2}Challenges}{8}
+\contentsline {chapter}{\numberline {3}Project in details}{11}
+\contentsline {section}{\numberline {3.1}Architecture overview}{11}
+\contentsline {subsection}{\numberline {3.1.1}Plugin application concept}{11}
+\contentsline {section}{\numberline {3.2}Structural decomposition}{12}
+\contentsline {subsection}{\numberline {3.2.1}Presentation layer}{14}
+\contentsline {subsection}{\numberline {3.2.2}Business layer}{14}
+\contentsline {subsection}{\numberline {3.2.3}Data Access layer}{14}
+\contentsline {subsubsection}{Concurrency management}{15}
+\contentsline {subsubsection}{Storing data}{15}
+\contentsline {subsubsection}{Data Storage layer}{15}
+\contentsline {subsection}{\numberline {3.2.4}Solutions in short}{16}
+\contentsline {chapter}{\numberline {4}Conclusion}{17}
+\contentsline {chapter}{Bibliography}{18}

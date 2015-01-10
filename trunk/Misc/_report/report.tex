@@ -1,0 +1,78 @@
+\documentclass[a4paper,12pt]{report}
+%
+%--------------------   start of the 'preamble'
+%
+\usepackage{graphicx}
+\usepackage{rotating}
+\usepackage{multicol}
+%
+%---------------------   end of the 'preamble'
+%
+\begin{document}
+%-----------------------------------------------------------
+\begin{titlepage}
+	\begin{center}
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+		
+		\includegraphics[width=0.8\textwidth]{logo2.PNG}~\\[0.2cm]
+		\textsc{\large University of Bordeaux 1}\\[1.5cm]
+		%\textsc{\large Universit\'{e} de Bordeaux 1}\\[1.5cm]
+		
+		\textsc{\large Internship Report}\\[0.5cm]
+		\textsc{\large Master of Software Engineering (2012-2014)}\\[0.5cm]
+	
+		\HRule \\[0.4cm]
+		{ \huge \bfseries Migrate Oracle Forms To .NET Windows Forms \\[0.4cm] }
+		\HRule \\[1.5cm]
+		
+		\noindent
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushleft} \large
+				\emph{Author:}\\
+				\textsc{DO} Ngoc Cuong
+			\end{flushleft}
+		\end{minipage}%
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushright} \large
+				\emph{Supervisor:} \\
+				\textsc{VO} Tran Trong Vu
+			\end{flushright}
+		\end{minipage}
+		
+		\vfill
+		
+		{\large January 11, 2015}
+		
+	\end{center}
+\end{titlepage}
+%-----------------------------------------------------------
+\begin{abstract}
+Oracle Forms is no longer supported since 2008. The customer wants to do a migration of all these applications to a more modern .NET framework. The goals of the project are to have a single homogenous and flexible environment, obtain clean and transparent processes, and reduce complexity. During my internship with ELCA, as a member of the development team, my tasks are verifying the specifications in order to understand all the business and technical problem thoroughly; I also participated in developing the assigned modules, debugging the code; writing the unit test for the modules as well as providing necessary support to other team members. 
+\end{abstract}
+%-----------------------------------------------------------
+\tableofcontents
+\listoffigures
+%-----------------------------------------------------------
+\newpage
+\section*{Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+This report has been accomplished with my determination and my long-last desire of conducting a study in an authentic setting as a real professional. However, it cannot be made possible by the contribution of many great people who have involved in my study process. I would like to express my gratitude to the following for their invaluable help, care and support. I would like to offer my special thanks to my supervisor and the colleagues, who effectively helped me to finish the internship via helpful suggestions and clarifications. Last but not least, I would like to offer my special thanks to ELCA, the warm environment in where I was lucky enough to spend my internship period.
+\begin{flushright}
+\emph{Ho Chi Minh City, January 2015}\\
+\begin{minipage}[c]{0.3\textwidth}
+DO Ngoc Cuong	
+\end{minipage}	
+\end{flushright}
+%
+
+\include{chap1}
+\include{chap2}
+\include{chap3}
+\include{chap4}
+%-----------------------------------------------------------
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{plain}
+\bibliography{cbib} 
+%-----------------------------------------------------------
+
+\end{document}

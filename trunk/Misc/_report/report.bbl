@@ -1,0 +1,25 @@
+\begin{thebibliography}{1}
+
+\bibitem{DED}
+Devexpress document 14.2.
+\newblock https://documentation.devexpress.com/, December 2014.
+
+\bibitem{NRD}
+Nhibernate reference document.
+\newblock http://www.nhibernate.info/doc/index.html, December 2014.
+
+\bibitem{ADD}
+ELCA.
+\newblock {\em Architecture and Design Document}, September 2013.
+
+\bibitem{EBO}
+Rockford Lhotka.
+\newblock {\em Expert C\# 2008 Business Objects}.
+\newblock Apress, December 2008.
+
+\bibitem{UCS}
+Rockford Lhotka.
+\newblock {\em Using CSLA 4}.
+\newblock Marimer LLC, 2011.
+
+\end{thebibliography}
