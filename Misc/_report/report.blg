@@ -1,0 +1,14 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: report.aux
+A level-1 auxiliary file: chap1.aux
+A level-1 auxiliary file: chap2.aux
+A level-1 auxiliary file: chap3.aux
+A level-1 auxiliary file: chap4.aux
+The style file: plain.bst
+Database file #1: cbib.bib
+Warning--entry type for "NRD" isn't style-file defined
+--line 31 of file cbib.bib
+Warning--entry type for "DED" isn't style-file defined
+--line 41 of file cbib.bib
+Warning--to sort, need author or key in DED
+Warning--to sort, need author or key in NRD
+(There were 4 warnings)
