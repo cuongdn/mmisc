@@ -58,8 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dependency\StructureMapValidatorFactory.cs" />
-    <Compile Include="Infrastructure\BaseController.cs" />
     <Compile Include="Dependency\StructureMapDependencyResolver.cs" />
+    <Compile Include="Infrastructure\BaseController.cs" />
     <Compile Include="Infrastructure\MvcApplicationBase.cs" />
     <Compile Include="Localization\DefaultUICulture.cs" />
     <Compile Include="Localization\FlatFile\FileLocalizedTypeRepository.cs" />
