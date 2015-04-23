@@ -27,7 +27,7 @@ namespace Blogging.Business.Edit
 
         public static QuestionEdit New()
         {
-            return ModelPortal.NewModelObject<QuestionEdit>();
+            return ModelHelper.NewModelObject<QuestionEdit>();
         }
 
         public static QuestionEdit Get(int id, bool graphModel = true)

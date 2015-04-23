@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Blogging.DbModel.Entities;
+﻿using Blogging.DbModel.Entities;
 using Core.Business.Common;
 using Core.Business.Utils;
 
@@ -13,9 +12,9 @@ namespace Blogging.Business.Edit
         }
 
         public int Id { get; set; }
-        [Required]
+
         public string Title { get; set; }
-        [Required]
+
         public int CategoryId { get; set; }
 
         public static BlogEdit Get(int id)
@@ -35,7 +34,7 @@ namespace Blogging.Business.Edit
 
         public static BlogEdit New()
         {
-            return ModelPortal.NewModelObject<BlogEdit>();
+            return ModelHelper.NewModelObject<BlogEdit>();
         }
     }
 }

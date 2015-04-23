@@ -38,13 +38,13 @@ namespace Blogging.Business.Lookup
         public static IList<CategoryLookup> GetList()
         {
             var repo = new CategoryRepository(UnitOfWorkFactory.Get());
-            return ModelPortal.FetchChildren<CategoryLookup>(repo.GetAll());
+            return ModelHelper.FetchList<CategoryLookup>(repo.GetAll());
         }
 
         public static IList<CategoryLookup> GetListDto()
         {
             var repo = new CategoryRepository(UnitOfWorkFactory.Get());
-            return ModelPortal.FetchChildren<CategoryLookup>(repo.GetCategories());
+            return ModelHelper.FetchList<CategoryLookup>(repo.GetCategories());
         }
     }
 }

@@ -34,10 +34,11 @@
       <HintPath>..\Libs\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlogContext.cs" />
+    <Compile Include="DataContext\BlogContext.cs" />
     <Compile Include="Dto\BlogDto.cs" />
     <Compile Include="Dto\CategoryDto.cs" />
     <Compile Include="Entities\Answer.cs" />

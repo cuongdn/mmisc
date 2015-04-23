@@ -29,7 +29,7 @@ namespace Blogging.Business.Preview
         public static IList<BlogPreview> GetList()
         {
             var repo = new BlogRepository(UnitOfWorkFactory.Get());
-            return ModelPortal.FetchChildren<BlogPreview>(repo.GetAll());
+            return ModelHelper.FetchList<BlogPreview>(repo.GetAllAsync().Result);
         }
     }
 }

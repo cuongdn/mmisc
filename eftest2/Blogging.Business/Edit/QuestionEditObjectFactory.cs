@@ -21,12 +21,12 @@ namespace Blogging.Business.Edit
         public override void Fetch()
         {
             base.Fetch();
-            ModelObject.Answers = ModelPortal.FetchChildren<AnswerEdit>(DbEntity.Answers);
+            ModelObject.Answers = ModelHelper.FetchList<AnswerEdit>(DbEntity.Answers);
         }
 
         public override void UpdateChildren()
         {
-            ModelPortal.UpdateChildren<AnswerEdit>(ModelObject.Answers, DbEntity);
+            ModelHelper.UpdateChildren<AnswerEdit>(ModelObject.Answers, DbEntity);
         }
     }
 }

@@ -1,10 +1,9 @@
-﻿using Core.DataAccess.Repositories;
-using System;
+﻿using System;
 using System.Data.Entity;
 
-namespace Blogging.DbModel
+namespace Blogging.DbModel.DataContext
 {
-    public class BlogContext : DataContext
+    public class BlogContext : Core.DataAccess.Repositories.DataContext
     {
         public BlogContext()
             : base("name=ConnectionString")

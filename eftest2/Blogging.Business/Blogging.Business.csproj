@@ -30,9 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Omu.ValueInjecter, Version=2.3.3.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Omu.ValueInjecter.dll</HintPath>
+    <Reference Include="FluentValidation">
+      <HintPath>..\Libs\FluentValidation.5.5.0.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -45,9 +44,9 @@
     <Compile Include="Edit\QuestionEditObjectFactory.cs" />
     <Compile Include="Lookup\CategoryLookup.cs" />
     <Compile Include="Preview\BlogPreview.cs" />
-    <Compile Include="Preview\BlogPreviewObjectFactory.cs" />
     <Compile Include="Preview\QuestionPreview.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validator\BlogEditValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Blogging.DbModel\Blogging.DbModel.csproj">
@@ -63,7 +62,9 @@
       <Name>Core.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Localization\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

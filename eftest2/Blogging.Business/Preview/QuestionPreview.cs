@@ -32,7 +32,7 @@ namespace Blogging.Business.Preview
         public static IList<QuestionPreview> GetList()
         {
             var repo = new QuestionRepository(UnitOfWorkFactory.Get());
-            return ModelPortal.FetchChildren<QuestionPreview>(repo.GetAll());
+            return ModelHelper.FetchList<QuestionPreview>(repo.GetAll());
         }
 
         #endregion
