@@ -8,7 +8,7 @@ namespace Core.Web.Lookup
         protected IEnumerable InnerList { get; set; }
         protected abstract IEnumerable GetList();
 
-        protected SelectList SelectList(string valueField, string textField, object selectedValue = null)
+        protected SelectList GetSelectList(string valueField, string textField, object selectedValue = null)
         {
             return new SelectList(GetList(), valueField, textField, selectedValue);
         }

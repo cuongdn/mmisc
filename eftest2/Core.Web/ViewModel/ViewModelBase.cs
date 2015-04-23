@@ -36,7 +36,7 @@ namespace Core.Web.ViewModel
 
         public virtual bool Delete()
         {
-            return ModelObject.DeleteSelf();
+            return ModelObject.Delete();
         }
     }
 }
