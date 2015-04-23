@@ -33,6 +33,7 @@
     <Reference Include="FluentValidation">
       <HintPath>..\Libs\FluentValidation.5.5.0.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\Libs\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -110,7 +111,9 @@
     <Compile Include="Localization\Views\ViewPromptKey.cs" />
     <Compile Include="Lookup\LookupHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="ViewModel\IViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelPreview.cs" />
+    <Compile Include="ViewModel\ViewModelEdit.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core.Business\Core.Business.csproj">

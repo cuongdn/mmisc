@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core.Business.Common;
 
 namespace Core.Web.ViewModel
 {
-    public abstract class ViewModelBase<T> where T : ModelEditBase
+    public class ViewModelPreview<T> : IViewModel<T> where T : class
     {
         private IDictionary<Type, object> _cachedObjects;
         protected IDictionary<Type, object> CachedObjects
@@ -14,9 +13,9 @@ namespace Core.Web.ViewModel
 
         public T ModelObject { get; set; }
 
-        public bool NotFound
+        public bool Found
         {
-            get { return ModelObject == null; }
+            get { return ModelObject != null; }
         }
 
         protected TResult GetObject<TResult>(Func<TResult> createObject) where TResult : class
@@ -27,16 +26,6 @@ namespace Core.Web.ViewModel
                 CachedObjects.Add(key, createObject());
             }
             return CachedObjects[key] as TResult;
-        }
-
-        public virtual bool Upsert(bool forceUpdate = false)
-        {
-            return ModelObject.Upsert(forceUpdate);
-        }
-
-        public virtual bool Delete()
-        {
-            return ModelObject.Delete();
         }
     }
 }
