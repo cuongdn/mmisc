@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Core.Common.Infra.PagedList;
 using Core.DataAccess.Entities;
 
@@ -55,49 +56,101 @@ namespace Core.DataAccess.Infrastructure
             return this;
         }
 
-        public IEnumerable<T> List()
+        public async Task<IList<T>> ListAsync()
+        {
+            return await ExecuteQuery().ToListAsync();
+        }
+
+        public async Task<List<TResult>> ListAsync<TResult>(Expression<Func<T, TResult>> selector)
+        {
+            return await ExecuteQuery().Select(selector).ToListAsync();
+        }
+
+        public async Task<List<T>> TopAsync(int take, int skip)
+        {
+            return await ExecuteQueryTop(skip, take).ToListAsync();
+        }
+
+        public async Task<IList<T>> TopAsync(int take)
+        {
+            return await TopAsync(0, take);
+        }
+
+        public async Task<List<TResult>> TopAsync<TResult>(int take, int skip, Expression<Func<T, TResult>> selector)
+        {
+            return await ExecuteQueryTop(skip, take).Select(selector).ToListAsync();
+        }
+
+        public async Task<List<TResult>> TopAsync<TResult>(int take, Expression<Func<T, TResult>> selector)
+        {
+            return await TopAsync(0, take, selector);
+        }
+
+        public async Task<IPagedList<T>> PagedAsync(int page, int pageSize)
+        {
+            int totalRecords;
+            var query = ExecuteQueryPage(page, pageSize, out totalRecords);
+            return await new Task<IPagedList<T>>(() =>
+            {
+                var list = query == null ? new List<T>() : query.ToListAsync().Result;
+                return new PagedList<T>(list, page, pageSize, totalRecords);
+            });
+        }
+
+        public async Task<IPagedList<TResult>> PagedAsync<TResult>(int page, int pageSize, Expression<Func<T, TResult>> selector)
+        {
+            int totalRecords;
+            var query = ExecuteQueryPage(page, pageSize, out totalRecords);
+            return await new Task<IPagedList<TResult>>(() =>
+            {
+                var list = query == null ? new List<TResult>() : query.Select(selector).ToListAsync().Result;
+                return new PagedList<TResult>(list, page, pageSize, totalRecords);
+            });
+        }
+
+        public IList<T> List()
         {
             return ExecuteQuery().ToList();
         }
 
-        public IEnumerable<TResult> List<TResult>(Expression<Func<T, TResult>> selector)
+        public IList<TResult> List<TResult>(Expression<Func<T, TResult>> selector)
         {
-            return ExecuteQuery().Select(selector);
+            return ExecuteQuery().Select(selector).ToList();
         }
 
-        public IEnumerable<T> Top(int take, int skip)
+        public IList<T> Top(int take, int skip)
         {
             return ExecuteQueryTop(skip, take).ToList();
         }
 
-        public IEnumerable<T> Top(int take)
+        public IList<T> Top(int take)
         {
             return Top(0, take);
         }
 
-        public IEnumerable<TResult> Top<TResult>(int take, int skip, Expression<Func<T, TResult>> selector)
+        public IList<TResult> Top<TResult>(int take, int skip, Expression<Func<T, TResult>> selector)
         {
-            return ExecuteQueryTop(skip, take).Select(selector);
+            return ExecuteQueryTop(skip, take).Select(selector).ToList();
         }
 
-        public IEnumerable<TResult> Top<TResult>(int take, Expression<Func<T, TResult>> selector)
+        public IList<TResult> Top<TResult>(int take, Expression<Func<T, TResult>> selector)
         {
-            return ExecuteQueryTop(0, take).Select(selector);
+            return Top(0, take, selector);
         }
 
-        public IEnumerable<T> Paged(int page, int pageSize, out int totalRecords)
+        public IList<T> Paged(int page, int pageSize, out int totalRecords)
         {
             var query = ExecuteQueryPage(page, pageSize, out totalRecords);
             return query == null ? new List<T>() : query.ToList();
         }
 
-        public IEnumerable<TResult> Paged<TResult>(int page, int pageSize, out int totalRecords,
+        public IList<TResult> Paged<TResult>(int page, int pageSize, out int totalRecords,
             Expression<Func<T, TResult>> selector)
         {
             var query = ExecuteQueryPage(page, pageSize, out totalRecords);
             if (query == null)
                 return new List<TResult>();
-            return query.Select(selector);
+            return query.Select(selector).ToList();
         }
 
         public IPagedList<T> Paged(int page, int pageSize)

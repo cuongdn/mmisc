@@ -1,5 +1,6 @@
 using System;
 using System.Data.Entity;
+using System.Threading.Tasks;
 using Core.DataAccess.Entities;
 
 namespace Core.DataAccess.Repositories
@@ -8,6 +9,7 @@ namespace Core.DataAccess.Repositories
     {
         DbContext DbContext { get; }
         IRepository<T> Repository<T>() where T : EntityBase;
-        void SaveChanges();
+        int SaveChanges();
+        Task<int> SaveChangesAsync();
     }
 }

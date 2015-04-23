@@ -1,4 +1,5 @@
-﻿using Core.DataAccess.Entities;
+﻿using System.Threading.Tasks;
+using Core.DataAccess.Entities;
 using Core.DataAccess.Infrastructure;
 
 namespace Core.DataAccess.Repositories
@@ -10,5 +11,6 @@ namespace Core.DataAccess.Repositories
         void Update(T entity);
         void Delete(T entity);
         QueryFluent<T> Query();
+        Task<T> GetAsync(params object[] keyValues);
     }
 }

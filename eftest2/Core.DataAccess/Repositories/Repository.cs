@@ -1,5 +1,6 @@
 using System;
 using System.Data.Entity.Infrastructure;
+using System.Threading.Tasks;
 using Core.DataAccess.Entities;
 using System.Data.Entity;
 using System.Linq;
@@ -57,6 +58,11 @@ namespace Core.DataAccess.Repositories
         {
             var defaultOrderBy = string.Join(",", EntityKeyHelper.Instance.GetKeyNames<T>(DbContext));
             return new QueryFluent<T>(DbSet.AsQueryable(), defaultOrderBy);
+        }
+
+        public async Task<T> GetAsync(params object[] keyValues)
+        {
+            return await DbSet.FindAsync(keyValues);
         }
     }
 }

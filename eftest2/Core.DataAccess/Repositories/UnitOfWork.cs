@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Threading.Tasks;
 using Core.DataAccess.Entities;
 using Microsoft.Practices.ServiceLocation;
 
@@ -40,9 +41,14 @@ namespace Core.DataAccess.Repositories
             return Repositories[type];
         }
 
-        public void SaveChanges()
+        public int SaveChanges()
         {
-            DbContext.SaveChanges();
+            return DbContext.SaveChanges();
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await DbContext.SaveChangesAsync();
         }
 
         public override string ToString()

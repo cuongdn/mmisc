@@ -13,6 +13,13 @@ namespace Core.DataAccess.Repositories
         protected DataContext(string nameOrConnectionString)
             : base(nameOrConnectionString)
         {
+
+        }
+
+        protected void SetNullDatabaseInitializer<T>()
+            where T : DbContext
+        {
+            Database.SetInitializer(new NullDatabaseInitializer<T>());
         }
 
         public override int SaveChanges()
