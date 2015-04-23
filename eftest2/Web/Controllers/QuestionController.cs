@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Blogging.Business.Preview;
 using Blogging.Web.ViewModel;
-using Core.Web.Infrastrcture;
+using Core.Web.Infrastructure;
 
 namespace Web.Controllers
 {

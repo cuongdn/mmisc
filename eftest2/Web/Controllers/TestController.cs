@@ -1,11 +1,5 @@
-﻿using System;
-using System.Globalization;
-using System.Security.AccessControl;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Blogging.Business.Edit;
-using Blogging.DbModel.Entities;
-using Blogging.DbModel.Repositories;
-using Core.DataAccess.Repositories;
 
 namespace Web.Controllers
 {
@@ -18,11 +12,11 @@ namespace Web.Controllers
             var abc = QuestionEdit.New();
             WriteLine(abc.Title);
 
-            var uow = UnitOfWorkFactory.Get();
-            var uow2 = UnitOfWorkFactory.Get();
+            //var uow = UnitOfWorkFactory.Get();
+            //var uow2 = UnitOfWorkFactory.Get();
 
-            WriteLine(uow);
-            WriteLine(uow2);
+            //WriteLine(uow);
+            //WriteLine(uow2);
             //var repo = new QuestionRepository(uow);
 
             //var question = QuestionEditModel.Get(1);
@@ -37,7 +31,8 @@ namespace Web.Controllers
             //question = QuestionEditModel.Get(1);
             //Print(question);
 
-            return uow.Equals(uow2) ? bool.TrueString : bool.FalseString;
+            //return uow.Equals(uow2) ? bool.TrueString : bool.FalseString;
+            return "";
         }
 
         private void Print(QuestionEdit questionEdit)
