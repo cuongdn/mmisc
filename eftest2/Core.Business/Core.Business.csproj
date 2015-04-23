@@ -47,7 +47,7 @@
     <Compile Include="ObjectFactories\ObjectFactoryBase.cs" />
     <Compile Include="ObjectFactories\PreviewObjectFactory.cs" />
     <Compile Include="Utils\ObjectFactoryCreator.cs" />
-    <Compile Include="Utils\ObjFacUtil.cs" />
+    <Compile Include="Utils\ObjectUtil.cs" />
     <Compile Include="Utils\ModelHelper.cs" />
     <Compile Include="CommonConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

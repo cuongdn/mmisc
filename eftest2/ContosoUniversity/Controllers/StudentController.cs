@@ -6,7 +6,7 @@ using Cs.Web;
 
 namespace ContosoUniversity.Controllers
 {
-    public class StudentController : BaseController
+    public class StudentController : Class1
     {
         // GET: Student
         public ActionResult Index()
