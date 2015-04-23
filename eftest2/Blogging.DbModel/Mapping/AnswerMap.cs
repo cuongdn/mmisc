@@ -11,7 +11,7 @@ namespace Blogging.DbModel.Mapping
             ToTable("Answer");
 
             HasKey(x => x.Id);
-            Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(x => x.Id).HasDatabaseGeneratedOption((DatabaseGeneratedOption?)DatabaseGeneratedOption.Identity);
             Property(x => x.Description).IsRequired();
             Property(x => x.Vote);
         }

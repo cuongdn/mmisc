@@ -11,7 +11,7 @@ namespace Blogging.DbModel.Mapping
             ToTable("Categories");
 
             HasKey(x => x.Id);
-            Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(x => x.Id).HasDatabaseGeneratedOption((DatabaseGeneratedOption?)DatabaseGeneratedOption.Identity);
             Property(x => x.CategoryName).IsRequired();
             HasMany(x => x.Blogs);
         }

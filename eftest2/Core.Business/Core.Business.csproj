@@ -36,22 +36,20 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ModelBase.cs" />
     <Compile Include="Common\ModelEditBase.cs" />
-    <Compile Include="ObjectFactories\GenericObjectFactory.cs" />
-    <Compile Include="ObjectFactories\ObjectFactory.cs" />
-    <Compile Include="Utils\ObjFacUtil.cs" />
-    <Compile Include="Utils\ModelPortal.cs" />
-    <Compile Include="CommonConstants.cs" />
     <Compile Include="Mapper\EntityValueInjection.cs" />
     <Compile Include="Mapper\ExcludeValueInjection.cs" />
+    <Compile Include="ObjectFactories\EditObjectFactory.cs" />
+    <Compile Include="ObjectFactories\GenericObjectFactory.cs" />
+    <Compile Include="ObjectFactories\ObjectFactoryBase.cs" />
+    <Compile Include="ObjectFactories\PreviewObjectFactory.cs" />
+    <Compile Include="Utils\ObjectFactoryCreator.cs" />
+    <Compile Include="Utils\ObjFacUtil.cs" />
+    <Compile Include="Utils\ModelHelper.cs" />
+    <Compile Include="CommonConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

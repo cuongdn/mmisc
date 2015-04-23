@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentValidation">
+      <HintPath>..\Libs\FluentValidation.5.5.0.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\Libs\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -38,16 +41,73 @@
       <HintPath>..\Libs\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastrcture\BaseController.cs" />
+    <Compile Include="Dependency\StructureMapValidatorFactory.cs" />
+    <Compile Include="Infrastructure\BaseController.cs" />
     <Compile Include="Dependency\StructureMapDependencyResolver.cs" />
+    <Compile Include="Infrastructure\MvcApplicationBase.cs" />
+    <Compile Include="Localization\DefaultUICulture.cs" />
+    <Compile Include="Localization\FlatFile\FileLocalizedTypeRepository.cs" />
+    <Compile Include="Localization\FlatFile\NamespaceDoc.cs" />
+    <Compile Include="Localization\FlatFile\TypePromptCollection.cs" />
+    <Compile Include="Localization\FlatFile\ViewLocalizationFileRepository.cs" />
+    <Compile Include="Localization\FlatFile\ViewPromptCollection.cs" />
+    <Compile Include="Localization\IClientValidationRule.cs" />
+    <Compile Include="Localization\LocalizationConfig.cs" />
+    <Compile Include="Localization\LocalizedAttribute.cs" />
+    <Compile Include="Localization\LocalizedCacheAttribute.cs" />
+    <Compile Include="Localization\LocalizedMetadataProvider.cs" />
+    <Compile Include="Localization\LocalizedModelValidatorProvider.cs" />
+    <Compile Include="Localization\MetadataLanguageProvider.cs" />
+    <Compile Include="Localization\NamespaceDoc.cs" />
+    <Compile Include="Localization\ResourceStringProvider.cs" />
+    <Compile Include="Localization\SearchFilter.cs" />
+    <Compile Include="Localization\Types\CommonPrompts.cs" />
+    <Compile Include="Localization\Types\DelegateValidationAttributeAdapterFactory.cs" />
+    <Compile Include="Localization\Types\ILocalizedStringProvider.cs" />
+    <Compile Include="Localization\Types\ILocalizedTypesRepository.cs" />
+    <Compile Include="Localization\Types\ITypePromptImporter.cs" />
+    <Compile Include="Localization\Types\IValidationAttributeAdapterFactory.cs" />
+    <Compile Include="Localization\Types\NamespaceDoc.cs" />
+    <Compile Include="Localization\Types\RepositoryStringProvider.cs" />
+    <Compile Include="Localization\Types\TypePrompt.cs" />
+    <Compile Include="Localization\Types\TypePromptKey.cs" />
+    <Compile Include="Localization\Types\ValidationAttributeAdapterFactory.cs" />
+    <Compile Include="Localization\Types\ValidationAttributesStringProvider.cs" />
+    <Compile Include="Localization\ValidatableObjectAdapter.cs" />
+    <Compile Include="Localization\ValidationMessages\DataAnnotationDefaultStrings.cs" />
+    <Compile Include="Localization\ValidationMessages\GetMessageContext.cs" />
+    <Compile Include="Localization\ValidationMessages\GriffinStringsProvider.cs" />
+    <Compile Include="Localization\ValidationMessages\IGetMessageContext.cs" />
+    <Compile Include="Localization\ValidationMessages\IValidationMessageDataSource.cs" />
+    <Compile Include="Localization\ValidationMessages\MvcDataSource.cs" />
+    <Compile Include="Localization\ValidationMessages\NamespaceDoc.cs" />
+    <Compile Include="Localization\ValidationMessages\ValidationMessageProviders.cs" />
+    <Compile Include="Localization\Views\IViewLocalizationRepository.cs" />
+    <Compile Include="Localization\Views\IViewPromptImporter.cs" />
+    <Compile Include="Localization\Views\IViewPromptQueries.cs" />
+    <Compile Include="Localization\Views\IViewPromptResult.cs" />
+    <Compile Include="Localization\Views\NamespaceDoc.cs" />
+    <Compile Include="Localization\Views\QueryConstraints.cs" />
+    <Compile Include="Localization\Views\SortDirection.cs" />
+    <Compile Include="Localization\Views\ViewLocalizer.cs" />
+    <Compile Include="Localization\Views\ViewPrompt.cs" />
+    <Compile Include="Localization\Views\ViewPromptKey.cs" />
     <Compile Include="Lookup\LookupHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />

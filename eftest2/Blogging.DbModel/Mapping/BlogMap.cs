@@ -10,7 +10,7 @@ namespace Blogging.DbModel.Mapping
         {
             ToTable("Blogs");
             HasKey(x => x.Id);
-            Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(x => x.Id).HasDatabaseGeneratedOption((DatabaseGeneratedOption?)DatabaseGeneratedOption.Identity);
             Property(x => x.Title).IsRequired();
             Property(x => x.Body).IsRequired();
             Property(x => x.CreatedDate).HasColumnName("CreatedAt").IsRequired();
