@@ -1,24 +1,26 @@
-using Omu.ValueInjecter;
+using Core.Business.Common;
+using Core.DataAccess.Entities;
+using Core.DataAccess.Repositories;
 
 namespace Core.Business.ObjectFactories
 {
-    public class GenericObjectFactory<T, TE> : ObjectFactoryBase<T, TE>
-        where T : class, new()
-        where TE : class, new()
+    public class GenericObjectFactory<T, TE> : ObjectFactory<T, TE>
+        where T : ModelBase, new()
+        where TE : EntityBase, new()
     {
-        public override void Fetch()
+        protected IRepository<TE> Repository
         {
-            if (DbEntity == null) return;
+            get { return TheUnitOfWork.Repository<TE>(); }
+        }
 
-            if (ModelObject == null)
-            {
-                ModelObject = new T();
-            }
-            ModelObject.InjectFrom<FlatLoopValueInjection>(DbEntity);
+        protected virtual IUnitOfWork TheUnitOfWork
+        {
+            get { return UnitOfWorkFactory.Get(); }
         }
 
         public override void Get(object id)
         {
+            DbEntity = Repository.Get(id);
         }
     }
 }

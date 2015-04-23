@@ -43,10 +43,10 @@
     <Compile Include="Mapper\EntityValueInjection.cs" />
     <Compile Include="Mapper\ExcludeValueInjection.cs" />
     <Compile Include="ObjectFactories\EditObjectFactory.cs" />
-    <Compile Include="ObjectFactories\GenericObjectFactory.cs" />
+    <Compile Include="ObjectFactories\ObjectFactory.cs" />
     <Compile Include="ObjectFactories\ObjectFactoryBase.cs" />
-    <Compile Include="ObjectFactories\PreviewObjectFactory.cs" />
-    <Compile Include="Utils\ObjectFactoryCreator.cs" />
+    <Compile Include="ObjectFactories\GenericObjectFactory.cs" />
+    <Compile Include="ObjectFactories\ObjectFactoryCreator.cs" />
     <Compile Include="Utils\ObjectUtil.cs" />
     <Compile Include="Utils\ModelHelper.cs" />
     <Compile Include="CommonConstants.cs" />

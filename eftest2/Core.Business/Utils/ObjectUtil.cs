@@ -28,11 +28,11 @@ namespace Core.Business.Utils
         /// <param name="id">Primary key value</param>
         /// <param name="creator">Custom object factory</param>
         /// <returns></returns>
-        public static T Get<T, TE>(object id, GenericObjectFactoryCreator<T, TE> creator = null)
+        public static T Get<T, TE>(object id, ObjectFactoryCreator<T, TE> creator = null)
             where T : ModelBase, new()
-            where TE : class,new()
+            where TE : class, new()
         {
-            return GetAndFetch(id, ObjectFactoryCreator.Generic(creator));
+            return GetAndFetch(id, ObjectFactoryCreator.Base(creator));
         }
 
         public static T GetEdit<T, TE>(object id, EditObjectFactoryCreator<T, TE> creator = null)
@@ -42,11 +42,11 @@ namespace Core.Business.Utils
             return GetAndFetch(id, ObjectFactoryCreator.Edit(creator));
         }
 
-        public static T GetPreview<T, TE>(object id, PreviewObjectFactoryCreator<T, TE> creator = null)
+        public static T GetPreview<T, TE>(object id, GenericObjectFactoryCreator<T, TE> creator = null)
             where T : ModelBase, new()
             where TE : EntityBase, new()
         {
-            return GetAndFetch(id, ObjectFactoryCreator.Preview(creator));
+            return GetAndFetch(id, ObjectFactoryCreator.Generic(creator));
         }
 
         private static T GetAndFetch<T, TE>(object id, ObjectFactoryBase<T, TE> objectFactory)
@@ -57,21 +57,15 @@ namespace Core.Business.Utils
         }
 
         public static T Fetch<T, TE>(T modelObject, TE dbEntity,
-            GenericObjectFactoryCreator<T, TE> creator = null, Action<ObjectFactoryBase<T, TE>> actionFetch = null)
+            ObjectFactoryCreator<T, TE> creator = null, Action<ObjectFactoryBase<T, TE>> actionFetch = null)
             where T : ModelBase, new()
-            where TE : class , new()
+            where TE : class, new()
         {
-            if (dbEntity == null)
-            {
-                throw new ArgumentNullException("dbEntity");
-            }
-
-            var objectFactory = ObjectFactoryCreator.Generic(creator);
-            return Fetch(objectFactory, modelObject, dbEntity, actionFetch);
+            var objectFactory = ObjectFactoryCreator.Base(creator);
+            return Fetch(modelObject, dbEntity, objectFactory, actionFetch);
         }
 
-        public static T Fetch<T, TE>(ObjectFactoryBase<T, TE> objectFactory, T modelObject, TE dbEntity,
-           Action<ObjectFactoryBase<T, TE>> actionFetch = null)
+        public static T Fetch<T, TE>(T modelObject, TE dbEntity, ObjectFactoryBase<T, TE> objectFactory, Action<ObjectFactoryBase<T, TE>> actionFetch = null)
         {
             objectFactory.ModelObject = modelObject;
             objectFactory.DbEntity = dbEntity;

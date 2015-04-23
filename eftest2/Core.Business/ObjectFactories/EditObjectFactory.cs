@@ -4,7 +4,7 @@ using Omu.ValueInjecter;
 
 namespace Core.Business.ObjectFactories
 {
-    public class EditObjectFactory<T, TE> : PreviewObjectFactory<T, TE>
+    public class EditObjectFactory<T, TE> : GenericObjectFactory<T, TE>
         where T : ModelBase, new()
         where TE : EntityBase, new()
     {
