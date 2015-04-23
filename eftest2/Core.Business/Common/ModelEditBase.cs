@@ -22,7 +22,7 @@ namespace Core.Business.Common
             return true;
         }
 
-        public virtual bool DeleteSelf()
+        public virtual bool Delete()
         {
             return true;
         }

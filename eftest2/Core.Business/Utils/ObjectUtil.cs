@@ -8,44 +8,56 @@ using Core.DataAccess.Infrastructure;
 
 namespace Core.Business.Utils
 {
-    public delegate GenericObjectFactory<T, TE> GenericObjectFactoryCreator<T, TE>()
-        where T : ModelBase, new()
-        where TE : EntityBase, new();
-
-    public delegate ObjectFactory<T, TE> ObjectFactoryCreator<T, TE>()
-        where T : ModelBase, new()
-        where TE : class, new();
-
-    public static class ObjFacUtil
+    public static class ObjectUtil
     {
-        public static T NewModelObject<T, TE>(T modelObject, GenericObjectFactoryCreator<T, TE> creator = null)
+        public static T NewModelObject<T, TE>(T modelObject, EditObjectFactoryCreator<T, TE> creator = null)
             where T : ModelBase, new()
             where TE : EntityBase, new()
         {
-            var objectFactory = CreateGenericObjectFactory(creator);
+            var objectFactory = ObjectFactoryCreator.Edit(creator);
             objectFactory.ModelObject = modelObject;
             objectFactory.NewModelObject();
             return objectFactory.ModelObject;
         }
 
+        /// <summary>
+        /// Get object by primary key and fetch data by using default/custom object factory
+        /// </summary>
+        /// <typeparam name="T">Model object type</typeparam>
+        /// <typeparam name="TE">Any type that has empty constructor</typeparam>
+        /// <param name="id">Primary key value</param>
+        /// <param name="creator">Custom object factory</param>
+        /// <returns></returns>
         public static T Get<T, TE>(object id, GenericObjectFactoryCreator<T, TE> creator = null)
+            where T : ModelBase, new()
+            where TE : class,new()
+        {
+            return GetAndFetch(id, ObjectFactoryCreator.Generic(creator));
+        }
+
+        public static T GetEdit<T, TE>(object id, EditObjectFactoryCreator<T, TE> creator = null)
             where T : ModelBase, new()
             where TE : EntityBase, new()
         {
-            var objectFactory = CreateGenericObjectFactory(creator);
+            return GetAndFetch(id, ObjectFactoryCreator.Edit(creator));
+        }
+
+        public static T GetPreview<T, TE>(object id, PreviewObjectFactoryCreator<T, TE> creator = null)
+            where T : ModelBase, new()
+            where TE : EntityBase, new()
+        {
+            return GetAndFetch(id, ObjectFactoryCreator.Preview(creator));
+        }
+
+        private static T GetAndFetch<T, TE>(object id, ObjectFactoryBase<T, TE> objectFactory)
+        {
             objectFactory.Get(id);
-
-            if (objectFactory.DbEntity == null)
-            {
-                return null;
-            }
-
             objectFactory.Fetch();
             return objectFactory.ModelObject;
         }
 
         public static T Fetch<T, TE>(T modelObject, TE dbEntity,
-            ObjectFactoryCreator<T, TE> creator = null, Action actionFetch = null)
+            GenericObjectFactoryCreator<T, TE> creator = null, Action<ObjectFactoryBase<T, TE>> actionFetch = null)
             where T : ModelBase, new()
             where TE : class , new()
         {
@@ -54,12 +66,18 @@ namespace Core.Business.Utils
                 throw new ArgumentNullException("dbEntity");
             }
 
-            var objectFactory = CreateObjectFactory(creator);
+            var objectFactory = ObjectFactoryCreator.Generic(creator);
+            return Fetch(objectFactory, modelObject, dbEntity, actionFetch);
+        }
+
+        public static T Fetch<T, TE>(ObjectFactoryBase<T, TE> objectFactory, T modelObject, TE dbEntity,
+           Action<ObjectFactoryBase<T, TE>> actionFetch = null)
+        {
             objectFactory.ModelObject = modelObject;
             objectFactory.DbEntity = dbEntity;
             if (actionFetch != null)
             {
-                actionFetch();
+                actionFetch(objectFactory);
             }
             else
             {
@@ -75,7 +93,7 @@ namespace Core.Business.Utils
             return modelObject.IsNew ? new TE() : collection.FirstOrDefault(x => x.Id.Equals(modelObject.IdValue));
         }
 
-        public static TE UpdateChild<T, TE, TKey>(T modelObject, ICollection<TE> collection, GenericObjectFactoryCreator<T, TE> creator = null)
+        public static TE UpdateChild<T, TE, TKey>(T modelObject, ICollection<TE> collection, EditObjectFactoryCreator<T, TE> creator = null)
             where T : ModelEditBase, new()
             where TE : Entity<TKey>, new()
         {
@@ -92,7 +110,7 @@ namespace Core.Business.Utils
                 return dbEntity;
             }
 
-            var objectFactory = CreateGenericObjectFactory(creator);
+            var objectFactory = ObjectFactoryCreator.Edit(creator);
             objectFactory.ModelObject = modelObject;
             objectFactory.DbEntity = dbEntity;
             objectFactory.UpdatePreparation();
@@ -103,11 +121,11 @@ namespace Core.Business.Utils
             return dbEntity;
         }
 
-        public static bool Delete<T, TE>(object id, GenericObjectFactoryCreator<T, TE> creator = null)
+        public static bool Delete<T, TE>(object id, EditObjectFactoryCreator<T, TE> creator = null)
             where T : ModelEditBase, new()
             where TE : EntityBase, new()
         {
-            var objectFactory = CreateGenericObjectFactory(creator);
+            var objectFactory = ObjectFactoryCreator.Edit(creator);
             objectFactory.Get(id);
             if (objectFactory.DbEntity == null)
             {
@@ -119,11 +137,11 @@ namespace Core.Business.Utils
         }
 
         public static bool Upsert<T, TE>(T modelObject, bool forceUpdate = false,
-                GenericObjectFactoryCreator<T, TE> creator = null, bool refetch = true)
+                EditObjectFactoryCreator<T, TE> creator = null, bool refetch = true)
             where T : ModelEditBase, new()
             where TE : EntityBase, new()
         {
-            var objectFactory = CreateGenericObjectFactory(creator);
+            var objectFactory = ObjectFactoryCreator.Edit(creator);
             objectFactory.ModelObject = modelObject;
 
             if (forceUpdate)
@@ -146,20 +164,6 @@ namespace Core.Business.Utils
                 objectFactory.Fetch();
             }
             return true;
-        }
-
-        private static GenericObjectFactory<T, TE> CreateGenericObjectFactory<T, TE>(GenericObjectFactoryCreator<T, TE> creator)
-            where T : ModelBase, new()
-            where TE : EntityBase, new()
-        {
-            return creator == null ? new GenericObjectFactory<T, TE>() : creator();
-        }
-
-        private static ObjectFactory<T, TE> CreateObjectFactory<T, TE>(ObjectFactoryCreator<T, TE> creator)
-            where T : ModelBase, new()
-            where TE : class , new()
-        {
-            return creator == null ? new ObjectFactory<T, TE>() : creator();
         }
     }
 }
