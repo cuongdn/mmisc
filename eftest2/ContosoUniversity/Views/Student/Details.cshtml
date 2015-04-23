@@ -1,4 +1,4 @@
-﻿@model Cs.Business.Preview.StudentPreview
+﻿@model Core.Web.ViewModel.ViewModelPreview<Cs.Business.Preview.StudentPreview>
 
 @{
     ViewBag.Title = "Details";
@@ -11,23 +11,23 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.ModelObject.LastName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => model.ModelObject.LastName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EnrollmentDate)
+            @Html.DisplayNameFor(model => model.ModelObject.EnrollmentDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EnrollmentDate)
+            @Html.DisplayFor(model => model.ModelObject.EnrollmentDate)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Enrollments)
+            @Html.DisplayNameFor(model => model.ModelObject.Enrollments)
         </dt>
 
         <dd>
@@ -36,7 +36,7 @@
                     <th>Course Title</th>
                     <th>Grade</th>
                 </tr>
-                @foreach (var item in Model.Enrollments)
+                @foreach (var item in Model.ModelObject.Enrollments)
                 {
                     <tr>
                         <td>
@@ -53,6 +53,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ModelObject.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
