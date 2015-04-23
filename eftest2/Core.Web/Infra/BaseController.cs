@@ -7,7 +7,7 @@ using Core.Web.ViewModel;
 
 namespace Core.Web.Infrastructure
 {
-    public class Class1 : Controller
+    public class BaseController : Controller
     {
         protected ActionResult ViewOr404<T>(ViewModelBase<T> viewModel, Func<ActionResult> renderView)
             where T : ModelEditBase
