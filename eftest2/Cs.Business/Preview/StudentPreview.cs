@@ -23,7 +23,7 @@ namespace Cs.Business.Preview
 
         public static StudentPreview Get(int id)
         {
-            return ObjectUtil.GetPreview(id, () => new StudentPreviewPreviewObjectFactory());
+            return ObjectUtil.GetPreview(id, () => new StudentPreviewObjectFactory());
         }
 
         public static IList<StudentPreview> GetList()

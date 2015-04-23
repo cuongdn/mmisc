@@ -17,6 +17,11 @@ namespace Cs.Business.Edit
         public string FirstMidName { get; set; }
         public DateTime EnrollmentDate { get; set; }
 
+        public static StudentEdit New()
+        {
+            return ModelHelper.NewModelObject<StudentEdit>();
+        }
+
         public static StudentEdit Get(int id)
         {
             return ObjectUtil.GetEdit<StudentEdit, Student>(id);

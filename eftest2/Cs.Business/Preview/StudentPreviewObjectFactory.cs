@@ -3,11 +3,10 @@ using Cs.DbModel.Entities;
 
 namespace Cs.Business.Preview
 {
-    class StudentPreviewPreviewObjectFactory : PreviewObjectFactory<StudentPreview, Student>
+    class StudentPreviewObjectFactory : GenericObjectFactory<StudentPreview, Student>
     {
-        public override void Fetch()
+        protected override void FetchOthers()
         {
-            base.Fetch();
             ModelObject.Enrollments = EnrollmentPreview.GetList(DbEntity.Id);
             //ModelObject.Enrollments = EnrollmentPreview.GetList(DbEntity);
         }
