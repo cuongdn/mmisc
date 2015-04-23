@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Core.Web.Infrastructure;
 using Cs.Business.Preview;
-using Cs.Web;
+using Cs.Web.ViewModel;
 
 namespace ContosoUniversity.Controllers
 {
@@ -16,19 +16,20 @@ namespace ContosoUniversity.Controllers
         // GET: Student/Details/5
         public ActionResult Details(int id)
         {
-            return View(StudentPreview.Get(id));
+            return ViewPreviewOr404(StudentPreview.Get(id));
         }
 
         // GET: Student/Create
         public ActionResult Create()
         {
-            return View(new StudentViewModel());
+            //return ViewEditOr404(StudentEdit.New());
+            return View(new StudentEditViewModel());
         }
 
         // POST: Student/Create
         [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(StudentViewModel viewModel)
+        public ActionResult Create(StudentEditViewModel viewModel)
         {
             return SaveOr404(viewModel);
         }
@@ -39,42 +40,35 @@ namespace ContosoUniversity.Controllers
             {
                 return BadRequest();
             }
-            var viewModel = new StudentViewModel(id.Value);
+            var viewModel = new StudentEditViewModel(id.Value);
             return ViewOr404(viewModel);
         }
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int? id, StudentViewModel viewModel)
+        public ActionResult Edit(int id, StudentEditViewModel viewModel)
+        {
+            return SaveOr404(viewModel, true);
+        }
+
+        // GET: Student/Delete/5
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (!id.HasValue)
             {
                 return BadRequest();
             }
-
-            return SaveOr404(viewModel, true);
-        }
-
-        // GET: Student/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
+            var viewModel = new StudentEditViewModel(id.Value);
+            return ViewConfirmDeleteOr404(viewModel, saveChangesError);
         }
 
         // POST: Student/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            var viewModel = new StudentEditViewModel(id);
+            return DeleteOr404(id, viewModel);
         }
     }
 }
