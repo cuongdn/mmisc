@@ -1,12 +1,11 @@
-﻿using System.Net;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Core.Web.Infrastructure;
 using Cs.Business.Preview;
 using Cs.Web;
 
 namespace ContosoUniversity.Controllers
 {
-    public class StudentController : Class1
+    public class StudentController : BaseController
     {
         // GET: Student
         public ActionResult Index()
