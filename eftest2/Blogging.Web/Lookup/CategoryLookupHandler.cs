@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Web.Mvc;
 using Blogging.Business.Lookup;
+using Blogging.Web.Localization;
 using Core.Web.Lookup;
 
 namespace Blogging.Web.Lookup
@@ -12,11 +13,16 @@ namespace Blogging.Web.Lookup
             return new CategoryLookupHandler();
         }
 
+        public string Option
+        {
+            get { return LookupTexts.CategoryLookupOption; }
+        }
+
         public SelectList SelectList
         {
             get
             {
-                return new SelectList(GetList(), "Id", "CategoryName");
+                return GetSelectList("Id", "CategoryName");
             }
         }
 
