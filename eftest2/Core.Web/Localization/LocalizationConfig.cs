@@ -7,12 +7,13 @@ namespace Core.Web.Localization
 {
     public static class LocalizationConfig
     {
-        public static void RegisterResources(Assembly assembly, Func<Type, bool> predicate = null)
+        public static ResourceStringProvider RegisterResources(Assembly assembly, Func<Type, bool> predicate = null)
         {
             var stringProvider = new ResourceStringProvider(assembly, predicate);
             ModelMetadataProviders.Current = new LocalizedModelMetadataProvider(stringProvider);
             ModelValidatorProviders.Providers.Clear();
             ModelValidatorProviders.Providers.Add(new LocalizedModelValidatorProvider());
+            return stringProvider;
         }
     }
 }

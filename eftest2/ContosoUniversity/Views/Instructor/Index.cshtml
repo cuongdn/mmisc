@@ -1,5 +1,4 @@
-﻿@using System.Web.UI.WebControls
-@model IEnumerable<Cs.Business.Preview.StudentPreview>
+﻿@model IEnumerable<Cs.Business.Preview.InstructorPreview>
 
 @{
     ViewBag.Title = "Index";
@@ -13,16 +12,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Last Name", "Index", new { sortBy = "LastName", sortOrder = ViewBag.SortOrder })
-            @*@Html.DisplayNameFor(model => model.LastName)*@
+            @Html.DisplayNameFor(model => model.LastName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstMidName)
         </th>
         <th>
-            @Html.ActionLink("Enrollment Date", "Index", new { sortBy = "EnrollmentDate", sortOrder = ViewBag.OtherSortOrder })
-            
-            @*@Html.DisplayNameFor(model => model.EnrollmentDate)*@
+            @Html.DisplayNameFor(model => model.HireDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OfficeLocation)
         </th>
         <th></th>
     </tr>
@@ -36,7 +35,10 @@
             @Html.DisplayFor(modelItem => item.FirstMidName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EnrollmentDate)
+            @Html.DisplayFor(modelItem => item.HireDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OfficeLocation)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

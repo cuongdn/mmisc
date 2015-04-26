@@ -104,7 +104,7 @@ namespace Core.Web.Infrastructure
 
         }
 
-        protected ActionResult ViewDelete<T>(int? id, bool? saveChangesError, T modelObject)
+        protected ActionResult ViewDeleteOr404<T>(int? id, bool? saveChangesError, T modelObject)
             where T : ModelEditBase
         {
             if (!id.HasValue)
@@ -115,10 +115,8 @@ namespace Core.Web.Infrastructure
             {
                 ModelObject = modelObject
             };
-            return ViewConfirmDeleteOr404(viewModel, saveChangesError);
+            return ViewDeleteOr404(viewModel, saveChangesError);
         }
-
-
 
         protected virtual bool DeleteObject<T>(T model)
             where T : ModelEditBase
@@ -134,7 +132,7 @@ namespace Core.Web.Infrastructure
             }
         }
 
-        protected ActionResult ViewConfirmDeleteOr404<T>(IViewModel<T> viewModel, bool? saveChangesError)
+        protected ActionResult ViewDeleteOr404<T>(IViewModel<T> viewModel, bool? saveChangesError)
            where T : ModelEditBase
         {
             if (saveChangesError.GetValueOrDefault())
@@ -148,6 +146,8 @@ namespace Core.Web.Infrastructure
         protected ActionResult DeleteOr404<T>(int id, ViewModelEdit<T> viewModel)
             where T : ModelEditBase
         {
+            //TODO: concurrency delete
+            //  "Unable to save changes. The department was deleted by another user.");
             if (!viewModel.Found)
             {
                 return HttpNotFound();
