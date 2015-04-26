@@ -1,3 +1,5 @@
+using System;
+using Core.Business.Mapper;
 using Omu.ValueInjecter;
 
 namespace Core.Business.ObjectFactories
@@ -14,7 +16,7 @@ namespace Core.Business.ObjectFactories
             {
                 ModelObject = new T();
             }
-            ModelObject.InjectFrom<FlatLoopValueInjection>(DbEntity);
+            ModelObject.InjectFrom<FlatWiseValueInjection>(DbEntity);
             FetchOthers();
         }
 

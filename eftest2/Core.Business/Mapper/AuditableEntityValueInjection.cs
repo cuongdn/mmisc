@@ -1,8 +1,8 @@
 namespace Core.Business.Mapper
 {
-    public class EntityValueInjection : ExcludeValueInjection
+    public class AuditableEntityValueInjection : ExcludeValueInjection
     {
-        public EntityValueInjection(bool siteEntity)
+        public AuditableEntityValueInjection(bool siteEntity)
         {
             Exclude = siteEntity ? new[] { "Id", "CreatedDate", "UpdatedDate" } : new[] { "Id" };
         }

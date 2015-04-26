@@ -2,7 +2,7 @@ namespace Core.Business.Common
 {
     public abstract class ModelEditBase : ModelBase
     {
-        public virtual bool IsDelete { get; set; }
+        public virtual bool IsDelete { get; protected set; }
 
         public virtual bool IsNew
         {

@@ -18,7 +18,7 @@ namespace Core.Business.ObjectFactories
 
         protected virtual void UpdateProperties()
         {
-            DbEntity.InjectFrom<FlatLoopValueInjection>(ModelObject);
+            DbEntity.InjectFrom(ModelObject);
         }
 
         public void InsertPreparation()
@@ -44,19 +44,19 @@ namespace Core.Business.ObjectFactories
         public virtual void Insert()
         {
             Repository.Insert(DbEntity);
-            TheUnitOfWork.SaveChangesAsync();
+            TheUnitOfWork.SaveChanges();
         }
 
         public virtual void Update()
         {
             Repository.Update(DbEntity);
-            TheUnitOfWork.SaveChangesAsync();
+            TheUnitOfWork.SaveChanges();
         }
 
         public virtual void Delete()
         {
             TheUnitOfWork.Repository<TE>().Delete(DbEntity);
-            TheUnitOfWork.SaveChangesAsync();
+            TheUnitOfWork.SaveChanges();
         }
     }
 }

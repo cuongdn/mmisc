@@ -87,6 +87,7 @@ namespace Core.Business.Utils
             return modelObject.IsNew ? new TE() : collection.FirstOrDefault(x => x.Id.Equals(modelObject.IdValue));
         }
 
+        // TODO: this method is useless in web. It should be replaced
         public static TE UpdateChild<T, TE, TKey>(T modelObject, ICollection<TE> collection, EditObjectFactoryCreator<T, TE> creator = null)
             where T : ModelEditBase, new()
             where TE : Entity<TKey>, new()
@@ -96,7 +97,7 @@ namespace Core.Business.Utils
             {
                 return null;
             }
-            if (!modelObject.IsNew && modelObject.IsDelete)
+            if (modelObject.IsDelete)
             {
 
                 dbEntity.ObjectState = ObjectState.Deleted;
