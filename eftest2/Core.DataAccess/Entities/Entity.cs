@@ -14,6 +14,10 @@ namespace Core.DataAccess.Entities
     {
         [NotMapped]
         public ObjectState ObjectState { get; set; }
+        public void MarkAsDeleted()
+        {
+            ObjectState = ObjectState.Deleted;
+        }
     }
 
     public abstract class Entity<T> : EntityBase, IEntity<T>

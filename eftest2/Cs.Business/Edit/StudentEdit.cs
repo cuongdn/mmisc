@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Core.Business.Common;
 using Core.Business.Utils;
 using Cs.DbModel.Entities;
@@ -15,6 +16,9 @@ namespace Cs.Business.Edit
         public int Id { get; set; }
         public string LastName { get; set; }
         public string FirstMidName { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EnrollmentDate { get; set; }
 
         public static StudentEdit New()

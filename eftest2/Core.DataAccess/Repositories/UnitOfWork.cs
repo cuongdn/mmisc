@@ -18,11 +18,6 @@ namespace Core.DataAccess.Repositories
             get { return _repositories ?? (_repositories = new Dictionary<Type, dynamic>()); }
         }
 
-        protected DbContextTransaction CurrentTransaction
-        {
-            get { return DbContext.Database.CurrentTransaction; }
-        }
-
         public DbContext DbContext { get; private set; }
 
         public UnitOfWork(DbContext dbContext)

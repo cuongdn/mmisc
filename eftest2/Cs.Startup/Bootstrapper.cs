@@ -14,13 +14,10 @@ namespace Cs.Startup
         public static void Initialize()
         {
             HibernatingRhinos.Profiler.Appender.EntityFramework.EntityFrameworkProfiler.Initialize();
-
             var container = new Container(new ScanningRegistry());
             StructureMapDependencyResolver.Initialize(container);
             ServiceLocator.SetLocatorProvider(() => StructureMapDependencyResolver.Current);
             DependencyResolver.SetResolver(ServiceLocator.Current);
-
-            LocalizationConfig.RegisterResources(Assembly.GetAssembly(typeof(StudentFriendlyNames)));
 
             FluentValidationModelValidatorProvider.Configure(x =>
             {
