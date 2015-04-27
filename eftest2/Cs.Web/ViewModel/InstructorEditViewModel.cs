@@ -1,15 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Runtime;
 using Core.Web.ViewModel;
 using Cs.Business.Edit;
+using Cs.Web.Lookup;
 
 namespace Cs.Web.ViewModel
 {
     public class InstructorEditViewModel : ViewModelEdit<InstructorEdit>
     {
-        public IList<AssignedCourseEdit> AssignedCourse
+        public IList<AssignedCoursePreview> AssignedCourses
         {
-            get { return GetObject(() => AssignedCourseEdit.GetList()); }
+            get
+            {
+                return GetObject(() => AssignedCoursePreview.GetList(ModelObject));
+            }
         }
 
         public InstructorEditViewModel()
