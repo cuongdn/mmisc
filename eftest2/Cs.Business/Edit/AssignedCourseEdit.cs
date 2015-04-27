@@ -34,7 +34,17 @@ namespace Cs.Business.Edit
             CreateObjectFactory(instructor).UpdatePreparation();
         }
 
-        private AssignedCourseEditObjectFactory CreateObjectFactory(Instructor instructor)
+        private void Model_Fetch(Course course, Instructor instructor)
+        {
+            CreateObjectFactory(instructor).Fetch(course);
+        }
+
+        private void Model_Fetch(Course course)
+        {
+            CreateObjectFactory().Fetch(course);
+        }
+
+        private AssignedCourseEditObjectFactory CreateObjectFactory(Instructor instructor = null)
         {
             return new AssignedCourseEditObjectFactory
             {
@@ -43,15 +53,12 @@ namespace Cs.Business.Edit
             };
         }
 
-        private void Model_Fetch(Course course, Instructor instructor)
-        {
-            CreateObjectFactory(instructor).Fetch(course);
-        }
-
-        public static IList<AssignedCourseEdit> GetList(Instructor instructor)
+        public static IList<AssignedCourseEdit> GetList(Instructor instructor = null)
         {
             var repo = new CourseRepository(UnitOfWorkFactory.Get());
-            return ModelHelper.FetchList<AssignedCourseEdit>(repo.GetAll(), instructor);
+            return instructor == null
+                ? ModelHelper.FetchList<AssignedCourseEdit>(repo.GetAll())
+                : ModelHelper.FetchList<AssignedCourseEdit>(repo.GetAll(), instructor);
         }
     }
 }

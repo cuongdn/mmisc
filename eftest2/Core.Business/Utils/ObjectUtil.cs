@@ -87,16 +87,14 @@ namespace Core.Business.Utils
             return modelObject.IsNew ? new TE() : collection.FirstOrDefault(x => x.Id.Equals(modelObject.IdValue));
         }
 
-        // TODO: this method is useless in web. It should be replaced
+        [Obsolete("This method is useless in web. It should be replaced")]
         public static TE UpdateChild<T, TE, TKey>(T modelObject, ICollection<TE> collection, EditObjectFactoryCreator<T, TE> creator = null)
             where T : ModelEditBase, new()
             where TE : Entity<TKey>, new()
         {
             var dbEntity = GetDbEntity<T, TE, TKey>(modelObject, collection);
-            if (dbEntity == null)
-            {
-                return null;
-            }
+            if (dbEntity == null) return null;
+
             if (modelObject.IsDelete)
             {
 
@@ -122,17 +120,13 @@ namespace Core.Business.Utils
         {
             var objectFactory = ObjectFactoryCreator.Edit(creator);
             objectFactory.Get(id);
-            if (objectFactory.DbEntity == null)
-            {
-                return false;
-            }
-
+            if (objectFactory.DbEntity == null) return false;
             objectFactory.Delete();
             return true;
         }
 
         public static bool Upsert<T, TE>(T modelObject, bool forceUpdate = false,
-                EditObjectFactoryCreator<T, TE> creator = null, bool refetch = true)
+                EditObjectFactoryCreator<T, TE> creator = null, bool refetch = false)
             where T : ModelEditBase, new()
             where TE : EntityBase, new()
         {
@@ -142,10 +136,8 @@ namespace Core.Business.Utils
             if (forceUpdate)
             {
                 objectFactory.Get(modelObject.IdValue);
-                if (objectFactory.DbEntity == null)
-                {
-                    return false;
-                }
+                if (objectFactory.DbEntity == null) return false;
+
                 objectFactory.UpdatePreparation();
                 objectFactory.Update();
             }

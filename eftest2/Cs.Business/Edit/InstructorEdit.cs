@@ -22,14 +22,31 @@ namespace Cs.Business.Edit
         public IList<AssignedCourseEdit> AssignedCourses { get; set; }
         public IList<int> SelectedCourses { get; set; }
 
+        public override void CreateNew()
+        {
+            new InstructorEditObjectFactory
+            {
+                ModelObject = this
+            }.NewModelObject();
+        }
+
+        public void UpdateAssignedCoursesState()
+        {
+            new InstructorEditObjectFactory
+            {
+                ModelObject = this
+            }.UpdateSelectedStates();
+        }
+
         public static InstructorEdit New()
         {
             return ModelHelper.NewModelObject<InstructorEdit>();
         }
 
-        public static InstructorEdit Get(int id)
+        public static InstructorEdit Get(int id, bool forDelete = false)
         {
-            return ObjectUtil.GetEdit(id, () => new InstructorEditObjectFactory());
+            return forDelete ? ObjectUtil.GetEdit<InstructorEdit, Instructor>(id)
+                : ObjectUtil.GetEdit(id, () => new InstructorEditObjectFactory());
         }
 
         public override bool Upsert(bool forceUpdate = false)

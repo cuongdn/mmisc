@@ -53,21 +53,48 @@ namespace Cs.DbModel.Entities
             return CourseInstructors.SingleOrDefault(x => x.CourseId == courseId);
         }
 
+        public void DeleteCourse(int courseId)
+        {
+            var course = FindCourse(courseId);
+            if (course != null)
+            {
+                course.MarkAsDeleted();
+                CourseInstructors.Remove(course);
+            }
+        }
+
         public void AssignCourse(int courseId)
         {
             CourseInstructors.Add(new CourseInstructor
             {
                 CourseId = courseId,
-                InstructorId = Id
+                Instructor = this
             });
+        }
+
+        public void AssignOffice(string location)
+        {
+            if (string.IsNullOrWhiteSpace(location))
+            {
+                OfficeAssignment = null;
+            }
+            else
+            {
+                if (OfficeAssignment == null)
+                {
+                    OfficeAssignment = new OfficeAssignment
+                    {
+                        Instructor = this
+                    };
+                }
+                OfficeAssignment.Location = location;
+            }
         }
     }
 
     public class OfficeAssignment : Entity<int>
     {
-        public int InstructorId { get; set; }
         public virtual Instructor Instructor { get; set; }
-
         public string Location { get; set; }
     }
 
@@ -81,7 +108,7 @@ namespace Cs.DbModel.Entities
         public virtual Instructor Administrator { get; set; }
     }
 
-    public class CourseInstructor : Entity<int>
+    public class CourseInstructor : EntityBase
     {
         public Instructor Instructor { get; set; }
         public Course Course { get; set; }

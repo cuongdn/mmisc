@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Core.Business.ObjectFactories;
 using Core.Business.Utils;
@@ -8,15 +9,34 @@ namespace Cs.Business.Edit
 {
     public class InstructorEditObjectFactory : EditObjectFactory<InstructorEdit, Instructor>
     {
+        public override void NewModelObject()
+        {
+            FetchAssignedCourses();
+            ModelObject.HireDate = DateTime.Today;
+        }
+
         protected override void FetchOthers()
         {
-            ModelObject.OfficeLocation = DbEntity.OfficeAssignment.Location;
+            if (DbEntity.OfficeAssignment != null)
+            {
+                ModelObject.OfficeLocation = DbEntity.OfficeAssignment.Location;
+            }
             FetchAssignedCourses();
         }
 
-        private void FetchAssignedCourses()
+        public void FetchAssignedCourses()
         {
             ModelObject.AssignedCourses = AssignedCourseEdit.GetList(DbEntity);
+        }
+
+        public void UpdateSelectedStates()
+        {
+            if (ModelObject.SelectedCourses == null) return;
+            var list = ModelObject.AssignedCourses.Where(x => ModelObject.SelectedCourses.Contains(x.Id));
+            foreach (var assignedCourse in list)
+            {
+                assignedCourse.Selected = true;
+            }
         }
 
         public override void Get(object id)
@@ -26,13 +46,9 @@ namespace Cs.Business.Edit
 
         public override void UpdateChildren()
         {
-            if (DbEntity.OfficeAssignment == null)
-            {
-                DbEntity.OfficeAssignment = new OfficeAssignment();
-            }
-            DbEntity.OfficeAssignment.Location = ModelObject.OfficeLocation;
+            DbEntity.AssignOffice(ModelObject.OfficeLocation);
 
-            if (ModelObject.SelectedCourses == null || !ModelObject.SelectedCourses.Any())
+            if (ModelObject.SelectedCourses == null)
             {
                 foreach (var courseInstructor in DbEntity.CourseInstructors)
                 {
@@ -41,18 +57,9 @@ namespace Cs.Business.Edit
             }
             else
             {
-                UpdateAssignedCourses();
+                FetchAssignedCourses();
+                UpdateSelectedStates();
                 ModelHelper.UpdateChildren<AssignedCourseEdit>(ModelObject.AssignedCourses, DbEntity);
-            }
-        }
-
-        private void UpdateAssignedCourses()
-        {
-            FetchAssignedCourses();
-            var list = ModelObject.AssignedCourses.Where(x => ModelObject.SelectedCourses.Contains(x.Id));
-            foreach (var assignedCourseEdit in list)
-            {
-                assignedCourseEdit.Selected = true;
             }
         }
     }

@@ -10,7 +10,7 @@ namespace Cs.Business.Edit
         public void Fetch(Course course)
         {
             ModelObject.InjectFrom(course);
-            ModelObject.Assigned = DbEntity.CourseInstructors.Any(x => x.CourseId == ModelObject.Id);
+            ModelObject.Assigned = DbEntity != null && DbEntity.CourseInstructors.Any(x => x.CourseId == ModelObject.Id);
         }
 
         public void UpdatePreparation()
@@ -21,11 +21,9 @@ namespace Cs.Business.Edit
             }
             else
             {
-                var dbEntity = DbEntity.FindCourse(ModelObject.Id);
-                if (dbEntity == null) return;
                 if (ModelObject.IsDelete)
                 {
-                    dbEntity.MarkAsDeleted();
+                    DbEntity.DeleteCourse(ModelObject.Id);
                 }
             }
         }

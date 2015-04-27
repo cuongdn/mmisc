@@ -40,10 +40,12 @@
   <ItemGroup>
     <Compile Include="Common\ModelBase.cs" />
     <Compile Include="Common\ModelEditBase.cs" />
+    <Compile Include="Mapper\FlatPropertyDescriptor.cs" />
     <Compile Include="Mapper\FlatWiseValueInjection.cs" />
     <Compile Include="Mapper\AuditableEntityValueInjection.cs" />
     <Compile Include="Mapper\ExcludeValueInjection.cs" />
     <Compile Include="Common\FlatAttribute.cs" />
+    <Compile Include="Mapper\FlatPropertyInfosStorage.cs" />
     <Compile Include="ObjectFactories\EditObjectFactory.cs" />
     <Compile Include="ObjectFactories\ObjectFactory.cs" />
     <Compile Include="ObjectFactories\ObjectFactoryBase.cs" />

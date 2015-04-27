@@ -52,12 +52,6 @@ namespace Cs.DbModel.Mapping
             HasMany(x => x.Enrollments)
                 .WithRequired(x => x.Course)
                 .WillCascadeOnDelete(true);
-
-            //HasMany(x => x.Instructors)
-            //    .WithMany(x => x.Courses)
-            //    .Map(x => x.MapLeftKey("CourseId")
-            //        .MapRightKey("InstructorId")
-            //        .ToTable("CourseInstructor"));
         }
     }
 
@@ -89,13 +83,8 @@ namespace Cs.DbModel.Mapping
             Property(x => x.FirstMidName).IsRequired();
             Property(x => x.HireDate).IsRequired();
             HasOptional(x => x.OfficeAssignment)
-                .WithRequired(x => x.Instructor);
-
-            //HasMany(x => x.Courses)
-            //   .WithMany(x => x.Instructors)
-            //   .Map(x => x.MapLeftKey("InstructorId")
-            //       .MapRightKey("CourseId")
-            //       .ToTable("CourseInstructor"));
+                .WithRequired(x => x.Instructor)
+                .WillCascadeOnDelete(true);
         }
     }
 
@@ -105,6 +94,7 @@ namespace Cs.DbModel.Mapping
         {
             ToTable("OfficeAssignment");
             HasKey(x => x.Id);
+            Property(x => x.Id).HasColumnName("InstructorId");
             Property(x => x.Location).IsRequired();
         }
     }
@@ -114,13 +104,11 @@ namespace Cs.DbModel.Mapping
         public CourseInstructorMap()
         {
             ToTable("CourseInstructor");
-            HasKey(x => x.Id);
+            HasKey(x => new { x.CourseId, x.InstructorId });
             HasRequired(x => x.Course)
-                .WithMany(x => x.CourseInstructors)
-                .WillCascadeOnDelete(true);
+                .WithMany(x => x.CourseInstructors).WillCascadeOnDelete(true);
             HasRequired(x => x.Instructor)
-             .WithMany(x => x.CourseInstructors).WillCascadeOnDelete(true);
-            HasRequired(x => x.Course);
+                .WithMany(x => x.CourseInstructors).WillCascadeOnDelete(true);
         }
     }
 }

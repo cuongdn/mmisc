@@ -23,7 +23,6 @@ namespace ContosoUniversity.Controllers
         // GET: Student/Create
         public ActionResult Create()
         {
-            //return ViewEditOr404(StudentEdit.New());
             return View(new InstructorEditViewModel());
         }
 
@@ -32,6 +31,7 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(InstructorEditViewModel viewModel)
         {
+            viewModel.ModelObject.UpdateAssignedCoursesState();
             return SaveOr404(viewModel);
         }
 
@@ -49,6 +49,7 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, InstructorEditViewModel viewModel)
         {
+            viewModel.ModelObject.UpdateAssignedCoursesState();
             return SaveOr404(viewModel, true);
         }
 
@@ -59,7 +60,7 @@ namespace ContosoUniversity.Controllers
             {
                 return BadRequest();
             }
-            var viewModel = new InstructorEditViewModel(id.Value);
+            var viewModel = new InstructorEditViewModel(id.Value, true);
             return ViewDeleteOr404(viewModel, saveChangesError);
         }
 
@@ -68,7 +69,7 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            var viewModel = new InstructorEditViewModel(id);
+            var viewModel = new InstructorEditViewModel(id, true);
             return DeleteOr404(id, viewModel);
         }
     }

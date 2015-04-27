@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq;
-using Core.Business.Common;
 using Omu.ValueInjecter;
 
 namespace Core.Business.Mapper
@@ -12,13 +10,10 @@ namespace Core.Business.Mapper
         {
             target.InjectFrom(source);
 
-            foreach (PropertyDescriptor propDescriptor in target.GetProps())
+            foreach (var property in target.GetFlatProps())
             {
-                var pd = propDescriptor;
-                var flatAttribute = propDescriptor.Attributes.OfType<FlatAttribute>().SingleOrDefault();
-                if (flatAttribute == null) continue;
-
-                var es = UberFlatter.Flat(flatAttribute.Name ?? pd.Name, source,
+                var pd = property.PropertyDescriptor;
+                var es = UberFlatter.Flat(property.FlatAttribute.Name ?? pd.Name, source,
                                 x => TypesMatch(x, pd.PropertyType)).ToList();
 
                 var endpoint = es.FirstOrDefault();
