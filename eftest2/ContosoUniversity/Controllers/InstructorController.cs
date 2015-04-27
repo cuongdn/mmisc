@@ -31,7 +31,6 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(InstructorEditViewModel viewModel)
         {
-            viewModel.ModelObject.UpdateAssignedCoursesState();
             return SaveOr404(viewModel);
         }
 
@@ -49,28 +48,26 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, InstructorEditViewModel viewModel)
         {
-            viewModel.ModelObject.UpdateAssignedCoursesState();
             return SaveOr404(viewModel, true);
         }
 
         // GET: Student/Delete/5
-        public ActionResult Delete(int? id, bool? saveChangesError = false)
+        public ActionResult Delete(int? id, ESaveResult? result = null)
         {
             if (!id.HasValue)
             {
                 return BadRequest();
             }
             var viewModel = new InstructorEditViewModel(id.Value, true);
-            return ViewDeleteOr404(viewModel, saveChangesError);
+            return ViewDeleteOr404(viewModel, result);
         }
 
         // POST: Student/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(InstructorEditViewModel viewModel)
         {
-            var viewModel = new InstructorEditViewModel(id, true);
-            return DeleteOr404(id, viewModel);
+            return DeleteOr404(viewModel.ModelObject.Id, viewModel);
         }
     }
 }

@@ -6,6 +6,8 @@
 
 <h2>View</h2>
 
+<p class="error">@ViewBag.ErrorMessage</p>
+
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>CourseEdit</h4>
@@ -29,8 +31,11 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ModelObject.Id)
+        @Html.HiddenFor(model => model.ModelObject.RowVersion)
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |

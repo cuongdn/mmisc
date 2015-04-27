@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Net;
 using System.Web.Mvc;
 using Core.Business.Common;
+using Core.Common.Exceptions;
 using Core.Web.ViewModel;
 
 namespace Core.Web.Infrastructure
@@ -77,15 +79,10 @@ namespace Core.Web.Infrastructure
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    return model.Upsert(forceUpdate);
-                }
-                catch (DataException dex)
-                {
-                    //TODO: Log the error here.
-                    ModelState.AddModelError(string.Empty, "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-                }
+                var result = DoSave(() => model.Upsert(forceUpdate));
+                if (result == ESaveResult.Success) return true;
+
+                ModelState.AddModelError(string.Empty, GetGeneralMessage(result));
             }
             return false;
         }
@@ -104,7 +101,7 @@ namespace Core.Web.Infrastructure
 
         }
 
-        protected ActionResult ViewDeleteOr404<T>(int? id, bool? saveChangesError, T modelObject)
+        protected ActionResult ViewDeleteOr404<T>(int? id, ESaveResult? result, T modelObject)
             where T : ModelEditBase
         {
             if (!id.HasValue)
@@ -115,29 +112,65 @@ namespace Core.Web.Infrastructure
             {
                 ModelObject = modelObject
             };
-            return ViewDeleteOr404(viewModel, saveChangesError);
+            return ViewDeleteOr404(viewModel, result);
         }
 
-        protected virtual bool DeleteObject<T>(T model)
+        protected virtual ESaveResult DeleteObject<T>(T model)
             where T : ModelEditBase
+        {
+            return DoSave(model.Delete);
+        }
+
+        protected virtual ESaveResult DoSave(Func<bool> save)
         {
             try
             {
-                return !model.IsNew && model.Delete();
+                var result = save();
+                return result ? ESaveResult.Success : ESaveResult.NotSaved;
             }
-            catch (DataException dex)
+            catch (ConcurrencyException ex)
             {
-                //TODO: Log the error here.
-                return false;
+                return ESaveResult.ConcurrencyException;
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return ESaveResult.ConcurrencyException;
+            }
+            catch (DataException ex)
+            {
+                return ESaveResult.DataException;
+            }
+            catch (Exception ex)
+            {
+                return ESaveResult.Exception;
             }
         }
 
-        protected ActionResult ViewDeleteOr404<T>(IViewModel<T> viewModel, bool? saveChangesError)
+        protected virtual string GetGeneralMessage(ESaveResult result)
+        {
+            switch (result)
+            {
+                case ESaveResult.Success:
+                    return string.Empty;
+                case ESaveResult.ConcurrencyException:
+                    return "Concurrent update error.";
+                default:
+                    return "Unable to save changes. Try again, and if the problem persists, see your system administrator.";
+            }
+        }
+
+        protected ActionResult ViewDeleteOr404<T>(IViewModel<T> viewModel, ESaveResult? result = null)
            where T : ModelEditBase
         {
-            if (saveChangesError.GetValueOrDefault())
+            if (result.HasValue)
             {
-                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
+                if (!viewModel.Found)
+                {
+                    // Someone deleted this object
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.ErrorMessage = GetGeneralMessage(result.Value);
             }
 
             return ViewOr404(viewModel);
@@ -146,19 +179,18 @@ namespace Core.Web.Infrastructure
         protected ActionResult DeleteOr404<T>(int id, ViewModelEdit<T> viewModel)
             where T : ModelEditBase
         {
-            //TODO: concurrency delete
-            //  "Unable to save changes. The department was deleted by another user.");
             if (!viewModel.Found)
             {
                 return HttpNotFound();
             }
 
-            if (DeleteObject(viewModel.ModelObject))
+            var result = DeleteObject(viewModel.ModelObject);
+            if (result == ESaveResult.Success)
             {
                 return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Delete", new { id, saveChangesError = true });
+            return RedirectToAction("Delete", new { id, result });
         }
     }
 }

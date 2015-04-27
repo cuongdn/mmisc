@@ -46,6 +46,7 @@ namespace Cs.DbModel.Mapping
                 .HasColumnName("CourseId").IsRequired();
             Property(x => x.Title).IsRequired();
             Property(x => x.Credits).IsRequired();
+            Property(x => x.RowVersion).IsRowVersion();
 
             HasRequired(x => x.Department);
 

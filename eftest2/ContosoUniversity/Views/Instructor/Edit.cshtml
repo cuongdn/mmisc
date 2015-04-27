@@ -16,7 +16,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ModelObject.Id)
-
+      
         <div class="form-group">
             @Html.LabelFor(model => model.ModelObject.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -52,10 +52,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ModelObject.SelectedCourses, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @foreach (var course in Model.ModelObject.AssignedCourses)
+                @foreach (var course in Model.AssignedCourses)
                 {
                     <input type="checkbox" value="@course.Id" name="ModelObject.SelectedCourses"
-                        @Html.Raw(course.Assigned ? "checked='checked'" : "") />
+                           @Html.Raw(course.Selected ? "checked='checked'" : "") />
 
                     @*@Html.CheckBox("ModelObject.SelectedCourses", course.Assigned,
                              new { value = course.Id, id = string.Format("SelectedCourses_{0}", course.Id) })*@

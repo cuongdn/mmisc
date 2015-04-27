@@ -125,6 +125,18 @@ namespace Core.Business.Utils
             return true;
         }
 
+        public static bool Delete<T, TE>(T modelObject, EditObjectFactoryCreator<T, TE> creator = null)
+            where T : ModelEditBase, new()
+            where TE : EntityBase, new()
+        {
+            var objectFactory = ObjectFactoryCreator.Edit(creator);
+            objectFactory.ModelObject = modelObject;
+            objectFactory.Get(modelObject.IdValue);
+            if (objectFactory.DbEntity == null) return false;
+            objectFactory.Delete();
+            return true;
+        }
+
         public static bool Upsert<T, TE>(T modelObject, bool forceUpdate = false,
                 EditObjectFactoryCreator<T, TE> creator = null, bool refetch = false)
             where T : ModelEditBase, new()

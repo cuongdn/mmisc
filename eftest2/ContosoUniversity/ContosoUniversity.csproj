@@ -208,7 +208,7 @@
       <Name>Cs.Startup</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cs.Web\Cs.Web.csproj">
-      <Project>{DE4F61F2-B8E0-45A9-B4AA-996A074F2336}</Project>
+      <Project>{de4f61f2-b8e0-45a9-b4aa-996a074f2336}</Project>
       <Name>Cs.Web</Name>
     </ProjectReference>
   </ItemGroup>

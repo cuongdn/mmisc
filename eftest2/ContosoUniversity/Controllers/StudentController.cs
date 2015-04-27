@@ -57,14 +57,14 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Student/Delete/5
-        public ActionResult Delete(int? id, bool? saveChangesError = false)
+        public ActionResult Delete(int? id, ESaveResult? result = null)
         {
             if (!id.HasValue)
             {
                 return BadRequest();
             }
             var viewModel = new StudentEditViewModel(id.Value);
-            return ViewDeleteOr404(viewModel, saveChangesError);
+            return ViewDeleteOr404(viewModel, result);
         }
 
         // POST: Student/Delete/5

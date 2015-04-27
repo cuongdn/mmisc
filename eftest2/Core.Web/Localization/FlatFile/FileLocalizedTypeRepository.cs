@@ -142,7 +142,7 @@ namespace Core.Web.Localization.FlatFile
         }
 
         /// <summary>
-        /// Delete a prompt.
+        /// AttachDelete a prompt.
         /// </summary>
         /// <param name="culture">Culture to delete prompt in</param>
         /// <param name="key">Prompt key</param>

@@ -66,7 +66,7 @@ namespace Core.Web.Localization.Views
         void CreatePrompt(CultureInfo culture, string viewPath, string textName, string translatedText);
 
         /// <summary>
-        /// Delete a prompt
+        /// AttachDelete a prompt
         /// </summary>
         /// <param name="cultureInfo">Culture to delete the prompt for</param>
         /// <param name="key">Prompt key</param>

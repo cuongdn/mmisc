@@ -10,6 +10,7 @@ namespace Core.DataAccess.Repositories
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);
+        void AttachDelete(T entity);
         QueryFluent<T> Query();
         Task<T> GetAsync(params object[] keyValues);
     }

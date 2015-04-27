@@ -105,7 +105,7 @@ namespace Core.Web.Localization.FlatFile
         }
 
         /// <summary>
-        /// Delete prompt with the specified key
+        /// AttachDelete prompt with the specified key
         /// </summary>
         /// <param name="key">key</param>
         public void Delete(TypePromptKey key)

@@ -40,9 +40,12 @@
   <ItemGroup>
     <Compile Include="Common\ModelBase.cs" />
     <Compile Include="Common\ModelEditBase.cs" />
+    <Compile Include="Common\ModelEditVersionable.cs" />
+    <Compile Include="Helpers\VersionChecker.cs" />
+    <Compile Include="Mapper\ExcludeVersionInjection.cs" />
     <Compile Include="Mapper\FlatPropertyDescriptor.cs" />
     <Compile Include="Mapper\FlatWiseValueInjection.cs" />
-    <Compile Include="Mapper\AuditableEntityValueInjection.cs" />
+    <Compile Include="Mapper\AuditableEntityInjection.cs" />
     <Compile Include="Mapper\ExcludeValueInjection.cs" />
     <Compile Include="Common\FlatAttribute.cs" />
     <Compile Include="Mapper\FlatPropertyInfosStorage.cs" />
@@ -57,6 +60,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core.Common\Core.Common.csproj">
+      <Project>{801CE813-D556-4E4D-8CE4-2E57970BC1CB}</Project>
+      <Name>Core.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core.DataAccess\Core.DataAccess.csproj">
       <Project>{FA2C7B25-1F8A-4EF4-84BA-4476E17DF2AD}</Project>
       <Name>Core.DataAccess</Name>

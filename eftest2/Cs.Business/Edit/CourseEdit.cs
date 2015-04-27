@@ -4,7 +4,7 @@ using Cs.DbModel.Entities;
 
 namespace Cs.Business.Edit
 {
-    public class CourseEdit : ModelEditBase
+    public class CourseEdit : ModelEditVersionable
     {
         public override object IdValue
         {
@@ -34,7 +34,7 @@ namespace Cs.Business.Edit
 
         public override bool Delete()
         {
-            return ObjectUtil.Delete<CourseEdit, Course>(Id);
+            return ObjectUtil.Delete<CourseEdit, Course>(this);
         }
     }
 }

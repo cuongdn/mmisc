@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Common.Infra.PagedList
+namespace Core.Common.Paging
 {
     ///<summary>
     /// Non-enumerable version of the PagedList class.

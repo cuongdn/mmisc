@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Core.Business.Common;
 using Core.Business.Utils;
 using Cs.DbModel.Entities;
@@ -14,28 +15,20 @@ namespace Cs.Business.Edit
         }
 
         public int Id { get; set; }
-
+        public int DepartmentId { get; set; }
         public string LastName { get; set; }
         public string FirstMidName { get; set; }
         public string OfficeLocation { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime HireDate { get; set; }
-        public IList<AssignedCourseEdit> AssignedCourses { get; set; }
+
+        public IList<int> AssignedCourses { get; set; }
         public IList<int> SelectedCourses { get; set; }
 
         public override void CreateNew()
         {
-            new InstructorEditObjectFactory
-            {
-                ModelObject = this
-            }.NewModelObject();
-        }
-
-        public void UpdateAssignedCoursesState()
-        {
-            new InstructorEditObjectFactory
-            {
-                ModelObject = this
-            }.UpdateSelectedStates();
+            new InstructorEditObjectFactory(this).NewModelObject();
         }
 
         public static InstructorEdit New()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.Common.Infra.PagedList
+namespace Core.Common.Paging
 {
     /// <summary>
     /// Container for extension methods designed to simplify the creation of instances of <see cref="PagedList{T}"/>.

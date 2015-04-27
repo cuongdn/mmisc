@@ -72,7 +72,7 @@ namespace Core.Web.Localization.Types
         void Update(CultureInfo cultureInfo, TypePromptKey key, string translatedText);
 
         /// <summary>
-        /// Delete a prompt.
+        /// AttachDelete a prompt.
         /// </summary>
         /// <param name="culture">Culture to delete prompt in</param>
         /// <param name="key">Prompt key</param>

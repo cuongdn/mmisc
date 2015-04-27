@@ -49,6 +49,12 @@ namespace Core.DataAccess.Repositories
             DbSet.Remove(entity);
         }
 
+        public void AttachDelete(T entity)
+        {
+            entity.ObjectState = ObjectState.Deleted;
+            DbSet.Attach(entity);
+        }
+
         public T Get(params object[] keyValues)
         {
             return DbSet.Find(keyValues);

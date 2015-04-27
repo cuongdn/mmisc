@@ -1,4 +1,6 @@
 using Core.Business.Common;
+using Core.Business.Helpers;
+using Core.Business.Mapper;
 using Core.DataAccess.Entities;
 using Omu.ValueInjecter;
 
@@ -18,7 +20,7 @@ namespace Core.Business.ObjectFactories
 
         protected virtual void UpdateProperties()
         {
-            DbEntity.InjectFrom(ModelObject);
+            DbEntity.InjectFrom<ExcludeVersionInjection>(ModelObject);
         }
 
         public void InsertPreparation()
@@ -43,20 +45,28 @@ namespace Core.Business.ObjectFactories
 
         public virtual void Insert()
         {
+            CheckConcurrency();
             Repository.Insert(DbEntity);
             TheUnitOfWork.SaveChanges();
         }
 
         public virtual void Update()
         {
+            CheckConcurrency();
             Repository.Update(DbEntity);
             TheUnitOfWork.SaveChanges();
         }
 
         public virtual void Delete()
         {
+            CheckConcurrency();
             TheUnitOfWork.Repository<TE>().Delete(DbEntity);
             TheUnitOfWork.SaveChanges();
+        }
+
+        protected virtual void CheckConcurrency()
+        {
+            VersionChecker.Check(ModelObject, DbEntity);
         }
     }
 }

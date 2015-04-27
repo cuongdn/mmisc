@@ -208,7 +208,7 @@ namespace Core.Web.Localization.FlatFile
         }
 
         /// <summary>
-        /// Delete  a phrase
+        /// AttachDelete  a phrase
         /// </summary>
         /// <param name="culture">Culture to delete the phrase in</param>
         /// <param name="key">Unique key within a language</param>

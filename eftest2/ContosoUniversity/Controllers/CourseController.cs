@@ -51,23 +51,23 @@ namespace ContosoUniversity.Controllers
             return SaveOr404(viewModel, true);
         }
 
-        // GET: Student/Delete/5
-        public ActionResult Delete(int? id, bool? saveChangesError = false)
+        // GET: Student/AttachDelete/5
+        public ActionResult Delete(int? id, ESaveResult? result)
         {
             if (!id.HasValue)
             {
                 return BadRequest();
             }
+
             var viewModel = new CourseEditViewModel(id.Value);
-            return ViewDeleteOr404(viewModel, saveChangesError);
+            return ViewDeleteOr404(viewModel, result);
         }
 
-        // POST: Student/Delete/5
+        // POST: Student/AttachDelete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, CourseEditViewModel viewModel)
         {
-            var viewModel = new CourseEditViewModel(id);
             return DeleteOr404(id, viewModel);
         }
     }

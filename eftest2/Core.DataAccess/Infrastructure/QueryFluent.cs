@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Dynamic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Core.Common.Infra.PagedList;
+using Core.Common.Paging;
 using Core.DataAccess.Entities;
 
 namespace Core.DataAccess.Infrastructure

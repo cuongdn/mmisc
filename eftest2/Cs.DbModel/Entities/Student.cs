@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Core.DataAccess.Entities;
 
@@ -13,7 +14,7 @@ namespace Cs.DbModel.Entities
         public virtual IList<Enrollment> Enrollments { get; set; }
     }
 
-    public class Course : Entity<int>
+    public class Course : EntityVersionable<int>
     {
         public int Credits { get; set; }
         public string Title { get; set; }
@@ -53,23 +54,30 @@ namespace Cs.DbModel.Entities
             return CourseInstructors.SingleOrDefault(x => x.CourseId == courseId);
         }
 
-        public void DeleteCourse(int courseId)
+        public void DeleteCourses(IEnumerable<int> deletedCourses)
         {
-            var course = FindCourse(courseId);
-            if (course != null)
+            foreach (var courseId in deletedCourses)
             {
-                course.MarkAsDeleted();
-                CourseInstructors.Remove(course);
+                var course = FindCourse(courseId);
+                if (course != null)
+                {
+                    course.MarkAsDeleted();
+                    CourseInstructors.Remove(course);
+                }
             }
         }
 
-        public void AssignCourse(int courseId)
+        public void AssignCourses(IEnumerable<int> addedCourses)
         {
-            CourseInstructors.Add(new CourseInstructor
+            foreach (var courseId in addedCourses)
             {
-                CourseId = courseId,
-                Instructor = this
-            });
+                CourseInstructors.Add(new CourseInstructor
+                {
+                    CourseId = courseId,
+                    Instructor = this
+                });
+            }
+
         }
 
         public void AssignOffice(string location)

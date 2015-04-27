@@ -26,12 +26,30 @@ namespace Core.Business.Utils
             where T : new()
         {
             var result = new List<T>();
+            Type[] paramTypes = null;
             foreach (var item in list)
             {
-                result.Add(Fetch<T>(item, parameters));
+                var paramValues = GetParamValues(item, parameters);
+                if (paramTypes == null)
+                {
+                    paramTypes = GetParamTypes(paramValues);
+                }
+                result.Add(Fetch<T>(paramTypes, paramValues));
             }
             return result;
         }
+
+        public static IList<T> FetchList<T>(IEnumerable list, Type[] paramTypes, params object[] parameters)
+            where T : new()
+        {
+            var result = new List<T>();
+            foreach (var item in list)
+            {
+                result.Add(Fetch<T>(paramTypes, GetParamValues(item, parameters)));
+            }
+            return result;
+        }
+
 
         /// <summary>
         /// Fetch list data using default object factory
@@ -72,6 +90,12 @@ namespace Core.Business.Utils
         {
             var paramValues = GetParamValues(item, parameters);
             var paramTypes = GetParamTypes(paramValues);
+            return Fetch<T>(paramTypes, paramValues);
+        }
+
+        public static T Fetch<T>(Type[] paramTypes, params object[] paramValues)
+            where T : new()
+        {
             var method = GetMethod<T>(ModelFetch, paramTypes);
             var obj = new T();
             method.Invoke(obj, paramValues);

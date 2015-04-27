@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using Core.Business.ObjectFactories;
-using Core.Business.Utils;
 using Cs.DbModel.Entities;
 using Cs.DbModel.Repositories;
 
@@ -9,9 +8,17 @@ namespace Cs.Business.Edit
 {
     public class InstructorEditObjectFactory : EditObjectFactory<InstructorEdit, Instructor>
     {
+        public InstructorEditObjectFactory()
+        {
+        }
+
+        public InstructorEditObjectFactory(InstructorEdit modelObject)
+        {
+            ModelObject = modelObject;
+        }
+
         public override void NewModelObject()
         {
-            FetchAssignedCourses();
             ModelObject.HireDate = DateTime.Today;
         }
 
@@ -21,22 +28,7 @@ namespace Cs.Business.Edit
             {
                 ModelObject.OfficeLocation = DbEntity.OfficeAssignment.Location;
             }
-            FetchAssignedCourses();
-        }
-
-        public void FetchAssignedCourses()
-        {
-            ModelObject.AssignedCourses = AssignedCourseEdit.GetList(DbEntity);
-        }
-
-        public void UpdateSelectedStates()
-        {
-            if (ModelObject.SelectedCourses == null) return;
-            var list = ModelObject.AssignedCourses.Where(x => ModelObject.SelectedCourses.Contains(x.Id));
-            foreach (var assignedCourse in list)
-            {
-                assignedCourse.Selected = true;
-            }
+            ModelObject.AssignedCourses = DbEntity.CourseInstructors.Select(x => x.CourseId).ToList();
         }
 
         public override void Get(object id)
@@ -57,9 +49,18 @@ namespace Cs.Business.Edit
             }
             else
             {
-                FetchAssignedCourses();
-                UpdateSelectedStates();
-                ModelHelper.UpdateChildren<AssignedCourseEdit>(ModelObject.AssignedCourses, DbEntity);
+                var assignedCourses = DbEntity.CourseInstructors.Select(x => x.CourseId).ToList();
+                if (!assignedCourses.Any())
+                {
+                    DbEntity.AssignCourses(ModelObject.SelectedCourses);
+                    return;
+                }
+
+                var deletedCourses = assignedCourses.Except(ModelObject.SelectedCourses);
+                var newCourses = ModelObject.SelectedCourses.Except(assignedCourses);
+
+                DbEntity.DeleteCourses(deletedCourses);
+                DbEntity.AssignCourses(newCourses);
             }
         }
     }

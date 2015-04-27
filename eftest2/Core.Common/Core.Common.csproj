@@ -30,16 +30,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Core.Business">
+      <HintPath>..\Core.Business\bin\Debug\Core.Business.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infra\PagedList\BasePagedList.cs" />
-    <Compile Include="Infra\PagedList\IPagedList.cs" />
-    <Compile Include="Infra\PagedList\PagedList.cs" />
-    <Compile Include="Infra\PagedList\PagedListExtensions.cs" />
-    <Compile Include="Infra\PagedList\PagedListMetaData.cs" />
-    <Compile Include="Infra\PagedList\StaticPagedList.cs" />
+    <Compile Include="Exceptions\BusinessException.cs" />
+    <Compile Include="Exceptions\CommonException.cs" />
+    <Compile Include="Exceptions\ConcurrencyException.cs" />
+    <Compile Include="Paging\BasePagedList.cs" />
+    <Compile Include="Paging\IPagedList.cs" />
+    <Compile Include="Paging\PagedList.cs" />
+    <Compile Include="Paging\PagedListExtensions.cs" />
+    <Compile Include="Paging\PagedListMetaData.cs" />
+    <Compile Include="Paging\StaticPagedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
