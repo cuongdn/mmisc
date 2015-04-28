@@ -52,7 +52,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Student/AttachDelete/5
-        public ActionResult Delete(int? id, ESaveResult? result)
+        public ActionResult Delete(int? id, bool? saveChangesError = null)
         {
             if (!id.HasValue)
             {
@@ -60,7 +60,7 @@ namespace ContosoUniversity.Controllers
             }
 
             var viewModel = new CourseEditViewModel(id.Value);
-            return ViewDeleteOr404(viewModel, result);
+            return ViewDeleteOr404(viewModel, saveChangesError);
         }
 
         // POST: Student/AttachDelete/5

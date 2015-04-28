@@ -5,6 +5,8 @@ using System.Net;
 using System.Web.Mvc;
 using Core.Business.Common;
 using Core.Common.Exceptions;
+using Core.Logging;
+using Core.Web.Common;
 using Core.Web.ViewModel;
 
 namespace Core.Web.Infrastructure
@@ -101,7 +103,7 @@ namespace Core.Web.Infrastructure
 
         }
 
-        protected ActionResult ViewDeleteOr404<T>(int? id, ESaveResult? result, T modelObject)
+        protected ActionResult ViewDeleteOr404<T>(int? id, T modelObject)
             where T : ModelEditBase
         {
             if (!id.HasValue)
@@ -112,7 +114,7 @@ namespace Core.Web.Infrastructure
             {
                 ModelObject = modelObject
             };
-            return ViewDeleteOr404(viewModel, result);
+            return ViewDeleteOr404(viewModel);
         }
 
         protected virtual ESaveResult DeleteObject<T>(T model)
@@ -130,18 +132,22 @@ namespace Core.Web.Infrastructure
             }
             catch (ConcurrencyException ex)
             {
+                Logger.Default.Error("Business Concurrency Exception", ex);
                 return ESaveResult.ConcurrencyException;
             }
             catch (DbUpdateConcurrencyException ex)
             {
+                Logger.Default.Error("Db Update Concurrency Exception", ex);
                 return ESaveResult.ConcurrencyException;
             }
             catch (DataException ex)
             {
+                Logger.Default.Error("Data Exception", ex);
                 return ESaveResult.DataException;
             }
             catch (Exception ex)
             {
+                Logger.Default.Error("General Exception", ex);
                 return ESaveResult.Exception;
             }
         }
@@ -159,18 +165,16 @@ namespace Core.Web.Infrastructure
             }
         }
 
-        protected ActionResult ViewDeleteOr404<T>(IViewModel<T> viewModel, ESaveResult? result = null)
+        protected ActionResult ViewDeleteOr404<T>(IViewModel<T> viewModel, bool? saveChangesError = null)
            where T : ModelEditBase
         {
-            if (result.HasValue)
+            if (saveChangesError.GetValueOrDefault())
             {
                 if (!viewModel.Found)
                 {
                     // Someone deleted this object
                     return RedirectToAction("Index");
                 }
-
-                ViewBag.ErrorMessage = GetGeneralMessage(result.Value);
             }
 
             return ViewOr404(viewModel);
@@ -189,8 +193,8 @@ namespace Core.Web.Infrastructure
             {
                 return RedirectToAction("Index");
             }
-
-            return RedirectToAction("Delete", new { id, result });
+            TempData[WebConstants.ErrorMessage] = GetGeneralMessage(result);
+            return RedirectToAction("Delete", new { id, saveChangesError = true });
         }
     }
 }

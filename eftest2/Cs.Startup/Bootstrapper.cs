@@ -1,8 +1,5 @@
-﻿using System.Reflection;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Core.Web.Dependency;
-using Core.Web.Localization;
-using Cs.Localization.FriendlyNames;
 using FluentValidation.Mvc;
 using Microsoft.Practices.ServiceLocation;
 using StructureMap;

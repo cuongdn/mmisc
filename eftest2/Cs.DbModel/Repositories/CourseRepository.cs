@@ -40,11 +40,5 @@ namespace Cs.DbModel.Repositories
         {
             return DbSet.OrderBy(x => x.Title).ToList();
         }
-
-        public IList<Course> PreloadCourses()
-        {
-            DbContext.Set<Course>().Load();
-            return DbContext.Set<Course>().Local.ToList();
-        }
     }
 }

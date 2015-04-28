@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\Libs\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\EntityFramework.dll</HintPath>
@@ -62,8 +65,11 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\WebConstants.cs" />
     <Compile Include="Dependency\StructureMapValidatorFactory.cs" />
     <Compile Include="Dependency\StructureMapDependencyResolver.cs" />
+    <Compile Include="Extensions\HtmlHelper.cs" />
+    <Compile Include="HttpModules\LogRequestContextModule.cs" />
     <Compile Include="Infrastructure\BaseController.cs" />
     <Compile Include="Infrastructure\ESaveResult.cs" />
     <Compile Include="Infrastructure\MvcApplicationBase.cs" />
@@ -128,6 +134,10 @@
     <ProjectReference Include="..\Core.Common\Core.Common.csproj">
       <Project>{801CE813-D556-4E4D-8CE4-2E57970BC1CB}</Project>
       <Name>Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Logging\Core.Logging.csproj">
+      <Project>{ffb43bba-a72f-4d7d-bf13-f2fb33ba2910}</Project>
+      <Name>Core.Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

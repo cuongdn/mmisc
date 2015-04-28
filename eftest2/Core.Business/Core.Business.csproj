@@ -56,7 +56,6 @@
     <Compile Include="ObjectFactories\ObjectFactoryCreator.cs" />
     <Compile Include="Utils\ObjectUtil.cs" />
     <Compile Include="Utils\ModelHelper.cs" />
-    <Compile Include="CommonConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -16,6 +16,7 @@ namespace Core.Web.Localization.ValidationMessages
         /// </returns>
         public string GetMessage(IGetMessageContext context)
         {
+            // ReSharper disable once CSharpWarnings::CS0618
             if (context.Attribute is CompareAttribute)
                 return "The {0} and {1} fields to not match.";
 
