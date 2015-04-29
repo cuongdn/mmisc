@@ -60,7 +60,7 @@ namespace Core.Web.Infrastructure
         {
             if (!viewModel.Found)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return renderView();
         }
@@ -71,9 +71,14 @@ namespace Core.Web.Infrastructure
             return ViewOr404(viewModel, () => View(viewModel));
         }
 
-        protected ActionResult BadRequest()
+        protected virtual ActionResult BadRequest()
         {
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        protected virtual ActionResult NotFound()
+        {
+            return HttpNotFound();
         }
 
         protected virtual bool SaveObject<T>(T model, bool forceUpdate = false)
@@ -84,7 +89,7 @@ namespace Core.Web.Infrastructure
                 var result = DoSave(() => model.Upsert(forceUpdate));
                 if (result == ESaveResult.Success) return true;
 
-                ModelState.AddModelError(string.Empty, GetGeneralMessage(result));
+                ModelState.AddModelError(string.Empty, GetMessageFromResult(result));
             }
             return false;
         }
@@ -100,7 +105,6 @@ namespace Core.Web.Infrastructure
                 }
                 return View(viewModel);
             });
-
         }
 
         protected ActionResult ViewDeleteOr404<T>(int? id, T modelObject)
@@ -117,10 +121,13 @@ namespace Core.Web.Infrastructure
             return ViewDeleteOr404(viewModel);
         }
 
-        protected virtual ESaveResult DeleteObject<T>(T model)
+        protected virtual bool DeleteObject<T>(T model)
             where T : ModelEditBase
         {
-            return DoSave(model.Delete);
+            var result = DoSave(model.Delete);
+            if (result == ESaveResult.Success) return true;
+            TempData[WebConstants.ErrorMessage] = GetMessageFromResult(result);
+            return false;
         }
 
         protected virtual ESaveResult DoSave(Func<bool> save)
@@ -128,40 +135,44 @@ namespace Core.Web.Infrastructure
             try
             {
                 var result = save();
-                return result ? ESaveResult.Success : ESaveResult.NotSaved;
+                return result ? ESaveResult.Success : ESaveResult.NoAffectedRows;
             }
             catch (ConcurrencyException ex)
             {
                 Logger.Default.Error("Business Concurrency Exception", ex);
-                return ESaveResult.ConcurrencyException;
+                return ESaveResult.ConcurrencyError;
             }
             catch (DbUpdateConcurrencyException ex)
             {
                 Logger.Default.Error("Db Update Concurrency Exception", ex);
-                return ESaveResult.ConcurrencyException;
+                return ESaveResult.ConcurrencyError;
             }
             catch (DataException ex)
             {
                 Logger.Default.Error("Data Exception", ex);
-                return ESaveResult.DataException;
+            }
+            catch (AppException ex)
+            {
+                Logger.Default.Error("Application Exception", ex);
             }
             catch (Exception ex)
             {
                 Logger.Default.Error("General Exception", ex);
-                return ESaveResult.Exception;
             }
+            return ESaveResult.Error;
         }
 
-        protected virtual string GetGeneralMessage(ESaveResult result)
+        protected virtual string GetMessageFromResult(ESaveResult result)
         {
             switch (result)
             {
-                case ESaveResult.Success:
-                    return string.Empty;
-                case ESaveResult.ConcurrencyException:
+                case ESaveResult.NoAffectedRows:
+                case ESaveResult.Error:
+                    return "Unable to save changes. Try again, and if the problem persists, see your system administrator.";
+                case ESaveResult.ConcurrencyError:
                     return "Concurrent update error.";
                 default:
-                    return "Unable to save changes. Try again, and if the problem persists, see your system administrator.";
+                    return string.Empty;
             }
         }
 
@@ -185,15 +196,12 @@ namespace Core.Web.Infrastructure
         {
             if (!viewModel.Found)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-
-            var result = DeleteObject(viewModel.ModelObject);
-            if (result == ESaveResult.Success)
+            if (DeleteObject(viewModel.ModelObject))
             {
                 return RedirectToAction("Index");
             }
-            TempData[WebConstants.ErrorMessage] = GetGeneralMessage(result);
             return RedirectToAction("Delete", new { id, saveChangesError = true });
         }
     }

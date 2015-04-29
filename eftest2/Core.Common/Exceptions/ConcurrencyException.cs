@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Core.Common.Exceptions
 {
-    public class ConcurrencyException : CommonException
+    public class ConcurrencyException : AppException
     {
         public ConcurrencyException()
         {

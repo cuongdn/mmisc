@@ -19,7 +19,6 @@ namespace Cs.Startup
             For<ILocalizedStringProvider>().Use(provider);
             For<IUnitOfWork>().Use<UnitOfWork>();
             For<DbContext>().Use<SchoolContext>();
-            For(typeof(IRepository<>)).Use(typeof(Repository<>));
             AssemblyScanner.FindValidatorsInAssemblyContaining<StudentEditValidator>()
                 .ForEach(result => For(result.InterfaceType).Singleton().Use(result.ValidatorType));
         }

@@ -23,7 +23,7 @@ namespace Cs.Business.Preview
 
         public static IList<CoursePreview> GetList()
         {
-            var repo = new CourseRepository(UnitOfWorkFactory.Get());
+            var repo = new CourseRepository(UowFactory.Get());
             return ModelHelper.FetchList<CoursePreview, Course>(repo.GetAll());
             //return ModelHelper.FetchList<CoursePreview, CourseDto>(await repo.GetAllAsync());
         }

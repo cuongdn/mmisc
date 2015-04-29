@@ -60,7 +60,7 @@ namespace Core.Business.ObjectFactories
         public virtual void Delete()
         {
             CheckConcurrency();
-            TheUnitOfWork.Repository<TE>().Delete(DbEntity);
+            Repository.Delete(DbEntity);
             TheUnitOfWork.SaveChanges();
         }
 

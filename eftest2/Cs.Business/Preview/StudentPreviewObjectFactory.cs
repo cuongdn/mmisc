@@ -13,7 +13,7 @@ namespace Cs.Business.Preview
 
         //public override void Get(object id)
         //{
-        //    //var repo = new StudentRepository(UnitOfWorkFactory.Get());
+        //    //var repo = new StudentRepository(UowFactory.Get());
         //    //DbEntity = repo.GetById((int)id);
         //    DbEntity = DbUltil.Get<Student>(id);
         //}

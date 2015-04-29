@@ -10,12 +10,12 @@ namespace Core.Business.ObjectFactories
     {
         protected IRepository<TE> Repository
         {
-            get { return TheUnitOfWork.Repository<TE>(); }
+            get { return TheUnitOfWork.Repository<Repository<TE>>(); }
         }
 
         protected virtual IUnitOfWork TheUnitOfWork
         {
-            get { return UnitOfWorkFactory.Get(); }
+            get { return UowFactory.Get(); }
         }
 
         public override void Get(object id)

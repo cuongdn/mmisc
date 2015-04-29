@@ -64,7 +64,9 @@
     <Compile Include="Repositories\IUnitOfWork.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
-    <Compile Include="Repositories\UnitOfWorkFactory.cs" />
+    <Compile Include="Repositories\UowFactory.cs" />
+    <Compile Include="Utils\ActivatorHelper.cs" />
+    <Compile Include="Utils\DbUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core.Common\Core.Common.csproj">

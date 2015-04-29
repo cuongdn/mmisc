@@ -36,7 +36,7 @@ namespace Cs.Business.Edit
 
         public static IList<AssignedCoursePreview> GetList(InstructorEdit instructor)
         {
-            var repo = new CourseRepository(UnitOfWorkFactory.Get());
+            var repo = UowFactory.Get().Repository<CourseRepository>();
             return ModelHelper.FetchList<AssignedCoursePreview>(repo.GetAll(), instructor);
         }
     }

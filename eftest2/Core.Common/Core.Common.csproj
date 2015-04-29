@@ -33,12 +33,13 @@
     <Reference Include="Core.Business">
       <HintPath>..\Core.Business\bin\Debug\Core.Business.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\BusinessException.cs" />
-    <Compile Include="Exceptions\CommonException.cs" />
+    <Compile Include="Exceptions\AppException.cs" />
     <Compile Include="Exceptions\ConcurrencyException.cs" />
     <Compile Include="Paging\BasePagedList.cs" />
     <Compile Include="Paging\IPagedList.cs" />

@@ -2,10 +2,9 @@
 {
     public enum ESaveResult
     {
-        NotSaved,
+        NoAffectedRows,
         Success,
-        Exception,
-        DataException,
-        ConcurrencyException
+        ConcurrencyError,
+        Error
     }
 }

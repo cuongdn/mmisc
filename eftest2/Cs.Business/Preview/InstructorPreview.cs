@@ -29,7 +29,7 @@ namespace Cs.Business.Preview
 
         public static async Task<IList<InstructorPreview>> GetAllAsync()
         {
-            var repo = new InstructorRepository(UnitOfWorkFactory.Get());
+            var repo = UowFactory.Get().Repository<InstructorRepository>();
             return ModelHelper.FetchList<InstructorPreview, Instructor>(await repo.GetAllAsync());
         }
     }

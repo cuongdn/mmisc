@@ -7,6 +7,10 @@ namespace Cs.DbModel
         public SchoolContext()
             : base("name=ConnectionString")
         {
+        }
+
+        static SchoolContext()
+        {
             SetNullDatabaseInitializer<SchoolContext>();
         }
     }

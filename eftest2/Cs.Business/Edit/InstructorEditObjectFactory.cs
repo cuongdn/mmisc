@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Core.Business.ObjectFactories;
+using Core.DataAccess.Repositories;
 using Cs.DbModel.Entities;
 using Cs.DbModel.Repositories;
 
@@ -33,7 +34,8 @@ namespace Cs.Business.Edit
 
         public override void Get(object id)
         {
-            DbEntity = new InstructorRepository(TheUnitOfWork).GetById((int)id);
+            //DbEntity = new InstructorRepository(TheUnitOfWork).GetById((int)id);
+            DbEntity = TheUnitOfWork.Repository<InstructorRepository>().GetById((int)id);
         }
 
         public override void UpdateChildren()

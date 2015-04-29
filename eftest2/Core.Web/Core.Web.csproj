@@ -68,7 +68,7 @@
     <Compile Include="Common\WebConstants.cs" />
     <Compile Include="Dependency\StructureMapValidatorFactory.cs" />
     <Compile Include="Dependency\StructureMapDependencyResolver.cs" />
-    <Compile Include="Extensions\HtmlHelper.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="HttpModules\LogRequestContextModule.cs" />
     <Compile Include="Infrastructure\BaseController.cs" />
     <Compile Include="Infrastructure\ESaveResult.cs" />

@@ -16,8 +16,8 @@ namespace Core.DataAccess.Repositories
 
         }
 
-        protected void SetNullDatabaseInitializer<T>()
-            where T : DbContext
+        public static void SetNullDatabaseInitializer<T>()
+               where T : DbContext
         {
             Database.SetInitializer(new NullDatabaseInitializer<T>());
         }

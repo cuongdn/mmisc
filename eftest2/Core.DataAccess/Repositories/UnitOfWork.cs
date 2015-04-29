@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
-using Core.DataAccess.Entities;
-using Microsoft.Practices.ServiceLocation;
+using Core.DataAccess.Utils;
 
 namespace Core.DataAccess.Repositories
 {
@@ -26,12 +25,12 @@ namespace Core.DataAccess.Repositories
             _instanceId = Guid.NewGuid();
         }
 
-        public IRepository<T> Repository<T>() where T : EntityBase
+        public T Repository<T>() where T : class
         {
             var type = typeof(T);
             if (!Repositories.ContainsKey(type))
             {
-                Repositories.Add(type, ServiceLocator.Current.GetInstance<IRepository<T>>());
+                Repositories.Add(type, DbUtil.Repository<T>(this));
             }
             return Repositories[type];
         }

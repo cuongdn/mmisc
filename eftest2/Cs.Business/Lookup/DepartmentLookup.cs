@@ -21,7 +21,7 @@ namespace Cs.Business.Lookup
 
         public static async Task<IList<DepartmentLookup>> GetList()
         {
-            var repo = new DepartmentRepository(UnitOfWorkFactory.Get());
+            var repo = new DepartmentRepository(UowFactory.Get());
             return ModelHelper.FetchList<DepartmentLookup, DepartmentDto>(await repo.GetLookupListAsync());
         }
     }

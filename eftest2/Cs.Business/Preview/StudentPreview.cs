@@ -33,19 +33,19 @@ namespace Cs.Business.Preview
 
         public static async Task<IList<StudentPreview>> GetListAsync()
         {
-            var repo = new StudentRepository(UnitOfWorkFactory.Get());
+            var repo = new StudentRepository(UowFactory.Get());
             return ModelHelper.FetchList<StudentPreview, Student>(await repo.GetAllAsync());
         }
 
         public static IList<StudentPreview> GetList()
         {
-            var repo = new StudentRepository(UnitOfWorkFactory.Get());
+            var repo = new StudentRepository(UowFactory.Get());
             return ModelHelper.FetchList<StudentPreview, Student>(repo.GetAll());
         }
 
         public static IList<StudentPreview> GetList(string sortBy, string sortOrder)
         {
-            var repo = new StudentRepository(UnitOfWorkFactory.Get());
+            var repo = new StudentRepository(UowFactory.Get());
 
             var list = repo.Query()
                            .OrderBy(string.Format("{0} {1}", sortBy ?? "Id", sortOrder))

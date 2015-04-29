@@ -36,7 +36,7 @@ namespace Cs.Business.Preview
 
         public static IList<EnrollmentPreview> GetList(int studentId)
         {
-            var repo = new EnrollmentRepository(UnitOfWorkFactory.Get());
+            var repo = new EnrollmentRepository(UowFactory.Get());
             return ModelHelper.FetchList<EnrollmentPreview>(repo.GetByStudentId(studentId));
         }
     }

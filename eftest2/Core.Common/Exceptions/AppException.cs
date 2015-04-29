@@ -3,23 +3,23 @@ using System.Runtime.Serialization;
 
 namespace Core.Common.Exceptions
 {
-    public class CommonException : Exception
+    public class AppException : Exception
     {
-        public CommonException()
+        public AppException()
         {
         }
 
-        public CommonException(string message)
+        public AppException(string message)
             : base(message)
         {
         }
 
-        public CommonException(string message, Exception innerException)
+        public AppException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
 
-        protected CommonException(SerializationInfo info, StreamingContext context)
+        protected AppException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

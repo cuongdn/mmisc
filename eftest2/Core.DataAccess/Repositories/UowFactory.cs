@@ -2,7 +2,7 @@
 
 namespace Core.DataAccess.Repositories
 {
-    public sealed class UnitOfWorkFactory
+    public sealed class UowFactory
     {
         public static IUnitOfWork Get()
         {
