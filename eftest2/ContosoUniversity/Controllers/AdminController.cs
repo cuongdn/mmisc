@@ -61,6 +61,7 @@ namespace ContosoUniversity.Controllers
             var user = await UserManager.FindByIdAsync(id);
             return View(user);
         }
+        
         private void AddErrorsFromResult(IdentityResult result)
         {
             foreach (var error in result.Errors)
