@@ -46,6 +46,16 @@ namespace ContosoUniversity.Controllers
             return View(model);
         }
 
+        public async Task<ActionResult> Edit(string id)
+        {
+            var user = await UserManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                return View(user);
+            }
+            return RedirectToAction("Index");
+        }
+
         private void AddErrorsFromResult(IdentityResult result)
         {
             foreach (var error in result.Errors)
