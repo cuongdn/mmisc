@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{08683383-C10A-4355-9090-17423EB7995D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cs.Business</RootNamespace>
+    <AssemblyName>Cs.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentValidation, Version=5.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\FluentValidation.5.5.0.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="Omu.ValueInjecter, Version=2.3.3.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Edit\AssignedCoursePreview.cs" />
+    <Compile Include="Edit\InstructorEdit.cs" />
+    <Compile Include="Edit\CourseEdit.cs" />
+    <Compile Include="Edit\InstructorEditObjectFactory.cs" />
+    <Compile Include="Lookup\DepartmentLookup.cs" />
+    <Compile Include="Preview\InstructorPreview.cs" />
+    <Compile Include="Preview\CoursePreview.cs" />
+    <Compile Include="Edit\StudentEdit.cs" />
+    <Compile Include="Enums\EGrade.cs" />
+    <Compile Include="Enums\EnumExtensions.cs" />
+    <Compile Include="Preview\EnrollmentPreview.cs" />
+    <Compile Include="Preview\StudentPreview.cs" />
+    <Compile Include="Preview\StudentPreviewObjectFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\StudentEditValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Business\Core.Business.csproj">
+      <Project>{e2fa6663-442f-4c5d-9af4-1193f9e7b1bf}</Project>
+      <Name>Core.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.DataAccess\Core.DataAccess.csproj">
+      <Project>{FA2C7B25-1F8A-4EF4-84BA-4476E17DF2AD}</Project>
+      <Name>Core.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cs.DbModel\Cs.DbModel.csproj">
+      <Project>{47f732d0-7229-4f2d-87f6-e9d31c39eb3d}</Project>
+      <Name>Cs.DbModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cs.Localization\Cs.Localization.csproj">
+      <Project>{7256c2ce-5a2f-4d84-b623-412b67fcbaad}</Project>
+      <Name>Cs.Localization</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
