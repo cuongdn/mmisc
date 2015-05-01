@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "Cons
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Caching", "Core.Caching\Core.Caching.csproj", "{7CF4EBB7-77B6-4C93-BAC9-829C98A7F017}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Security", "Core.Security\Core.Security.csproj", "{8975AB41-11CB-4FC3-A5C0-F6DD94E73A7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{7CF4EBB7-77B6-4C93-BAC9-829C98A7F017}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CF4EBB7-77B6-4C93-BAC9-829C98A7F017}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CF4EBB7-77B6-4C93-BAC9-829C98A7F017}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8975AB41-11CB-4FC3-A5C0-F6DD94E73A7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8975AB41-11CB-4FC3-A5C0-F6DD94E73A7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8975AB41-11CB-4FC3-A5C0-F6DD94E73A7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8975AB41-11CB-4FC3-A5C0-F6DD94E73A7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

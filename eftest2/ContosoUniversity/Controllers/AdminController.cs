@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using ContosoUniversity.Users.Infra;
-using ContosoUniversity.Users.Models;
+using Core.Security.Entities;
+using Core.Security.Infrastructure;
+using Core.Security.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
@@ -26,7 +27,7 @@ namespace ContosoUniversity.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(CreateModel model)
+        public async Task<ActionResult> Create(AppUserEdit model)
         {
             if (ModelState.IsValid)
             {
@@ -56,11 +57,50 @@ namespace ContosoUniversity.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
         public async Task<ActionResult> Edit(string id, string email, string password)
         {
             var user = await UserManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                user.Email = email;
+                var validEmail = await UserManager.UserValidator.ValidateAsync(user);
+                if (!validEmail.Succeeded)
+                {
+                    AddErrorsFromResult(validEmail);
+                }
+                IdentityResult validPass = null;
+                if (password != string.Empty)
+                {
+                    validPass = await UserManager.PasswordValidator.ValidateAsync(password);
+                    if (validPass.Succeeded)
+                    {
+                        user.PasswordHash =
+                        UserManager.PasswordHasher.HashPassword(password);
+                    }
+                    else
+                    {
+                        AddErrorsFromResult(validPass);
+                    }
+                }
+                if ((validEmail.Succeeded && validPass == null) || (validEmail.Succeeded
+                && password != string.Empty && validPass.Succeeded))
+                {
+                    var result = await UserManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    AddErrorsFromResult(result);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "User Not Found");
+            }
             return View(user);
         }
+
         private void AddErrorsFromResult(IdentityResult result)
         {
             foreach (var error in result.Errors)
