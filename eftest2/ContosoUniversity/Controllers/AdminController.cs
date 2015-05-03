@@ -100,7 +100,6 @@ namespace ContosoUniversity.Controllers
             }
             return View(user);
         }
-
         private void AddErrorsFromResult(IdentityResult result)
         {
             foreach (var error in result.Errors)
