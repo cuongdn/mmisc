@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web;
+using Core.Logging;
 using Core.Web.Dependency;
 
 namespace Core.Web.Infrastructure
@@ -14,6 +15,13 @@ namespace Core.Web.Infrastructure
         protected void Application_EndRequest(object sender, EventArgs e)
         {
             StructureMapDependencyResolver.Current.DisposeNestedContainer();
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            //Logger.Get(sender.GetType()).Error("Unhandled exception", Server.GetLastError());
+            //Server.ClearError();
+            //Response.Redirect("/Home/Error");
         }
     }
 }

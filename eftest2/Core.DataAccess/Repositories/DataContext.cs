@@ -3,6 +3,8 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Core.DataAccess.Entities;
 using Core.DataAccess.Infrastructure;
 
@@ -16,18 +18,25 @@ namespace Core.DataAccess.Repositories
 
         }
 
-        public static void SetNullDatabaseInitializer<T>()
-               where T : DbContext
-        {
-            Database.SetInitializer(new NullDatabaseInitializer<T>());
-        }
-
         public override int SaveChanges()
         {
             PreCommit();
             var result = base.SaveChanges();
             PostCommit();
             return result;
+        }
+
+        public override async Task<int> SaveChangesAsync()
+        {
+            return await SaveChangesAsync(CancellationToken.None);
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        {
+            PreCommit();
+            var changesAsync = await base.SaveChangesAsync(cancellationToken);
+            PostCommit();
+            return changesAsync;
         }
 
         private void PostCommit()

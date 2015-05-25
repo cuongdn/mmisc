@@ -57,7 +57,6 @@
     <Compile Include="Preview\CoursePreview.cs" />
     <Compile Include="Edit\StudentEdit.cs" />
     <Compile Include="Enums\EGrade.cs" />
-    <Compile Include="Enums\EnumExtensions.cs" />
     <Compile Include="Preview\EnrollmentPreview.cs" />
     <Compile Include="Preview\StudentPreview.cs" />
     <Compile Include="Preview\StudentPreviewObjectFactory.cs" />
@@ -68,6 +67,10 @@
     <ProjectReference Include="..\Core.Business\Core.Business.csproj">
       <Project>{e2fa6663-442f-4c5d-9af4-1193f9e7b1bf}</Project>
       <Name>Core.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Common\Core.Common.csproj">
+      <Project>{801CE813-D556-4E4D-8CE4-2E57970BC1CB}</Project>
+      <Name>Core.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.DataAccess\Core.DataAccess.csproj">
       <Project>{FA2C7B25-1F8A-4EF4-84BA-4476E17DF2AD}</Project>

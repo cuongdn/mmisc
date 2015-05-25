@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Core.DataAccess.Entities;
 using Core.DataAccess.Infrastructure;
 
@@ -12,6 +13,7 @@ namespace Core.DataAccess.Repositories
         void Delete(T entity);
         void AttachDelete(T entity);
         QueryFluent<T> Query();
+        IQueryable<T> Queryable();
         Task<T> GetAsync(params object[] keyValues);
     }
 }

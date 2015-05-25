@@ -11,7 +11,7 @@ namespace Cs.DbModel
 
         static SchoolContext()
         {
-            SetNullDatabaseInitializer<SchoolContext>();
+            System.Data.Entity.Database.SetInitializer<SchoolContext>(null);
         }
     }
 }

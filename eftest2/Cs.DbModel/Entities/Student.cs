@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Core.DataAccess.Entities;
 
@@ -8,6 +7,10 @@ namespace Cs.DbModel.Entities
 {
     public class Student : Entity<int>
     {
+        public Student()
+        {
+            Enrollments = new List<Enrollment>();
+        }
         public string LastName { get; set; }
         public string FirstMidName { get; set; }
         public DateTime EnrollmentDate { get; set; }

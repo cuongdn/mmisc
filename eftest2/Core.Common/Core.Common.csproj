@@ -41,6 +41,7 @@
     <Compile Include="Exceptions\BusinessException.cs" />
     <Compile Include="Exceptions\AppException.cs" />
     <Compile Include="Exceptions\ConcurrencyException.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Paging\BasePagedList.cs" />
     <Compile Include="Paging\IPagedList.cs" />
     <Compile Include="Paging\PagedList.cs" />

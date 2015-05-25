@@ -106,6 +106,8 @@ namespace Cs.DbModel.Mapping
         {
             ToTable("CourseInstructor");
             HasKey(x => new { x.CourseId, x.InstructorId });
+            Property(x => x.CourseId).IsRequired();
+            Property(x => x.InstructorId).IsRequired();
             HasRequired(x => x.Course)
                 .WithMany(x => x.CourseInstructors).WillCascadeOnDelete(true);
             HasRequired(x => x.Instructor)

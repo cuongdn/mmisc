@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Core.Web.Infrastructure;
+using Cs.Business.Edit;
 using Cs.Business.Preview;
 using Cs.Web.ViewModel;
 
@@ -22,7 +23,6 @@ namespace ContosoUniversity.Controllers
         // GET: Student/Create
         public ActionResult Create()
         {
-            //return ViewEditOr404(StudentEdit.New());
             return View(new CourseEditViewModel());
         }
 
@@ -34,13 +34,9 @@ namespace ContosoUniversity.Controllers
             return SaveOr404(viewModel);
         }
 
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (!id.HasValue)
-            {
-                return BadRequest();
-            }
-            var viewModel = new CourseEditViewModel(id.Value);
+            var viewModel = new CourseEditViewModel(id);
             return ViewOr404(viewModel);
         }
 

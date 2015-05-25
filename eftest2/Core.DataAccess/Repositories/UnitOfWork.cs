@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Threading;
 using System.Threading.Tasks;
 using Core.DataAccess.Utils;
 
@@ -43,6 +44,11 @@ namespace Core.DataAccess.Repositories
         public async Task<int> SaveChangesAsync()
         {
             return await DbContext.SaveChangesAsync();
+        }
+
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        {
+            return await DbContext.SaveChangesAsync(cancellationToken);
         }
 
         public override string ToString()

@@ -66,6 +66,11 @@ namespace Core.DataAccess.Repositories
             return new QueryFluent<T>(DbSet.AsQueryable(), defaultOrderBy);
         }
 
+        public IQueryable<T> Queryable()
+        {
+            return DbSet;
+        }
+
         public async Task<T> GetAsync(params object[] keyValues)
         {
             return await DbSet.FindAsync(keyValues);

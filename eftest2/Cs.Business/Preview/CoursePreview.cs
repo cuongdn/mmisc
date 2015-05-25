@@ -28,6 +28,4 @@ namespace Cs.Business.Preview
             //return ModelHelper.FetchList<CoursePreview, CourseDto>(await repo.GetAllAsync());
         }
     }
-
-
 }
