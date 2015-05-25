@@ -8,7 +8,8 @@ namespace Cs.Business.Validators
     {
         public StudentEditValidator()
         {
-            RuleFor(x => x.LastName).NotEmpty()
+            RuleFor(x => x.LastName)
+                .NotNull()
                 .Length(1, 50);
             RuleFor(x => x.FirstMidName).NotEmpty()
                 .Length(1, 50).WithMessage(StudentTexts.FirstMidName_Length);

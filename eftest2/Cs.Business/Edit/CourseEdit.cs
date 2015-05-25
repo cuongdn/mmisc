@@ -1,9 +1,6 @@
-using System.Collections.Generic;
 using Core.Business.Common;
 using Core.Business.Utils;
-using Core.DataAccess.Repositories;
 using Cs.DbModel.Entities;
-using Cs.DbModel.Repositories;
 
 namespace Cs.Business.Edit
 {

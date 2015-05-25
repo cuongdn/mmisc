@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Edit\AssignedCoursePreview.cs" />
+    <Compile Include="Edit\AssignedCourseEdit.cs" />
     <Compile Include="Edit\InstructorEdit.cs" />
     <Compile Include="Edit\CourseEdit.cs" />
     <Compile Include="Edit\InstructorEditObjectFactory.cs" />

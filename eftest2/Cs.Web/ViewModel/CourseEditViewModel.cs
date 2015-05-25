@@ -13,6 +13,7 @@ namespace Cs.Web.ViewModel
 
         public CourseEditViewModel()
         {
+            // parameter ctor will call default ctor => new add query in this 
         }
 
         public CourseEditViewModel(int id)
