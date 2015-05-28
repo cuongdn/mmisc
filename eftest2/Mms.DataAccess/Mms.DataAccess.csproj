@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{96754303-D634-4BFF-A4BB-CA62DCF9D860}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mms.DataAccess</RootNamespace>
+    <AssemblyName>Mms.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\Libs\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Context\EfDbContext.cs" />
+    <Compile Include="Entities\Album.cs" />
+    <Compile Include="Entities\Artist.cs" />
+    <Compile Include="Entities\Cart.cs" />
+    <Compile Include="Entities\Genre.cs" />
+    <Compile Include="Entities\Order.cs" />
+    <Compile Include="Entities\OrderDetail.cs" />
+    <Compile Include="Mapping\AlbumMap.cs" />
+    <Compile Include="Mapping\ArtistMap.cs" />
+    <Compile Include="Mapping\CartMap.cs" />
+    <Compile Include="Mapping\GenreMap.cs" />
+    <Compile Include="Mapping\OrderDetailMap.cs" />
+    <Compile Include="Mapping\OrderMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AlbumRepository.cs" />
+    <Compile Include="Repositories\ArtistRepository.cs" />
+    <Compile Include="Repositories\CartRepository.cs" />
+    <Compile Include="Repositories\GenreRepository.cs" />
+    <Compile Include="Repositories\OrderDetailRepository.cs" />
+    <Compile Include="Repositories\OrderRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core.DataAccess\Core.DataAccess.csproj">
+      <Project>{fa2c7b25-1f8a-4ef4-84ba-4476e17df2ad}</Project>
+      <Name>Core.DataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

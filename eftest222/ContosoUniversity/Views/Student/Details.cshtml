@@ -1,0 +1,58 @@
+﻿@model Core.Web.ViewModel.ViewModelPreview<Cs.Business.Preview.StudentPreview>
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ModelObject.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModelObject.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModelObject.EnrollmentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModelObject.EnrollmentDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModelObject.Enrollments)
+        </dt>
+
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Course Title</th>
+                    <th>Grade</th>
+                </tr>
+                @foreach (var item in Model.ModelObject.Enrollments)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourseTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GradeLetter)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ModelObject.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

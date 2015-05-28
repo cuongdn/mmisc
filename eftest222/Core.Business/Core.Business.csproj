@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E2FA6663-442F-4C5D-9AF4-1193F9E7B1BF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core.Business</RootNamespace>
+    <AssemblyName>Core.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Omu.ValueInjecter, Version=2.3.3.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\ModelBase.cs" />
+    <Compile Include="Common\ModelEditBase.cs" />
+    <Compile Include="Common\ModelEditVersionable.cs" />
+    <Compile Include="Helpers\VersionChecker.cs" />
+    <Compile Include="Mapper\ExcludeVersionInjection.cs" />
+    <Compile Include="Mapper\FlatPropertyDescriptor.cs" />
+    <Compile Include="Mapper\FlatWiseValueInjection.cs" />
+    <Compile Include="Mapper\AuditableEntityInjection.cs" />
+    <Compile Include="Mapper\ExcludeValueInjection.cs" />
+    <Compile Include="Common\FlatAttribute.cs" />
+    <Compile Include="Mapper\FlatPropertyInfosStorage.cs" />
+    <Compile Include="ObjectFactories\EditObjectFactory.cs" />
+    <Compile Include="ObjectFactories\ObjectFactory.cs" />
+    <Compile Include="ObjectFactories\ObjectFactoryBase.cs" />
+    <Compile Include="ObjectFactories\GenericObjectFactory.cs" />
+    <Compile Include="ObjectFactories\ObjectFactoryCreator.cs" />
+    <Compile Include="Utils\ObjectUtil.cs" />
+    <Compile Include="Utils\ModelHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Common\Core.Common.csproj">
+      <Project>{801CE813-D556-4E4D-8CE4-2E57970BC1CB}</Project>
+      <Name>Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.DataAccess\Core.DataAccess.csproj">
+      <Project>{FA2C7B25-1F8A-4EF4-84BA-4476E17DF2AD}</Project>
+      <Name>Core.DataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

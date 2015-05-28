@@ -1,0 +1,9 @@
+﻿@model IList<Mms.Business.Preview.GenrePreview>
+<ul>
+    @foreach (var genre in Model)
+    {
+        <li>
+            @Html.ActionLink(genre.Name, "Browse", "Store", new { Genre = genre.Name }, null)
+        </li>
+    }
+</ul>
