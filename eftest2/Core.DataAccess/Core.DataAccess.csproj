@@ -51,12 +51,11 @@
   <ItemGroup>
     <Compile Include="Entities\AuditableEntity.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Extensions\RepositoryExtensions.cs" />
     <Compile Include="Infrastructure\IObjectState.cs" />
     <Compile Include="Infrastructure\ObjectState.cs" />
     <Compile Include="Infrastructure\EntityKeyHelper.cs" />
-    <Compile Include="Infrastructure\QueryFilter.cs" />
     <Compile Include="Infrastructure\QueryFluent.cs" />
-    <Compile Include="Infrastructure\QueryObject.cs" />
     <Compile Include="Infrastructure\StateConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DataContext.cs" />

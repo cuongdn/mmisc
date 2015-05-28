@@ -87,7 +87,7 @@
       <Name>Cs.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cs.Localization\Cs.Localization.csproj">
-      <Project>{7256c2ce-5a2f-4d84-b623-412b67fcbaad}</Project>
+      <Project>{7256C2CE-5A2F-4D84-B623-412B67FCBAAD}</Project>
       <Name>Cs.Localization</Name>
     </ProjectReference>
   </ItemGroup>

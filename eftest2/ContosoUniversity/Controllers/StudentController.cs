@@ -1,21 +1,25 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+using ContosoUniversity.Infrastructure;
 using Core.Web.Infrastructure;
 using Cs.Business.Preview;
 using Cs.Web.ViewModel;
+using Kendo.Mvc.UI;
 
 namespace ContosoUniversity.Controllers
 {
     public class StudentController : BaseController
     {
         // GET: Student
-        public async Task<ActionResult> Index(string sortBy, string sortOrder = "asc")
+        public async Task<ActionResult> Index()
         {
-            ViewBag.SortBy = sortBy;
-            ViewBag.SortOrder = string.Equals(sortOrder, "asc") ? "desc" : "asc";
-            ViewBag.OtherSortOrder = string.Equals(sortOrder, "asc") ? "asc" : "desc";
-
             return View(await StudentPreview.GetListAsync());
+        }
+
+        public JsonResult Student_List([DataSourceRequest]DataSourceRequest request)
+        {
+            var result = StudentPreview.GetPaged(request.ToGridRequest()).ToDataSourceResult();
+            return Json(result);
         }
 
         // GET: Student/Details/5

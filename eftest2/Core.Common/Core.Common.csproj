@@ -33,21 +33,35 @@
     <Reference Include="Core.Business">
       <HintPath>..\Core.Business\bin\Debug\Core.Business.dll</HintPath>
     </Reference>
+    <Reference Include="LinqKit, Version=1.1.2.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\LinqKit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\EFilterOperator.cs" />
     <Compile Include="Exceptions\BusinessException.cs" />
     <Compile Include="Exceptions\AppException.cs" />
     <Compile Include="Exceptions\ConcurrencyException.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
-    <Compile Include="Paging\BasePagedList.cs" />
-    <Compile Include="Paging\IPagedList.cs" />
-    <Compile Include="Paging\PagedList.cs" />
-    <Compile Include="Paging\PagedListExtensions.cs" />
-    <Compile Include="Paging\PagedListMetaData.cs" />
-    <Compile Include="Paging\StaticPagedList.cs" />
+    <Compile Include="Enums\ESortDirection.cs" />
+    <Compile Include="Infrastructure\Grid\GridFilter.cs" />
+    <Compile Include="Infrastructure\Grid\GridRequest.cs" />
+    <Compile Include="Infrastructure\Grid\GridSort.cs" />
+    <Compile Include="Infrastructure\Query\QueryObject.cs" />
+    <Compile Include="Infrastructure\Paging\BasePagedList.cs" />
+    <Compile Include="Infrastructure\Paging\IPagedList.cs" />
+    <Compile Include="Infrastructure\Paging\PagedList.cs" />
+    <Compile Include="Infrastructure\Paging\PagedListExtensions.cs" />
+    <Compile Include="Infrastructure\Paging\PagedListMetaData.cs" />
+    <Compile Include="Infrastructure\Paging\StaticPagedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -10,6 +10,40 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<form id="grid_filter">
+    <label>
+        Last Name:
+        <input type="text" id="lastName" data-op="contains" data-field="lastName" />
+    </label>
+
+    <input type="button" value="Search" id="grid_search" />
+</form>
+
+
+@(Html.Kendo().Grid(Model).Name("grid")
+    .Columns(c =>
+    {
+        c.Bound(x => x.LastName).Filterable(false);
+        c.Bound(x => x.FirstMidName).Filterable(false);
+        c.Bound(x => x.EnrollmentDate).Filterable(false);
+    }).Pageable().Sortable().Filterable()
+    .DataSource(x => x.Ajax()
+        .PageSize(5)
+        .Read(r => r.Action("Student_List", "Student")))
+
+)
+
+<script>
+    $(document).ready(function () {
+        $("#grid_search").click(function () {
+            $("#grid").data("kendoGrid")
+                .dataSource
+                .filter({ field: "LastName", operator: "contains", value: $("#lastName").val() });
+        });
+    });
+</script>
+
 <table class="table">
     <tr>
         <th>
@@ -21,29 +55,30 @@
         </th>
         <th>
             @Html.ActionLink("Enrollment Date", "Index", new { sortBy = "EnrollmentDate", sortOrder = ViewBag.OtherSortOrder })
-            
+
             @*@Html.DisplayNameFor(model => model.EnrollmentDate)*@
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstMidName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EnrollmentDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstMidName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Core.Business.Common;
 using Core.Business.Utils;
+using Core.Common.Infrastructure.Grid;
+using Core.Common.Infrastructure.Paging;
+using Core.DataAccess.Extensions;
 using Core.DataAccess.Repositories;
-using Cs.Business.Enums;
 using Cs.DbModel.Entities;
 using Cs.DbModel.Repositories;
 
@@ -31,27 +32,24 @@ namespace Cs.Business.Preview
             return ObjectUtil.GetPreview(id, () => new StudentPreviewObjectFactory());
         }
 
+        public static StudentRepository Repository
+        {
+            get { return UowFactory.Get().Repository<StudentRepository>(); }
+        }
+
         public static async Task<IList<StudentPreview>> GetListAsync()
         {
-            var repo = new StudentRepository(UowFactory.Get());
-            return ModelHelper.FetchList<StudentPreview, Student>(await repo.GetAllAsync());
+            return ModelHelper.FetchList<StudentPreview, Student>(await Repository.GetAllAsync());
         }
 
         public static IList<StudentPreview> GetList()
         {
-            var repo = new StudentRepository(UowFactory.Get());
-            return ModelHelper.FetchList<StudentPreview, Student>(repo.GetAll());
+            return ModelHelper.FetchList<StudentPreview, Student>(Repository.GetAll());
         }
 
-        public static IList<StudentPreview> GetList(string sortBy, string sortOrder)
+        public static IPagedList<StudentPreview> GetPaged(GridRequest request)
         {
-            var repo = new StudentRepository(UowFactory.Get());
-
-            var list = repo.Query()
-                           .OrderBy(string.Format("{0} {1}", sortBy ?? "Id", sortOrder))
-                           .List();
-
-            return ModelHelper.FetchList<StudentPreview, Student>(list);
+            return ModelHelper.FetchList<StudentPreview, Student>(Repository.GetPaged(request));
         }
     }
 }

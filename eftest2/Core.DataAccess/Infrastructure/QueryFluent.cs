@@ -5,7 +5,9 @@ using System.Linq;
 using System.Linq.Dynamic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Core.Common.Paging;
+using Core.Common.Infrastructure;
+using Core.Common.Infrastructure.Paging;
+using Core.Common.Infrastructure.Query;
 using Core.DataAccess.Entities;
 
 namespace Core.DataAccess.Infrastructure
@@ -209,7 +211,7 @@ namespace Core.DataAccess.Infrastructure
 
         private void EnsureOrderBy()
         {
-            _orderBy = _orderBy ?? _defaultOrderBy;
+            _orderBy = string.IsNullOrWhiteSpace(_orderBy) ? _defaultOrderBy : _orderBy;
             if (string.IsNullOrWhiteSpace(_orderBy))
             {
                 throw new NullReferenceException("OrderBy");

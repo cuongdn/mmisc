@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Core.Business.Common;
+using Core.Common.Infrastructure.Paging;
 
 namespace Core.Business.Utils
 {
@@ -62,12 +63,15 @@ namespace Core.Business.Utils
             where T : ModelBase, new()
             where TE : class , new()
         {
-            var result = new List<T>();
-            foreach (var item in list)
-            {
-                result.Add(ObjectUtil.Fetch(new T(), item));
-            }
-            return result;
+            return list.Select(item => ObjectUtil.Fetch(new T(), item)).ToList();
+        }
+
+        public static IPagedList<T> FetchList<T, TE>(IPagedList<TE> list)
+            where T : ModelBase, new()
+            where TE : class , new()
+        {
+            var result = list.Select(item => ObjectUtil.Fetch(new T(), item)).ToList();
+            return new PagedList<T>(result, list.PageNumber, list.PageSize, list.TotalItemCount);
         }
 
         public static T NewModelObject<T>()
