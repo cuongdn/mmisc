@@ -1,6 +1,7 @@
 using System;
 using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
+using Core.DataAccess.Context;
 using Core.DataAccess.Entities;
 using System.Data.Entity;
 using System.Linq;
@@ -14,10 +15,7 @@ namespace Core.DataAccess.Repositories
 
         protected DbSet<T> DbSet { get; private set; }
 
-        protected DbContext DbContext
-        {
-            get { return TheUnitOfWork.DbContext; }
-        }
+        protected DbContext DbContext { get; private set; }
 
         public Repository(IUnitOfWork unitOfWork)
         {
@@ -26,7 +24,19 @@ namespace Core.DataAccess.Repositories
                 throw new ArgumentNullException("unitOfWork");
             }
             TheUnitOfWork = unitOfWork;
-            DbSet = DbContext.Set<T>();
+            DbContext = TheUnitOfWork.DataContext as DbContext;
+            if (DbContext != null)
+            {
+                DbSet = DbContext.Set<T>();
+            }
+            else
+            {
+                var fakeContext = TheUnitOfWork.DataContext as FakeDbContext;
+                if (fakeContext != null)
+                {
+                    DbSet = fakeContext.Set<T>();
+                }
+            }
         }
 
         public void Insert(T entity)

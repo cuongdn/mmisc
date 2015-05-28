@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.DataAccess.Context;
 using Core.DataAccess.Repositories;
 using Cs.DbModel.Dto;
 using Cs.DbModel.Entities;

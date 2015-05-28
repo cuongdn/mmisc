@@ -10,6 +10,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/kendo")
+    <script src="~/Scripts/scripts.js"></script>
     <meta name="description" content="The description of my page" />
 </head>
 <body>
@@ -43,7 +44,6 @@
             <p>&copy; @DateTime.Now.Year - Contoso University</p>
         </footer>
     </div>
-
     @RenderSection("scripts", required: false)
 </body>
 </html>

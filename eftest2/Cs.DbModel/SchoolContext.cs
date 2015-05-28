@@ -1,4 +1,5 @@
-﻿using Core.DataAccess.Repositories;
+﻿using Core.DataAccess.Context;
+using Core.DataAccess.Repositories;
 
 namespace Cs.DbModel
 {

@@ -14,10 +14,10 @@
 <form id="grid_filter">
     <label>
         Last Name:
-        <input type="text" id="lastName" data-op="contains" data-field="lastName" />
+        <input type="text" data-filter data-op="contains" data-field="LastName" />
     </label>
 
-    <input type="button" value="Search" id="grid_search" />
+    <input type="button" value="Search" id="grid_search" onclick="gridHelper.filter('grid')" />
 </form>
 
 
@@ -25,24 +25,15 @@
     .Columns(c =>
     {
         c.Bound(x => x.LastName).Filterable(false);
-        c.Bound(x => x.FirstMidName).Filterable(false);
+        c.Bound(x => x.FirstMidName).Filterable(false).Sortable(false);
         c.Bound(x => x.EnrollmentDate).Filterable(false);
-    }).Pageable().Sortable().Filterable()
+    }).Pageable()
+    .Sortable()
+    .Filterable()
     .DataSource(x => x.Ajax()
         .PageSize(5)
         .Read(r => r.Action("Student_List", "Student")))
-
 )
-
-<script>
-    $(document).ready(function () {
-        $("#grid_search").click(function () {
-            $("#grid").data("kendoGrid")
-                .dataSource
-                .filter({ field: "LastName", operator: "contains", value: $("#lastName").val() });
-        });
-    });
-</script>
 
 <table class="table">
     <tr>

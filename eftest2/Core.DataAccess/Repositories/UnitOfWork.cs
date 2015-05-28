@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Threading;
 using System.Threading.Tasks;
+using Core.DataAccess.Context;
 using Core.DataAccess.Utils;
 
 namespace Core.DataAccess.Repositories
@@ -18,11 +18,11 @@ namespace Core.DataAccess.Repositories
             get { return _repositories ?? (_repositories = new Dictionary<Type, dynamic>()); }
         }
 
-        public DbContext DbContext { get; private set; }
+        public IDataContext DataContext { get; private set; }
 
-        public UnitOfWork(DbContext dbContext)
+        public UnitOfWork(IDataContext dataContext)
         {
-            DbContext = dbContext;
+            DataContext = dataContext;
             _instanceId = Guid.NewGuid();
         }
 
@@ -38,17 +38,17 @@ namespace Core.DataAccess.Repositories
 
         public int SaveChanges()
         {
-            return DbContext.SaveChanges();
+            return DataContext.SaveChanges();
         }
 
         public async Task<int> SaveChangesAsync()
         {
-            return await DbContext.SaveChangesAsync();
+            return await DataContext.SaveChangesAsync();
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
-            return await DbContext.SaveChangesAsync(cancellationToken);
+            return await DataContext.SaveChangesAsync(cancellationToken);
         }
 
         public override string ToString()
@@ -77,8 +77,8 @@ namespace Core.DataAccess.Repositories
             {
                 if (disposing)
                 {
-                    DbContext.Dispose();
-                    DbContext = null;
+                    DataContext.Dispose();
+                    DataContext = null;
                 }
                 _disposed = true;
             }

@@ -18,7 +18,8 @@ namespace ContosoUniversity.Controllers
 
         public JsonResult Student_List([DataSourceRequest]DataSourceRequest request)
         {
-            var result = StudentPreview.GetPaged(request.ToGridRequest()).ToDataSourceResult();
+            var result = StudentPreview.GetPaged(request.ToGridRequest())
+                                       .ToDataSourceResult();
             return Json(result);
         }
 
@@ -43,13 +44,9 @@ namespace ContosoUniversity.Controllers
             return SaveOr404(viewModel);
         }
 
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (!id.HasValue)
-            {
-                return BadRequest();
-            }
-            var viewModel = new StudentEditViewModel(id.Value);
+            var viewModel = new StudentEditViewModel(id);
             return ViewOr404(viewModel);
         }
 
@@ -61,20 +58,17 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Student/Delete/5
-        public ActionResult Delete(int? id, bool? saveChangesError = null)
+        public ActionResult Delete(int id, bool? saveChangesError = null)
         {
-            if (!id.HasValue)
-            {
-                return BadRequest();
-            }
-            var viewModel = new StudentEditViewModel(id.Value);
+            var viewModel = new StudentEditViewModel(id);
             return ViewDeleteOr404(viewModel, saveChangesError);
         }
 
         // POST: Student/Delete/5
         [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete_Post(int id)
         {
             var viewModel = new StudentEditViewModel(id);
             return DeleteOr404(id, viewModel);

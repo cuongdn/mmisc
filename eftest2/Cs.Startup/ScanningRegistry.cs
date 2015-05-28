@@ -1,5 +1,5 @@
-﻿using System.Data.Entity;
-using System.Reflection;
+﻿using System.Reflection;
+using Core.DataAccess.Context;
 using Core.DataAccess.Repositories;
 using Core.Web.Localization;
 using Core.Web.Localization.Types;
@@ -18,7 +18,7 @@ namespace Cs.Startup
             var provider = LocalizationConfig.RegisterResources(Assembly.GetAssembly(typeof(StudentFriendlyNames)));
             For<ILocalizedStringProvider>().Use(provider);
             For<IUnitOfWork>().Use<UnitOfWork>();
-            For<DbContext>().Use<SchoolContext>();
+            For<IDataContext>().Use<SchoolContext>();
             AssemblyScanner.FindValidatorsInAssemblyContaining<StudentEditValidator>()
                 .ForEach(result => For(result.InterfaceType).Singleton().Use(result.ValidatorType));
         }

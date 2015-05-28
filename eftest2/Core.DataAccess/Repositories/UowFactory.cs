@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.ServiceLocation;
+﻿using Core.DataAccess.Context;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Core.DataAccess.Repositories
 {
