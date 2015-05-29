@@ -2,6 +2,7 @@
 using System.Linq;
 using Core.DataAccess.Context;
 using Core.DataAccess.Repositories;
+using Core.DataAccess.Uow;
 using Cs.DbModel.Entities;
 
 namespace Cs.DbModel.Repositories

@@ -2,6 +2,7 @@ using Core.Business.Common;
 using Core.DataAccess.Context;
 using Core.DataAccess.Entities;
 using Core.DataAccess.Repositories;
+using Core.DataAccess.Uow;
 
 namespace Core.Business.ObjectFactories
 {

@@ -49,9 +49,9 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\FakeContext.cs" />
-    <Compile Include="Context\FakeDbSet.cs" />
-    <Compile Include="Context\IFakeDbContext.cs" />
+    <Compile Include="Context\Fake\FakeContext.cs" />
+    <Compile Include="Context\Fake\FakeDbSet.cs" />
+    <Compile Include="Context\Fake\IFakeDbContext.cs" />
     <Compile Include="Entities\AuditableEntity.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Extensions\RepositoryExtensions.cs" />
@@ -64,10 +64,10 @@
     <Compile Include="Context\DataContext.cs" />
     <Compile Include="Context\IDataContext.cs" />
     <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Context\IUnitOfWork.cs" />
+    <Compile Include="Uow\IUnitOfWork.cs" />
     <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="Repositories\UnitOfWork.cs" />
-    <Compile Include="Repositories\UowFactory.cs" />
+    <Compile Include="Uow\UnitOfWork.cs" />
+    <Compile Include="Uow\UowFactory.cs" />
     <Compile Include="Utils\ActivatorHelper.cs" />
     <Compile Include="Utils\DbUtil.cs" />
   </ItemGroup>
