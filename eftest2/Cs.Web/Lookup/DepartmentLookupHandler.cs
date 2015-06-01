@@ -15,10 +15,7 @@ namespace Cs.Web.Lookup
 
         public static string OptionLabel
         {
-            get
-            {
-                return LookupTexts.Department_OptionLabel;
-            }
+            get { return LookupTexts.Department_OptionLabel; }
         }
 
         private DepartmentLookupHandler()
