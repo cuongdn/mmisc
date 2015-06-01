@@ -1,10 +1,7 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Business.Common;
 using Core.Business.Utils;
-using Core.DataAccess.Context;
-using Core.DataAccess.Repositories;
 using Core.DataAccess.Uow;
 using Cs.DbModel.Dto;
 using Cs.DbModel.Repositories;
@@ -26,5 +23,11 @@ namespace Cs.Business.Lookup
             var repo = new DepartmentRepository(UowFactory.Get());
             return ModelHelper.FetchList<DepartmentLookup, DepartmentDto>(await repo.GetLookupListAsync());
         }
+
+        //public static IList<DepartmentLookup> GetList()
+        //{
+        //    var repo = UowFactory.Get().Repository<DepartmentRepository>();
+        //    return ModelHelper.FetchList<DepartmentLookup, Department>(repo.GetAll());
+        //}
     }
 }

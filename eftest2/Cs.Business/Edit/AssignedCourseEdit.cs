@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using Core.Business.Common;
 using Core.Business.Utils;
-using Core.DataAccess.Context;
-using Core.DataAccess.Repositories;
 using Core.DataAccess.Uow;
 using Cs.DbModel.Entities;
 using Cs.DbModel.Repositories;

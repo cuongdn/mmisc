@@ -121,12 +121,19 @@ namespace Core.Web.Infrastructure
             return ViewDeleteOr404(viewModel);
         }
 
-        protected virtual bool DeleteObject<T>(T model)
+        protected virtual bool DeleteObject<T>(T model, bool addModelError = false)
             where T : ModelEditBase
         {
             var result = DoSave(model.Delete);
             if (result == ESaveResult.Success) return true;
-            TempData[WebConstants.ErrorMessage] = GetMessageFromResult(result);
+            if (addModelError)
+            {
+                ModelState.AddModelError(string.Empty, GetMessageFromResult(result));
+            }
+            else
+            {
+                TempData[WebConstants.ErrorMessage] = GetMessageFromResult(result);
+            }
             return false;
         }
 

@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Core.DataAccess.Context;
 using Core.DataAccess.Repositories;
 using Core.DataAccess.Uow;
 using Cs.DbModel.Dto;
@@ -26,6 +24,11 @@ namespace Cs.DbModel.Repositories
                                 Id = x.Id,
                                 Name = x.Name
                             }).ToListAsync();
+        }
+
+        public IList<Department> GetAll()
+        {
+            return Queryable().ToList();
         }
     }
 }
