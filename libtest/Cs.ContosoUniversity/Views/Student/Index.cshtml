@@ -1,0 +1,68 @@
+﻿@using Core.Common.Enums
+@using Cs.ContosoUniversity.Infrastructure
+@model IEnumerable<Cs.Business.Preview.StudentPreview>
+
+@{
+    ViewBag.Title = "Index";
+    const string gridName = "grid";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginFormFilter(gridName))
+{
+    <label>
+        Last name:
+        @Html.FilterTextBox("LastName", EFilterOperator.Contains)
+    </label>
+    <input type="button" value="Search" onclick="gridHelper.filter('@gridName')" />
+}
+
+@(Html.Kendo().Grid(Model).Name(gridName)
+    .Columns(c =>
+    {
+        c.Bound(x => x.LastName).Filterable(false);
+        c.Bound(x => x.FirstMidName).Filterable(false).Sortable(false);
+        c.Bound(x => x.EnrollmentDate).Filterable(false);
+        c.Command(command =>
+        {
+            //command.Custom("CustomEdit").Text("Edit").Click("gridHelper.edit");
+            command.Destroy();
+        });
+        c.Bound(x => x.Id).ColumnAction()
+            .ClientTemplate(string.Format(
+                @"<a href='{0}/#= Id #'>Edit</a> |
+                  <a href='{1}/#= Id #'>Details</a> |
+                  <a href='{2}/#= Id #'>Delete</a>", Url.Action("Edit"), Url.Action("Details"), Url.Action("Delete")));
+    }).Sortable().Filterable().Pageable()
+      .DataSource(x => x.Ajax()
+          .Events(events => events.Error("grid_error"))
+          .Model(m => m.Id(p => p.Id))
+          .Update(des => des.Action("Edit", "Student"))
+          .Destroy(des => des.Action("Student_Destroy", "Student"))
+          .PageSize(5).Read(r => r.Action("Student_List", "Student")))
+)
+
+<script>
+    function grid_error(e) {
+        if (e.errors) {
+            var message = "There are some errors:\n";
+            // Create a message containing all errors.
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            // Display the message
+            alert(message);
+            // Cancel the changes
+            var grid = $("#grid").data("kendoGrid");
+            grid.cancelChanges();
+        }
+    }
+</script>
