@@ -40,5 +40,10 @@ namespace Cs.Business.Preview
         {
             return ModelHelper.FetchList<StudentPreview, Student>(Repository.GetPaged(request));
         }
+
+        public static IList<StudentPreview> GetAll()
+        {
+            return ModelHelper.FetchList<StudentPreview, Student>(Repository.GetAll());
+        }
     }
 }

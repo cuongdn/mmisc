@@ -10,6 +10,7 @@ using Cs.Localization.FriendlyNames;
 using FluentValidation.Mvc;
 using Microsoft.Practices.ServiceLocation;
 using SimpleInjector;
+using SimpleInjector.Integration.Web.Mvc;
 
 namespace Cs.Startup
 {
@@ -26,7 +27,7 @@ namespace Cs.Startup
             container.Verify();
 
             ServiceLocator.SetLocatorProvider(() => new SimpleInjectorServiceLocatorAdapter(container));
-            DependencyResolver.SetResolver(ServiceLocator.Current);
+            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
 
             FluentValidationModelValidatorProvider.Configure();
         }

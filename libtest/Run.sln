@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cs.Startup", "Cs.Startup\Cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cs.ContosoUniversity", "Cs.ContosoUniversity\Cs.ContosoUniversity.csproj", "{38B12EDA-F9BD-49A7-8818-279AEB2DC3E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cs.WebApi", "Cs.WebApi\Cs.WebApi.csproj", "{93302BE0-017F-4D9A-98D0-E47069D5C5C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.WebApi", "Core.WebApi\Core.WebApi.csproj", "{864BFC90-9A99-43EA-BCED-A8859CE5CAD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +85,14 @@ Global
 		{38B12EDA-F9BD-49A7-8818-279AEB2DC3E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38B12EDA-F9BD-49A7-8818-279AEB2DC3E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38B12EDA-F9BD-49A7-8818-279AEB2DC3E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93302BE0-017F-4D9A-98D0-E47069D5C5C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93302BE0-017F-4D9A-98D0-E47069D5C5C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93302BE0-017F-4D9A-98D0-E47069D5C5C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93302BE0-017F-4D9A-98D0-E47069D5C5C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{864BFC90-9A99-43EA-BCED-A8859CE5CAD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{864BFC90-9A99-43EA-BCED-A8859CE5CAD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{864BFC90-9A99-43EA-BCED-A8859CE5CAD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{864BFC90-9A99-43EA-BCED-A8859CE5CAD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
