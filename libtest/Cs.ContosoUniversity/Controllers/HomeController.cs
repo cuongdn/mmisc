@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Core.DataAccess.Uow;
 
 namespace Cs.ContosoUniversity.Controllers
 {
@@ -6,6 +7,10 @@ namespace Cs.ContosoUniversity.Controllers
     {
         public ActionResult Index()
         {
+            Response.Write(UowFactory.Get() + "<br>");
+            Response.Write(UowFactory.Get() + "<br>");
+            Response.Write(UowFactory.Get() + "<br>");
+
             return View();
         }
 

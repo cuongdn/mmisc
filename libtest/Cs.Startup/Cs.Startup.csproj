@@ -42,10 +42,6 @@
     <Reference Include="HibernatingRhinos.Profiler.Appender">
       <HintPath>..\Libs\HibernatingRhinos.Profiler.Appender.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
     <Reference Include="SimpleInjector, Version=2.8.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\SimpleInjector.dll</HintPath>
@@ -72,6 +68,10 @@
     <ProjectReference Include="..\Core.Business\Core.Business.csproj">
       <Project>{E2FA6663-442F-4C5D-9AF4-1193F9E7B1BF}</Project>
       <Name>Core.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Common\Core.Common.csproj">
+      <Project>{801CE813-D556-4E4D-8CE4-2E57970BC1CB}</Project>
+      <Name>Core.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.DataAccess\Core.DataAccess.csproj">
       <Project>{FA2C7B25-1F8A-4EF4-84BA-4476E17DF2AD}</Project>

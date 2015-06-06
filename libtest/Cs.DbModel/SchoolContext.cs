@@ -1,5 +1,5 @@
 ﻿using Core.DataAccess.Context;
-using Core.DataAccess.Repositories;
+using Core.DataAccess.Context.Fake;
 
 namespace Cs.DbModel
 {
@@ -14,5 +14,10 @@ namespace Cs.DbModel
         {
             System.Data.Entity.Database.SetInitializer<SchoolContext>(null);
         }
+    }
+
+    public class FakeContext : FakeDbContext
+    {
+
     }
 }

@@ -1,23 +1,23 @@
 ﻿using System.Reflection;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Core.DataAccess.Context;
+using Core.Common.Infrastructure.Dependency;
 using Core.DataAccess.Uow;
-using Core.Web.Dependency;
 using Core.Web.Localization;
 using Core.Web.Localization.Types;
 using Core.WebApi.Common;
 using Cs.DbModel;
 using Cs.Localization.FriendlyNames;
 using FluentValidation.WebApi;
-using Microsoft.Practices.ServiceLocation;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 
 namespace Cs.WebApi
 {
+    [EnableCors("http://localhost:8080", "*", "*")]
     public class WebApiApplication : WebApiApplicationBase
     {
         protected void Application_Start()
@@ -32,11 +32,14 @@ namespace Cs.WebApi
             var container = new Container();
             var provider = LocalizationConfig.RegisterResources(Assembly.GetAssembly(typeof(StudentFriendlyNames)));
             container.RegisterSingle<ILocalizedStringProvider>(provider);
-            container.RegisterWebApiRequest<IUnitOfWork, UnitOfWork>();
-            container.RegisterWebApiRequest<IDataContext, SchoolContext>();
+
+            var factory = new UowHandlerFactory(container);
+            factory.Register<SchoolContext>(lifestyle: new WebApiRequestLifestyle());
+            container.RegisterWebApiRequest<IUowHandlerFactory>(() => factory);
+
             container.Verify();
 
-            ServiceLocator.SetLocatorProvider(() => new SimpleInjectorServiceLocatorAdapter(container));
+            IoC.SetContainerProvider(() => container);
             GlobalConfiguration.Configuration.DependencyResolver =
                 new SimpleInjectorWebApiDependencyResolver(container);
             FluentValidationModelValidatorProvider.Configure(GlobalConfiguration.Configuration);

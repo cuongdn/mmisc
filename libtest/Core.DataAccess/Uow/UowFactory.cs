@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.ServiceLocation;
+﻿using Core.Common.Infrastructure.Dependency;
 
 namespace Core.DataAccess.Uow
 {
@@ -6,12 +6,13 @@ namespace Core.DataAccess.Uow
     {
         public static IUnitOfWork Get()
         {
-            return ServiceLocator.Current.GetInstance<IUnitOfWork>();
+            return Get(UowHandlerFactory.DefaultKey);
         }
 
         public static IUnitOfWork Get(string key)
         {
-            return ServiceLocator.Current.GetInstance<IUnitOfWork>(key);
+            var factory = IoC.Current.GetInstance<IUowHandlerFactory>();
+            return factory.Create(key);
         }
     }
 }

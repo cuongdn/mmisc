@@ -533,6 +533,10 @@
       <Project>{801CE813-D556-4E4D-8CE4-2E57970BC1CB}</Project>
       <Name>Core.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Core.DataAccess\Core.DataAccess.csproj">
+      <Project>{FA2C7B25-1F8A-4EF4-84BA-4476E17DF2AD}</Project>
+      <Name>Core.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core.Web\Core.Web.csproj">
       <Project>{D692CF1F-9F39-4B86-AF9F-31AA0C5D40A5}</Project>
       <Name>Core.Web</Name>

@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using System.Web.Mvc;
-using Core.DataAccess.Context;
+using Core.Business.ObjectFactories;
+using Core.Common.Infrastructure.Dependency;
+using Core.DataAccess.Context.Fake;
 using Core.DataAccess.Uow;
 using Core.Web.Dependency;
 using Core.Web.Localization;
@@ -8,8 +10,8 @@ using Core.Web.Localization.Types;
 using Cs.DbModel;
 using Cs.Localization.FriendlyNames;
 using FluentValidation.Mvc;
-using Microsoft.Practices.ServiceLocation;
 using SimpleInjector;
+using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 
 namespace Cs.Startup
@@ -22,13 +24,21 @@ namespace Cs.Startup
             var container = new Container();
             var provider = LocalizationConfig.RegisterResources(Assembly.GetAssembly(typeof(StudentFriendlyNames)));
             container.RegisterSingle<ILocalizedStringProvider>(provider);
-            container.RegisterPerWebRequest<IUnitOfWork, UnitOfWork>();
-            container.RegisterPerWebRequest<IDataContext, SchoolContext>();
+
+            //container.RegisterPerWebRequest<SchoolContext>();
+            //container.RegisterPerWebRequest<IUnitOfWork, UnitOfWork>();
+
+            var factory = new UowHandlerFactory(container);
+            //factory.Register("default", () => new UnitOfWork(new SchoolContext()), new WebRequestLifestyle());
+            //factory.Register("backup", () => new UnitOfWork(new BackupContext()), new WebRequestLifestyle());
+            factory.Register<SchoolContext>(lifestyle: new WebRequestLifestyle());
+            factory.Register<FakeContext>("FakeContext", new WebRequestLifestyle());
+            container.RegisterPerWebRequest<IUowHandlerFactory>(() => factory);
+
             container.Verify();
 
-            ServiceLocator.SetLocatorProvider(() => new SimpleInjectorServiceLocatorAdapter(container));
+            IoC.SetContainerProvider(() => container);
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
-
             FluentValidationModelValidatorProvider.Configure();
         }
     }

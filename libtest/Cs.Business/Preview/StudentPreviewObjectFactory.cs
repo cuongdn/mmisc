@@ -7,7 +7,7 @@ namespace Cs.Business.Preview
     {
         protected override void FetchOthers()
         {
-            ModelObject.Enrollments = EnrollmentPreview.GetList(DbEntity.Id);
+            //ModelObject.Enrollments = EnrollmentPreview.GetList(DbEntity.Id);
             //ModelObject.Enrollments = EnrollmentPreview.GetList(DbEntity);
         }
 

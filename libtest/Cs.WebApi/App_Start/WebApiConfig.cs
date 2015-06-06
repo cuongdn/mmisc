@@ -12,7 +12,7 @@ namespace Cs.WebApi
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            //config.EnableCors();
+            config.EnableCors();
             //config.Services.Replace(typeof (ITraceWriter),
             //    new SimpleTraceWriter(WebContainerManager.Get<ILogManager>()));
 
