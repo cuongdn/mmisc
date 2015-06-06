@@ -1,4 +1,4 @@
-﻿using Core.Common.Infrastructure.Dependency;
+﻿using Core.Common.Utils;
 
 namespace Core.DataAccess.Uow
 {

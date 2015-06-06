@@ -4,7 +4,7 @@ using System.Web.Http.Cors;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Core.Common.Infrastructure.Dependency;
+using Core.Common.Utils;
 using Core.DataAccess.Uow;
 using Core.Web.Localization;
 using Core.Web.Localization.Types;

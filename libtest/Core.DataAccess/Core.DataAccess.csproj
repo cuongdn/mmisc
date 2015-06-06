@@ -54,6 +54,9 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Extensions\RepositoryExtensions.cs" />
     <Compile Include="Infrastructure\IObjectState.cs" />
+    <Compile Include="Infrastructure\IQuery.cs" />
+    <Compile Include="Infrastructure\IQueryAsync.cs" />
+    <Compile Include="Infrastructure\IQueryFluent.cs" />
     <Compile Include="Infrastructure\ObjectState.cs" />
     <Compile Include="Infrastructure\EntityKeyHelper.cs" />
     <Compile Include="Infrastructure\QueryFluent.cs" />

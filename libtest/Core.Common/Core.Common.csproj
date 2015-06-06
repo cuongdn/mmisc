@@ -55,7 +55,8 @@
     <Compile Include="Exceptions\RootObjectNotFoundException.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Enums\ESortDirection.cs" />
-    <Compile Include="Infrastructure\Dependency\IoC.cs" />
+    <Compile Include="Utils\ArgumentChecker.cs" />
+    <Compile Include="Utils\IoC.cs" />
     <Compile Include="Infrastructure\Grid\GridFilter.cs" />
     <Compile Include="Infrastructure\Grid\GridRequest.cs" />
     <Compile Include="Infrastructure\Grid\GridSort.cs" />

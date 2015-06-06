@@ -1,10 +1,7 @@
 ﻿using System.Reflection;
 using System.Web.Mvc;
-using Core.Business.ObjectFactories;
-using Core.Common.Infrastructure.Dependency;
-using Core.DataAccess.Context.Fake;
+using Core.Common.Utils;
 using Core.DataAccess.Uow;
-using Core.Web.Dependency;
 using Core.Web.Localization;
 using Core.Web.Localization.Types;
 using Cs.DbModel;
@@ -34,7 +31,6 @@ namespace Cs.Startup
             factory.Register<SchoolContext>(lifestyle: new WebRequestLifestyle());
             factory.Register<FakeContext>("FakeContext", new WebRequestLifestyle());
             container.RegisterPerWebRequest<IUowHandlerFactory>(() => factory);
-
             container.Verify();
 
             IoC.SetContainerProvider(() => container);
