@@ -3,14 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Core.DataAccess.Context.Fake.Async;
 using Core.DataAccess.Entities;
 using Core.DataAccess.Infrastructure;
 
 namespace Core.DataAccess.Context.Fake
 {
-    public abstract class FakeDbSet<TEntity> : DbSet<TEntity>, IDbSet<TEntity> where TEntity : EntityBase, new()
+    public abstract class FakeDbSet<TEntity> : DbSet<TEntity>, IDbSet<TEntity>, IDbAsyncEnumerable<TEntity> where TEntity : EntityBase, new()
     {
         private readonly ObservableCollection<TEntity> _items;
         private readonly IQueryable _query;
@@ -23,13 +26,23 @@ namespace Core.DataAccess.Context.Fake
 
         IEnumerator IEnumerable.GetEnumerator() { return _items.GetEnumerator(); }
 
+        IDbAsyncEnumerator IDbAsyncEnumerable.GetAsyncEnumerator()
+        {
+            return new AsyncEnumeratorWrapper<TEntity>(GetEnumerator());
+        }
+
+        IDbAsyncEnumerator<TEntity> IDbAsyncEnumerable<TEntity>.GetAsyncEnumerator()
+        {
+            return new AsyncEnumeratorWrapper<TEntity>(GetEnumerator());
+        }
+
         public IEnumerator<TEntity> GetEnumerator() { return _items.GetEnumerator(); }
 
         public Expression Expression { get { return _query.Expression; } }
 
         public Type ElementType { get { return _query.ElementType; } }
 
-        public IQueryProvider Provider { get { return _query.Provider; } }
+        public IQueryProvider Provider { get { return new AsyncQueryProviderWrapper<TEntity>(_query.Provider); } }
 
         public override TEntity Add(TEntity entity)
         {
@@ -72,5 +85,10 @@ namespace Core.DataAccess.Context.Fake
         public override TDerivedEntity Create<TDerivedEntity>() { return Activator.CreateInstance<TDerivedEntity>(); }
 
         public override ObservableCollection<TEntity> Local { get { return _items; } }
+
+        public override Task<TEntity> FindAsync(params object[] keyValues)
+        {
+            return new Task<TEntity>(() => Find(keyValues));
+        }
     }
 }

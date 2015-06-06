@@ -1,7 +1,6 @@
-using System;
 using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
-using Core.DataAccess.Context;
+using Core.Common.Utils;
 using Core.DataAccess.Context.Fake;
 using Core.DataAccess.Entities;
 using System.Data.Entity;
@@ -21,10 +20,7 @@ namespace Core.DataAccess.Repositories
 
         public Repository(IUnitOfWork unitOfWork)
         {
-            if (unitOfWork == null)
-            {
-                throw new ArgumentNullException("unitOfWork");
-            }
+            ArgumentChecker.NotNull(unitOfWork, "unitOfWork");
             TheUnitOfWork = unitOfWork;
             DbContext = TheUnitOfWork.DataContext as DbContext;
             if (DbContext != null)
@@ -33,7 +29,7 @@ namespace Core.DataAccess.Repositories
             }
             else
             {
-                var fakeContext = TheUnitOfWork.DataContext as FakeDbContext;
+                var fakeContext = TheUnitOfWork.DataContext as FakeContext;
                 if (fakeContext != null)
                 {
                     DbSet = fakeContext.Set<T>();
@@ -72,7 +68,7 @@ namespace Core.DataAccess.Repositories
             return DbSet.Find(keyValues);
         }
 
-        public QueryFluent<T> Query()
+        public IQueryFluent<T> Query()
         {
             var defaultOrderBy = string.Join(",", EntityKeyHelper.Instance.GetKeyNames<T>(DbContext));
             return new QueryFluent<T>(DbSet.AsQueryable(), defaultOrderBy);

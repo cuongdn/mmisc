@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Core.Common.Utils;
 using Core.DataAccess.Context;
 using Core.DataAccess.Utils;
 
@@ -22,6 +23,7 @@ namespace Core.DataAccess.Uow
 
         public UnitOfWork(IDataContext dataContext)
         {
+            ArgumentChecker.NotNull(dataContext, "dataContext");
             DataContext = dataContext;
             _instanceId = Guid.NewGuid();
         }
@@ -35,6 +37,7 @@ namespace Core.DataAccess.Uow
             }
             return Repositories[type];
         }
+
 
         public int SaveChanges()
         {

@@ -16,8 +16,4 @@ namespace Cs.DbModel
         }
     }
 
-    public class FakeContext : FakeDbContext
-    {
-
-    }
 }

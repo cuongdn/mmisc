@@ -29,5 +29,10 @@ namespace Cs.DbModel.Repositories
                 .Include("OfficeAssignment")
                 .ToListAsync();
         }
+
+        public async Task<IList<Instructor>> GetAll()
+        {
+            return await DbSet.ToListAsync();
+        }
     }
 }

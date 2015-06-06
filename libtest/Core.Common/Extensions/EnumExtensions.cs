@@ -37,23 +37,5 @@ namespace Core.Common.Extensions
             }
             return obj.ToString();
         }
-
-        //public static T GetEnumByStringValueAttribute<T>(this Enum obj, string description)
-        //    where T : struct
-        //{
-        //    var type = obj.GetType();
-        //    var memInfo = type.GetMember(obj.ToString());
-        //    if (memInfo.Length > 0)
-        //    {
-        //        var attrs = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
-        //        var value = attrs.FirstOrDefault(x => x.Equals(description));
-        //        if (value != null)
-        //        {
-        //            return ((DescriptionAttribute)attrs[0]).Description;
-        //        }
-        //    }
-        //    return obj.ToString();
-        //    throw new ArgumentException("The value '" + value + "' is not supported.");
-        //}
     }
 }

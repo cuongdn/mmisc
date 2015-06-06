@@ -5,14 +5,13 @@ using System.Linq;
 using System.Linq.Dynamic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Core.Common.Infrastructure;
 using Core.Common.Infrastructure.Paging;
 using Core.Common.Infrastructure.Query;
 using Core.DataAccess.Entities;
 
 namespace Core.DataAccess.Infrastructure
 {
-    public class QueryFluent<T> where T : EntityBase
+    public class QueryFluent<T> : IQueryFluent<T> where T : EntityBase
     {
         private readonly QueryObject<T> _filter;
         private readonly List<Expression<Func<T, object>>> _includes;
@@ -28,31 +27,31 @@ namespace Core.DataAccess.Infrastructure
             _filter = new QueryObject<T>();
         }
 
-        public QueryFluent<T> Include(Expression<Func<T, object>> expression)
+        public IQueryFluent<T> Include(Expression<Func<T, object>> expression)
         {
             _includes.Add(expression);
             return this;
         }
 
-        public QueryFluent<T> Where(QueryObject<T> queryObject)
+        public IQueryFluent<T> Where(QueryObject<T> queryObject)
         {
             _filter.And(queryObject);
             return this;
         }
 
-        public QueryFluent<T> Where(Expression<Func<T, bool>> expression)
+        public IQueryFluent<T> Where(Expression<Func<T, bool>> expression)
         {
             _filter.And(expression);
             return this;
         }
 
-        public QueryFluent<T> Where(string expression, params object[] values)
+        public IQueryFluent<T> Where(string expression, params object[] values)
         {
             _filter.And(expression, values);
             return this;
         }
 
-        public QueryFluent<T> OrderBy(string orderBy)
+        public IQueryFluent<T> OrderBy(string orderBy)
         {
             _orderBy = orderBy;
             return this;

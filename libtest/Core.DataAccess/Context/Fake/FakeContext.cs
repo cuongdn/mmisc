@@ -7,11 +7,11 @@ using Core.DataAccess.Entities;
 
 namespace Core.DataAccess.Context.Fake
 {
-    public abstract class FakeDbContext : IFakeDbContext
+    public class FakeContext : IFakeContext
     {
         private readonly Dictionary<Type, object> _fakeDbSets;
 
-        protected FakeDbContext()
+        public FakeContext()
         {
             _fakeDbSets = new Dictionary<Type, object>();
         }

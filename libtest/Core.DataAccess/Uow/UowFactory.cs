@@ -1,4 +1,4 @@
-﻿using Core.Common.Infrastructure.Dependency;
+﻿using Core.Common.Utils;
 
 namespace Core.DataAccess.Uow
 {
@@ -11,7 +11,7 @@ namespace Core.DataAccess.Uow
 
         public static IUnitOfWork Get(string key)
         {
-            var factory = IoC.Current.GetInstance<IUowHandlerFactory>();
+            var factory = IoC.GetInstance<IUowHandlerFactory>();
             return factory.Create(key);
         }
     }

@@ -14,7 +14,7 @@ namespace Core.DataAccess.Extensions
             return GetPaged(repository.Query(), request);
         }
 
-        public static IPagedList<T> GetPaged<T>(this QueryFluent<T> query, GridRequest request)
+        public static IPagedList<T> GetPaged<T>(this IQueryFluent<T> query, GridRequest request)
             where T : EntityBase
         {
             return query.Where(request.GetFilters<T>())
