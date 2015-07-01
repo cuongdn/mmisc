@@ -47,12 +47,12 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\Fake\Async\AsyncEnumeratorWrapper.cs" />
+    <Compile Include="Context\Fake\Supports\AsyncEnumeratorWrapper.cs" />
     <Compile Include="Context\Fake\FakeContext.cs" />
     <Compile Include="Context\Fake\FakeDbSet.cs" />
     <Compile Include="Context\Fake\IFakeContext.cs" />
-    <Compile Include="Context\Fake\Async\AsyncEnumerableQuery.cs" />
-    <Compile Include="Context\Fake\Async\AsyncQueryProviderWrapper.cs" />
+    <Compile Include="Context\Fake\Supports\AsyncEnumerableQuery.cs" />
+    <Compile Include="Context\Fake\Supports\AsyncQueryProviderWrapper.cs" />
     <Compile Include="Entities\AuditableEntity.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Extensions\RepositoryExtensions.cs" />
