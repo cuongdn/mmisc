@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using Core.DataAccess.Context;
+using Core.DataAccess.Context.Fake;
 
 namespace Core.DataAccess.Infrastructure
 {
-    public sealed class EntityKeyHelper
+    internal sealed class EntityKeyHelper
     {
         private static readonly Lazy<EntityKeyHelper> LazyInstance =
             new Lazy<EntityKeyHelper>(() => new EntityKeyHelper());
 
-        private readonly Dictionary<Type, string[]> _dict = new Dictionary<Type, string[]>();
+        private readonly IDictionary<Type, string[]> _cachedKeys = new Dictionary<Type, string[]>();
 
         private EntityKeyHelper()
         {
@@ -22,45 +23,40 @@ namespace Core.DataAccess.Infrastructure
             get { return LazyInstance.Value; }
         }
 
-        public string[] GetKeyNames<T>(DbContext context) where T : class
+        public string[] GetKeyMembers<T>(IDataContext context) where T : class
         {
-            var t = typeof(T);
-
-            //retreive the base type
-            while (t != null && t.BaseType != typeof(object))
+            var entityType = typeof(T);
+            while (entityType != null && entityType.BaseType != typeof(object))
             {
-                t = t.BaseType;
+                entityType = entityType.BaseType;
             }
 
-            string[] keys;
-
-            _dict.TryGetValue(t, out keys);
-
-            if (keys != null)
+            if (!_cachedKeys.ContainsKey(entityType))
             {
-                return keys;
+                _cachedKeys.Add(entityType, TryGetKeyMembers<T>(context));
             }
-
-            var objectContext = ((IObjectContextAdapter)context).ObjectContext;
-            keys = objectContext.CreateObjectSet<T>()
-                                .EntitySet.ElementType.KeyMembers
-                                .Select(k => k.Name).ToArray();
-
-            _dict.Add(t, keys);
-            return keys;
+            return _cachedKeys[entityType];
         }
 
-        public object[] GetKeys<T>(T entity, DbContext context) where T : class
+        private string[] TryGetKeyMembers<T>(IDataContext context) where T : class
         {
-            var keyNames = GetKeyNames<T>(context);
-            var type = typeof(T);
-
-            var keys = new object[keyNames.Length];
-            for (var i = 0; i < keyNames.Length; i++)
+            var objectContextAdapter = context as IObjectContextAdapter;
+            if (objectContextAdapter != null)
             {
-                keys[i] = type.GetProperty(keyNames[i]).GetValue(entity, null);
+                var objectContext = ((IObjectContextAdapter)context).ObjectContext;
+                return objectContext.CreateObjectSet<T>()
+                                     .EntitySet.ElementType.KeyMembers
+                                     .Select(k => k.Name).ToArray();
             }
-            return keys;
+
+            var fakeContext = context as FakeContext;
+            if (fakeContext != null)
+            {
+                return fakeContext.EntityKeyMembers[typeof(T)];
+            }
+
+            throw new ArgumentException(string.Format("No primary key field(s) in the type '{0}'.", typeof(T).FullName));
         }
+
     }
 }

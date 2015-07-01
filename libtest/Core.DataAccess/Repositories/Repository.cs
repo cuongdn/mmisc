@@ -1,7 +1,7 @@
 using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 using Core.Common.Utils;
-using Core.DataAccess.Context.Fake;
+using Core.DataAccess.Context;
 using Core.DataAccess.Entities;
 using System.Data.Entity;
 using System.Linq;
@@ -16,25 +16,16 @@ namespace Core.DataAccess.Repositories
 
         protected DbSet<T> DbSet { get; private set; }
 
-        protected DbContext DbContext { get; private set; }
+        protected IDataContext DbContext { get; private set; }
 
         public Repository(IUnitOfWork unitOfWork)
         {
             ArgumentChecker.NotNull(unitOfWork, "unitOfWork");
+            ArgumentChecker.NotNull(unitOfWork.DataContext, "unitOfWork.DataContext");
+
             TheUnitOfWork = unitOfWork;
-            DbContext = TheUnitOfWork.DataContext as DbContext;
-            if (DbContext != null)
-            {
-                DbSet = DbContext.Set<T>();
-            }
-            else
-            {
-                var fakeContext = TheUnitOfWork.DataContext as FakeContext;
-                if (fakeContext != null)
-                {
-                    DbSet = fakeContext.Set<T>();
-                }
-            }
+            DbContext = TheUnitOfWork.DataContext;
+            DbSet = DbContext.Set<T>();
         }
 
         public void Insert(T entity)
@@ -47,8 +38,17 @@ namespace Core.DataAccess.Repositories
         {
             entity.ObjectState = ObjectState.Modified;
             DbSet.Attach(entity);
-            ((IObjectContextAdapter)DbContext).ObjectContext.ObjectStateManager.
-                ChangeObjectState(entity, EntityState.Modified);
+            MarkAsModified(entity);
+        }
+
+        private void MarkAsModified(T entity)
+        {
+            var objectContextAdapter = DbContext as IObjectContextAdapter;
+            if (objectContextAdapter != null)
+            {
+                objectContextAdapter.ObjectContext.ObjectStateManager
+                    .ChangeObjectState(entity, EntityState.Modified);
+            }
         }
 
         public void Delete(T entity)
@@ -57,20 +57,19 @@ namespace Core.DataAccess.Repositories
             DbSet.Remove(entity);
         }
 
-        public void AttachDelete(T entity)
-        {
-            entity.ObjectState = ObjectState.Deleted;
-            DbSet.Attach(entity);
-        }
-
         public T Get(params object[] keyValues)
         {
             return DbSet.Find(keyValues);
         }
 
+        public async Task<T> GetAsync(params object[] keyValues)
+        {
+            return await DbSet.FindAsync(keyValues);
+        }
+
         public IQueryFluent<T> Query()
         {
-            var defaultOrderBy = string.Join(",", EntityKeyHelper.Instance.GetKeyNames<T>(DbContext));
+            var defaultOrderBy = string.Join(",", EntityKeyHelper.Instance.GetKeyMembers<T>(DbContext));
             return new QueryFluent<T>(DbSet.AsQueryable(), defaultOrderBy);
         }
 
@@ -79,9 +78,5 @@ namespace Core.DataAccess.Repositories
             return DbSet;
         }
 
-        public async Task<T> GetAsync(params object[] keyValues)
-        {
-            return await DbSet.FindAsync(keyValues);
-        }
     }
 }

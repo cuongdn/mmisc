@@ -15,7 +15,6 @@ namespace Core.DataAccess.Context
         protected DataContext(string nameOrConnectionString)
             : base(nameOrConnectionString)
         {
-
         }
 
         public override int SaveChanges()

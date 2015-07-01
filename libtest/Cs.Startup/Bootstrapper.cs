@@ -30,7 +30,7 @@ namespace Cs.Startup
             //factory.Register("default", () => new UnitOfWork(new SchoolContext()), new WebRequestLifestyle());
             //factory.Register("backup", () => new UnitOfWork(new BackupContext()), new WebRequestLifestyle());
             factory.Register<SchoolContext>(lifestyle: new WebRequestLifestyle());
-            factory.Register<FakeContext>("FakeContext", new WebRequestLifestyle());
+            //factory.Register<FakeContext>("FakeContext", new WebRequestLifestyle());
             container.RegisterPerWebRequest<IUowHandlerFactory>(() => factory);
             container.Verify();
             IoC.SetContainerProvider(() => container);

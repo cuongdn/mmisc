@@ -7,24 +7,28 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Core.DataAccess.Context.Fake.Async;
+using Core.DataAccess.Context.Fake.Supports;
 using Core.DataAccess.Entities;
 using Core.DataAccess.Infrastructure;
 
 namespace Core.DataAccess.Context.Fake
 {
-    public abstract class FakeDbSet<TEntity> : DbSet<TEntity>, IDbSet<TEntity>, IDbAsyncEnumerable<TEntity> where TEntity : EntityBase, new()
+    public class FakeDbSet<TEntity> : DbSet<TEntity>, IDbSet<TEntity>, IDbAsyncEnumerable<TEntity> where TEntity : EntityBase, new()
     {
         private readonly ObservableCollection<TEntity> _items;
         private readonly IQueryable _query;
+        public string[] KeyNames { get; internal set; }
 
-        protected FakeDbSet()
+        public FakeDbSet()
         {
             _items = new ObservableCollection<TEntity>();
             _query = _items.AsQueryable();
         }
 
-        IEnumerator IEnumerable.GetEnumerator() { return _items.GetEnumerator(); }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _items.GetEnumerator();
+        }
 
         IDbAsyncEnumerator IDbAsyncEnumerable.GetAsyncEnumerator()
         {
@@ -69,6 +73,7 @@ namespace Core.DataAccess.Context.Fake
                     _items.Remove(entity);
                     break;
 
+                case ObjectState.NotSet:
                 case ObjectState.Unchanged:
                 case ObjectState.Added:
                     _items.Add(entity);
@@ -90,5 +95,22 @@ namespace Core.DataAccess.Context.Fake
         {
             return new Task<TEntity>(() => Find(keyValues));
         }
+
+        public override TEntity Find(params object[] keyValues)
+        {
+            return this.SingleOrDefault(GenerateExpression(keyValues));
+        }
+
+        protected Expression<Func<TEntity, bool>> GenerateExpression(params  object[] keyValues)
+        {
+            var expressions = new string[KeyNames.Length];
+            for (var i = 0; i < KeyNames.Length; i++)
+            {
+                var name = KeyNames[i];
+                expressions[i] = string.Format("{0}=@{1}", name, i);
+            }
+            return System.Linq.Dynamic.DynamicExpression.ParseLambda<TEntity, bool>(String.Join(" and ", expressions), keyValues);
+        }
+
     }
 }
