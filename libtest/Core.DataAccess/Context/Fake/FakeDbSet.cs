@@ -98,10 +98,10 @@ namespace Core.DataAccess.Context.Fake
 
         public override TEntity Find(params object[] keyValues)
         {
-            return this.SingleOrDefault(GenerateExpression(keyValues));
+            return this.SingleOrDefault(GenerateKeyExpression(keyValues));
         }
 
-        protected Expression<Func<TEntity, bool>> GenerateExpression(params  object[] keyValues)
+        protected Expression<Func<TEntity, bool>> GenerateKeyExpression(params  object[] keyValues)
         {
             var expressions = new string[KeyNames.Length];
             for (var i = 0; i < KeyNames.Length; i++)
